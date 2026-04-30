@@ -18,10 +18,12 @@ function useCountUp(target: number, inView: boolean, duration = 1800) {
   return count;
 }
 
+import { Wheat, Heart, Recycle } from "lucide-react";
+
 const sdgs = [
-  { num: "SDG 2", label: "Zero Hunger", icon: "🌾", color: "#DDA63A" },
-  { num: "SDG 3", label: "Good Health", icon: "💚", color: "#4C9F38" },
-  { num: "SDG 12", label: "Responsible Consumption", icon: "♻️", color: "#BF8B2E" },
+  { num: "SDG 2", label: "Zero Hunger", Icon: Wheat, color: "#DDA63A" },
+  { num: "SDG 3", label: "Good Health", Icon: Heart, color: "#4C9F38" },
+  { num: "SDG 12", label: "Responsible Consumption", Icon: Recycle, color: "#BF8B2E" },
 ];
 
 export default function Sustainability() {
@@ -42,7 +44,7 @@ export default function Sustainability() {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6 }}>
-              <span style={{ display: "inline-block", background: "rgba(122,154,101,0.12)", color: "var(--primary-dark)", fontSize: "0.75rem", fontWeight: 600, letterSpacing: ".08em", textTransform: "uppercase", padding: "6px 14px", borderRadius: 100, marginBottom: 16 }}>Our Mission 🌍</span>
+              <span style={{ display: "inline-block", background: "rgba(122,154,101,0.12)", color: "var(--primary-dark)", fontSize: "0.75rem", fontWeight: 600, letterSpacing: ".08em", textTransform: "uppercase", padding: "6px 14px", borderRadius: 100, marginBottom: 16 }}>Our Mission</span>
               <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: "clamp(1.8rem,3vw,2.6rem)", fontWeight: 700, color: "var(--heading)", marginBottom: 16 }}>Cooking smarter for a better planet</h2>
               <p style={{ fontSize: "1rem", color: "var(--text-muted)", lineHeight: 1.78, marginBottom: 32 }}>Food waste is one of the biggest contributors to climate change. Cookest is built from the ground up to reduce it — one meal plan at a time.</p>
             </motion.div>
@@ -55,7 +57,9 @@ export default function Sustainability() {
                   transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
                   whileHover={{ x: 6, transition: { duration: 0.2 } }}
                   style={{ display: "flex", alignItems: "center", gap: 14, background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: 14, padding: "14px 18px", cursor: "default" }}>
-                  <div style={{ width: 42, height: 42, borderRadius: 10, background: `${sdg.color}1A`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.3rem", flexShrink: 0 }}>{sdg.icon}</div>
+                  <div style={{ width: 42, height: 42, borderRadius: 10, background: `${sdg.color}1A`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <sdg.Icon size={20} color={sdg.color} strokeWidth={1.8} />
+                  </div>
                   <div>
                     <div style={{ fontSize: "0.7rem", fontWeight: 700, color: sdg.color, textTransform: "uppercase", letterSpacing: "0.06em" }}>{sdg.num}</div>
                     <div style={{ fontSize: "0.88rem", fontWeight: 600, color: "var(--heading)" }}>{sdg.label}</div>
