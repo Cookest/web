@@ -34,7 +34,7 @@ export default function Hero() {
           <div>
             <motion.div
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
-              style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "white", border: "1px solid var(--border)", borderRadius: 100, padding: "8px 16px", fontSize: "0.82rem", color: "var(--text-muted)", marginBottom: 28, boxShadow: "0 2px 8px rgba(28,58,42,0.06)" }}>
+              style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 100, padding: "8px 16px", fontSize: "0.82rem", color: "var(--text-muted)", marginBottom: 28, boxShadow: "0 2px 8px rgba(28,58,42,0.06)" }}>
               <span style={{ width: 8, height: 8, background: "var(--primary)", borderRadius: "50%", display: "inline-block", animation: "pulse 2s infinite" }}/>
               Now available · iOS & Android
             </motion.div>
@@ -63,7 +63,7 @@ export default function Hero() {
               style={{ marginTop: 48, display: "flex", alignItems: "center", gap: 12, color: "var(--text-muted)", fontSize: "0.82rem" }}>
               <div style={{ display: "flex" }}>
                 {["A","B","C"].map((l, i) => (
-                  <div key={l} style={{ width: 30, height: 30, borderRadius: "50%", border: "2px solid white", marginLeft: i === 0 ? 0 : -8, background: "var(--primary-light)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.65rem", fontWeight: 700, color: "var(--heading)" }}>{l}</div>
+                  <div key={l} style={{ width: 30, height: 30, borderRadius: "50%", border: "2px solid var(--surface)", marginLeft: i === 0 ? 0 : -8, background: "var(--primary-light)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.65rem", fontWeight: 700, color: "var(--heading)" }}>{l}</div>
                 ))}
               </div>
               <span>Built for everyday home cooks · PAP 2025</span>

@@ -108,5 +108,5 @@ export default function ShaderCanvas() {
     return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", resize); };
   }, []);
 
-  return <canvas ref={ref} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", zIndex: 0 }} />;
+  return <canvas ref={ref} className="shader-canvas" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", zIndex: 0 }} />;
 }

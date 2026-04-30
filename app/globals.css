@@ -34,3 +34,4 @@
 body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; }
 h1, h2, h3, .font-serif { font-family: 'Playfair Display', serif; }
 html { scroll-behavior: smooth; }
+.dark .shader-canvas { opacity: 0.25; }
