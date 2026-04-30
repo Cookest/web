@@ -26,7 +26,7 @@ export default function Nav() {
           ))}
         </ul>
         <a href="#download"
-          className="hidden md:inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300"
+          className="hidden md:inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold rounded-xl transition-all duration-300"
           style={{ background: "linear-gradient(135deg, var(--primary), var(--primary-dark))", color: "white", textDecoration: "none", boxShadow: "0 4px 16px rgba(122,154,101,0.35)" }}>
           Get the App ↓
         </a>

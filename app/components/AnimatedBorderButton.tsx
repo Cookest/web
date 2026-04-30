@@ -23,7 +23,7 @@ export default function AnimatedBorderButton({ href, onClick, children, variant 
         preserveAspectRatio="none">
         <rect
           x="1.5" y="1.5"
-          rx="50" ry="50"
+          rx="11" ry="11"
           fill="none"
           stroke={isPrimary ? "rgba(255,255,255,0.8)" : "var(--primary)"}
           strokeWidth="2"
@@ -42,7 +42,7 @@ export default function AnimatedBorderButton({ href, onClick, children, variant 
     alignItems: "center",
     gap: 8,
     padding: "13px 28px",
-    borderRadius: 100,
+    borderRadius: 12,
     fontFamily: "Inter, sans-serif",
     fontWeight: 600,
     fontSize: "0.92rem",
