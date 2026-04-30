@@ -1,6 +1,7 @@
 "use client";
 import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
+import { useMediaQuery } from "./useMediaQuery";
 
 function useCountUp(target: number, inView: boolean, duration = 1800) {
   const [count, setCount] = useState(0);
@@ -29,15 +30,16 @@ const sdgs = [
 export default function Sustainability() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const mobile = useMediaQuery("(max-width: 767px)");
 
   const billionCount = useCountUp(13, inView, 2000);
   const percentCount = useCountUp(30, inView, 1600);
   const thousandCount = useCountUp(10000, inView, 2200);
 
   return (
-    <section id="sustain" style={{ padding: "100px 0" }}>
+    <section id="sustain" style={{ padding: "clamp(60px, 10vw, 100px) 0" }}>
       <div className="max-w-6xl mx-auto px-6">
-        <div ref={ref} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}>
+        <div ref={ref} style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "1fr 1fr", gap: mobile ? 40 : 64, alignItems: "center" }}>
           {/* Left */}
           <div>
             <motion.div
@@ -76,9 +78,9 @@ export default function Sustainability() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={inView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.6, delay: 0.1 }}
-              style={{ gridColumn: "1 / -1", background: "linear-gradient(135deg, var(--primary), var(--primary-dark))", borderRadius: 20, padding: "28px 24px", position: "relative", overflow: "hidden" }}>
+              style={{ gridColumn: "1 / -1", background: "linear-gradient(135deg, var(--primary), var(--primary-dark))", borderRadius: 20, padding: mobile ? "24px 20px" : "28px 24px", position: "relative", overflow: "hidden" }}>
               <div style={{ position: "absolute", top: -20, right: -20, width: 120, height: 120, borderRadius: "50%", background: "rgba(255,255,255,0.07)" }}/>
-              <div style={{ fontFamily: "'Playfair Display',serif", fontSize: "3rem", fontWeight: 700, color: "white", lineHeight: 1 }}>
+              <div style={{ fontFamily: "'Playfair Display',serif", fontSize: mobile ? "2.4rem" : "3rem", fontWeight: 700, color: "white", lineHeight: 1 }}>
                 {billionCount >= 13 ? "1.3B" : `${billionCount}0M`}
               </div>
               <div style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.75)", marginTop: 6 }}>tonnes of food wasted globally every year</div>
@@ -88,8 +90,8 @@ export default function Sustainability() {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.3 }}
-              style={{ background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: 20, padding: "22px 20px" }}>
-              <div style={{ fontFamily: "'Playfair Display',serif", fontSize: "2.2rem", fontWeight: 700, color: "var(--primary-dark)", lineHeight: 1 }}>{percentCount}%</div>
+              style={{ background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: 20, padding: mobile ? "18px 16px" : "22px 20px" }}>
+              <div style={{ fontFamily: "'Playfair Display',serif", fontSize: mobile ? "1.8rem" : "2.2rem", fontWeight: 700, color: "var(--primary-dark)", lineHeight: 1 }}>{percentCount}%</div>
               <div style={{ fontSize: "0.82rem", color: "var(--text-muted)", marginTop: 6 }}>of household food is thrown away unnecessarily</div>
             </motion.div>
 
@@ -97,8 +99,8 @@ export default function Sustainability() {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.4 }}
-              style={{ background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: 20, padding: "22px 20px" }}>
-              <div style={{ fontFamily: "'Playfair Display',serif", fontSize: "2.2rem", fontWeight: 700, color: "var(--primary-dark)", lineHeight: 1 }}>
+              style={{ background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: 20, padding: mobile ? "18px 16px" : "22px 20px" }}>
+              <div style={{ fontFamily: "'Playfair Display',serif", fontSize: mobile ? "1.8rem" : "2.2rem", fontWeight: 700, color: "var(--primary-dark)", lineHeight: 1 }}>
                 {thousandCount >= 10000 ? "10K+" : `${(thousandCount / 1000).toFixed(1)}K`}
               </div>
               <div style={{ fontSize: "0.82rem", color: "var(--text-muted)", marginTop: 6 }}>meals already planned with less waste</div>

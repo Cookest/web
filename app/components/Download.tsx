@@ -41,7 +41,7 @@ export default function Download() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="download" style={{ padding: "100px 0", background: "var(--section-dark)", position: "relative", overflow: "hidden" }}>
+    <section id="download" style={{ padding: "clamp(60px, 10vw, 100px) 0", background: "var(--section-dark)", position: "relative", overflow: "hidden" }}>
       <div style={{ position: "absolute", top: "-20%", left: "-10%", width: 500, height: 500, borderRadius: "50%", background: "rgba(122,154,101,0.12)", filter: "blur(60px)", pointerEvents: "none" }}/>
       <div style={{ position: "absolute", bottom: "-20%", right: "-5%", width: 400, height: 400, borderRadius: "50%", background: "rgba(78,122,58,0.15)", filter: "blur(50px)", pointerEvents: "none" }}/>
 

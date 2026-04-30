@@ -13,25 +13,40 @@ export default function AnimatedBorderButton({ href, onClick, children, variant 
   const [hovered, setHovered] = useState(false);
   const isPrimary = variant === "primary";
 
+  const borderColor = isPrimary ? "rgba(255,255,255,0.8)" : "var(--primary)";
+
   const inner = (
     <>
-      <svg
+      {/* Rotating border highlight — only visible on hover */}
+      <div
         style={{
-          position: "absolute", inset: 0, width: "100%", height: "100%",
-          borderRadius: "inherit", pointerEvents: "none", overflow: "visible"
+          position: "absolute",
+          inset: -2,
+          borderRadius: "inherit",
+          pointerEvents: "none",
+          overflow: "hidden",
+          opacity: hovered ? 1 : 0,
+          transition: "opacity 0.3s",
         }}
-        preserveAspectRatio="none">
-        <rect
-          x="1.5" y="1.5"
-          rx="11" ry="11"
-          fill="none"
-          stroke={isPrimary ? "rgba(255,255,255,0.8)" : "var(--primary)"}
-          strokeWidth="2"
-          strokeDasharray="1000"
-          strokeDashoffset={hovered ? "0" : "1000"}
-          style={{ width: "calc(100% - 3px)", height: "calc(100% - 3px)", transition: "stroke-dashoffset 0.55s cubic-bezier(0.4,0,0.2,1)" }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            inset: -50,
+            background: `conic-gradient(from 0deg, transparent 0%, ${borderColor} 10%, transparent 20%)`,
+            animation: hovered ? "spin-border 2s linear infinite" : "none",
+          }}
         />
-      </svg>
+        {/* Inner mask to cut out center, leaving only border */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 2,
+            borderRadius: 10,
+            background: isPrimary ? "linear-gradient(135deg, var(--primary), var(--primary-dark))" : "var(--bg)",
+          }}
+        />
+      </div>
       <span style={{ position: "relative", zIndex: 1 }}>{children}</span>
     </>
   );
@@ -50,11 +65,19 @@ export default function AnimatedBorderButton({ href, onClick, children, variant 
     cursor: "pointer",
     border: isPrimary ? "none" : "1.5px solid var(--border)",
     background: isPrimary ? "linear-gradient(135deg, var(--primary), var(--primary-dark))" : "transparent",
-    color: isPrimary ? "white" : "var(--heading)",
+    color: isPrimary ? "#ffffff" : "var(--heading)",
     boxShadow: hovered && isPrimary ? "0 8px 28px rgba(122,154,101,0.5)" : isPrimary ? "0 4px 16px rgba(122,154,101,0.35)" : "none",
     transform: hovered ? "translateY(-2px)" : "translateY(0)",
     transition: "transform 0.25s, box-shadow 0.25s",
+    overflow: "hidden",
   };
+
+  const content = (
+    <>
+      {inner}
+      <style>{`@keyframes spin-border { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
+    </>
+  );
 
   if (href) {
     return (
@@ -62,7 +85,7 @@ export default function AnimatedBorderButton({ href, onClick, children, variant 
         style={baseStyle} className={className}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}>
-        {inner}
+        {content}
       </a>
     );
   }
@@ -72,7 +95,7 @@ export default function AnimatedBorderButton({ href, onClick, children, variant 
       onClick={onClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}>
-      {inner}
+      {content}
     </button>
   );
 }

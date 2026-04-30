@@ -3,7 +3,7 @@ export default function Footer() {
   return (
     <footer style={{ background: "#0F2218", padding: "48px 0 32px" }}>
       <div className="max-w-6xl mx-auto px-6">
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 24 }}>
+        <div className="flex flex-col items-center gap-6 md:flex-row md:items-center md:justify-between md:gap-6">
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <svg width="24" height="24" viewBox="0 0 28 28" fill="none">
               <circle cx="14" cy="14" r="14" fill="var(--primary)" opacity="0.2"/>
@@ -13,7 +13,7 @@ export default function Footer() {
             <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, fontSize: "1.1rem", color: "rgba(255,255,255,0.9)" }}>Cookest</span>
           </div>
 
-          <nav style={{ display: "flex", gap: 28, flexWrap: "wrap" }}>
+          <nav className="flex flex-wrap justify-center gap-4 md:gap-7">
             {["Features","How it works","Mission","Download"].map(l => (
               <a key={l} href={`#${l.toLowerCase().replace(/ /g,"-")}`}
                 style={{ fontSize: "0.82rem", color: "rgba(255,255,255,0.45)", textDecoration: "none", transition: "color 0.2s" }}

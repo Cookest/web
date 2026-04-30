@@ -65,7 +65,7 @@ export default function Features() {
   const inView = useInView(ref, { once: true });
 
   return (
-    <section id="features" style={{ padding: "100px 0" }}>
+    <section id="features" style={{ padding: "clamp(60px, 10vw, 100px) 0" }}>
       <div className="max-w-6xl mx-auto px-6">
         <motion.div
           ref={ref}
@@ -78,7 +78,7 @@ export default function Features() {
           <p style={{ fontSize: "1rem", color: "var(--text-muted)", lineHeight: 1.75, maxWidth: 520, margin: "0 auto" }}>From tracking what&apos;s in your fridge to building a full week of meals — Cookest handles the planning so you can focus on the cooking.</p>
         </motion.div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 20 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: 20 }}>
           {features.map((f, i) => <FCard key={f.title} f={f} i={i} />)}
         </div>
       </div>
