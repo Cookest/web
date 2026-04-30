@@ -1,0 +1,82 @@
+const en = {
+  // Nav
+  "nav.features": "Features",
+  "nav.app": "App",
+  "nav.howItWorks": "How it works",
+  "nav.mission": "Mission",
+  "nav.docs": "Docs",
+  "nav.getApp": "Get the App ↓",
+
+  // Theme
+  "theme.light": "Light",
+  "theme.dark": "Dark",
+  "theme.system": "System",
+
+  // Hero
+  "hero.badge": "Now available · iOS & Android",
+  "hero.title1": "Plan your meals,",
+  "hero.title2": "effortlessly.",
+  "hero.subtitle": "AI-powered meal planning that works around your schedule, your pantry, and your taste. Less waste 🌱, better food, every week.",
+  "hero.cta": "↓ Download Now",
+  "hero.ctaSecondary": "See how it works →",
+  "hero.tagline": "Built for everyday home cooks · PAP 2025",
+  "hero.scroll": "Scroll",
+
+  // Features
+  "features.label": "Features",
+  "features.title": "Everything your kitchen needs",
+  "features.subtitle": "From tracking what's in your fridge to building a full week of meals — Cookest handles the planning so you can focus on the cooking.",
+  "features.inventory.title": "Smart Inventory",
+  "features.inventory.desc": "Know what's in your fridge before you forget. Track expiry dates and never waste food again.",
+  "features.planner.title": "AI Meal Planner",
+  "features.planner.desc": "A full week of meals auto-generated based on your preferences and what you already have at home.",
+  "features.recipes.title": "Intelligent Recipes",
+  "features.recipes.desc": "Step-by-step instructions with smart substitutions, serving-size scaling, and nutritional breakdown.",
+  "features.grocery.title": "Grocery Lists",
+  "features.grocery.desc": "Shopping lists built automatically from your meal plan — grouped by category, synced to your phone.",
+
+  // Showcase
+  "showcase.label": "The App",
+  "showcase.title": "Beautiful, intuitive, powerful",
+  "showcase.subtitle": "Every screen designed to make your daily cooking routine a joy.",
+
+  // How it works
+  "how.label": "How it works",
+  "how.title": "Three steps to a smarter kitchen",
+  "how.subtitle": "Set up once. Let Cookest handle the rest every week.",
+  "how.step1.title": "Add your pantry",
+  "how.step1.desc": "Scan barcodes or manually add what you have at home. Cookest learns your stock and tracks expiry dates automatically.",
+  "how.step2.title": "Get your meal plan",
+  "how.step2.desc": "Our AI builds a personalised weekly menu based on your pantry, preferences, and nutritional goals.",
+  "how.step3.title": "Cook with confidence",
+  "how.step3.desc": "Follow step-by-step recipes. Your grocery list is generated and ready to go.",
+
+  // Sustainability
+  "sustain.label": "Our Mission",
+  "sustain.title": "Cooking smarter for a better planet",
+  "sustain.subtitle": "Food waste is one of the biggest contributors to climate change. Cookest is built from the ground up to reduce it — one meal plan at a time.",
+  "sustain.sdg2": "Zero Hunger",
+  "sustain.sdg3": "Good Health",
+  "sustain.sdg12": "Responsible Consumption",
+  "sustain.stat1.value": "1.3B",
+  "sustain.stat1.label": "tonnes of food wasted globally every year",
+  "sustain.stat2.label": "of household food is thrown away unnecessarily",
+  "sustain.stat3.label": "meals already planned with less waste",
+
+  // Download
+  "download.label": "Download",
+  "download.title1": "Start planning smarter",
+  "download.title2": "meals today.",
+  "download.subtitle": "Free to download. No credit card needed. Join thousands of home cooks already using Cookest.",
+  "download.apple.prefix": "Download on the",
+  "download.apple.store": "App Store",
+  "download.google.prefix": "Get it on",
+  "download.google.store": "Google Play",
+  "download.availability": "Available on iOS 16+ and Android 10+",
+
+  // Footer
+  "footer.copyright": "© 2025 Cookest · PAP · Built with ❤️ for everyday home cooks",
+} as const;
+
+export type TranslationKey = keyof typeof en;
+export default en;
