@@ -72,11 +72,11 @@ export default function Hero() {
 
           <motion.div
             initial={{ opacity: 0, x: 40, rotate: 3 }} animate={{ opacity: 1, x: 0, rotate: 0 }} transition={{ duration: 0.9, delay: 0.2 }}
-            style={{ display: "flex", justifyContent: "center" }}>
+            style={{ display: "flex", justifyContent: "center", filter: "drop-shadow(0 40px 60px rgba(28,58,42,0.28))" }}>
             <motion.div
               animate={{ y: [0, -16, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              style={{ filter: "drop-shadow(0 40px 60px rgba(28,58,42,0.28))" }}>
+              style={{ willChange: "transform" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/phones/screen-1.svg" alt="Cookest meals screen" style={{ width: 260, height: "auto", display: "block" }} />
             </motion.div>
