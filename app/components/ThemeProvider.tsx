@@ -34,12 +34,7 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
     const resolve = () => {
-      const resolved =
-        theme === "system"
-          ? mediaQuery.matches
-            ? "dark"
-            : "light"
-          : theme;
+      const resolved = theme === "system" ? (mediaQuery.matches ? "dark" : "light") : theme;
       setResolvedTheme(resolved);
       document.documentElement.classList.toggle("dark", resolved === "dark");
     };
@@ -57,9 +52,5 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
     localStorage.setItem("theme", t);
   }, []);
 
-  return (
-    <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme }}>
-      {children}
-    </ThemeContext.Provider>
-  );
+  return <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme }}>{children}</ThemeContext.Provider>;
 }

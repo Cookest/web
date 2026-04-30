@@ -24,7 +24,9 @@ export default function Nav() {
     } else {
       document.body.style.overflow = "";
     }
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [mobileOpen]);
 
   const navLinks = [
@@ -37,25 +39,17 @@ export default function Nav() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "py-3 shadow-sm" : "py-5"}`}
+        className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${scrolled ? "py-3 shadow-sm" : "py-5"}`}
         style={{
           background: scrolled ? "var(--surface-muted)" : "transparent",
           backdropFilter: scrolled ? "blur(14px)" : "none",
           borderBottom: scrolled ? "1px solid var(--border)" : "none",
         }}
       >
-        <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
-          <a
-            href="#"
-            className="flex items-center gap-2"
-            style={{ textDecoration: "none" }}
-          >
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6">
+          <a href="#" className="flex items-center gap-2" style={{ textDecoration: "none" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/icon-app.png"
-              alt="Cookest"
-              style={{ width: 32, height: 32, borderRadius: 8 }}
-            />
+            <img src="/icon-app.png" alt="Cookest" style={{ width: 32, height: 32, borderRadius: 8 }} />
             <span
               style={{
                 fontFamily: "'Playfair Display', serif",
@@ -67,7 +61,7 @@ export default function Nav() {
               Cookest
             </span>
           </a>
-          <ul className="hidden md:flex items-center gap-8 list-none m-0 p-0">
+          <ul className="m-0 hidden list-none items-center gap-8 p-0 md:flex">
             {navLinks.map((item) => (
               <li key={item.href}>
                 <a
@@ -91,7 +85,7 @@ export default function Nav() {
               </a>
             </li>
           </ul>
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden items-center gap-3 md:flex">
             <div style={{ position: "relative" }}>
               <button
                 onClick={() => setThemeMenuOpen(!themeMenuOpen)}
@@ -132,29 +126,33 @@ export default function Nav() {
                     const Icon = value === "light" ? Sun : value === "dark" ? Moon : Monitor;
                     const label = t(`theme.${value}` as "theme.light" | "theme.dark" | "theme.system");
                     return (
-                    <button
-                      key={value}
-                      onClick={() => { setTheme(value); setThemeMenuOpen(false); }}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 8,
-                        width: "100%",
-                        padding: "8px 12px",
-                        border: "none",
-                        borderRadius: 8,
-                        background: theme === value ? "var(--border)" : "transparent",
-                        color: "var(--text)",
-                        fontSize: "0.82rem",
-                        fontWeight: theme === value ? 600 : 400,
-                        cursor: "pointer",
-                        transition: "background 0.15s",
-                      }}
-                    >
-                      <Icon size={14} />
-                      {label}
-                    </button>
-                  );})}
+                      <button
+                        key={value}
+                        onClick={() => {
+                          setTheme(value);
+                          setThemeMenuOpen(false);
+                        }}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 8,
+                          width: "100%",
+                          padding: "8px 12px",
+                          border: "none",
+                          borderRadius: 8,
+                          background: theme === value ? "var(--border)" : "transparent",
+                          color: "var(--text)",
+                          fontSize: "0.82rem",
+                          fontWeight: theme === value ? 600 : 400,
+                          cursor: "pointer",
+                          transition: "background 0.15s",
+                        }}
+                      >
+                        <Icon size={14} />
+                        {label}
+                      </button>
+                    );
+                  })}
                 </div>
               )}
             </div>
@@ -201,7 +199,10 @@ export default function Nav() {
                   {(Object.entries(SUPPORTED_LOCALES) as [Locale, string][]).map(([code, name]) => (
                     <button
                       key={code}
-                      onClick={() => { setLocale(code); setLangMenuOpen(false); }}
+                      onClick={() => {
+                        setLocale(code);
+                        setLangMenuOpen(false);
+                      }}
                       style={{
                         display: "flex",
                         alignItems: "center",
@@ -226,10 +227,9 @@ export default function Nav() {
             </div>
             <a
               href="#download"
-              className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold rounded-xl transition-all duration-300"
+              className="inline-flex items-center gap-2 rounded-xl px-6 py-2.5 text-sm font-semibold transition-all duration-300"
               style={{
-                background:
-                  "linear-gradient(135deg, var(--primary), var(--primary-dark))",
+                background: "linear-gradient(135deg, var(--primary), var(--primary-dark))",
                 color: "white",
                 textDecoration: "none",
                 boxShadow: "0 4px 16px rgba(122,154,101,0.35)",
@@ -245,10 +245,16 @@ export default function Nav() {
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
             style={{
-              display: "flex", alignItems: "center", justifyContent: "center",
-              width: 40, height: 40, borderRadius: 10,
-              border: "1px solid var(--border)", background: "var(--bg-card)",
-              color: "var(--text)", cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: 40,
+              height: 40,
+              borderRadius: 10,
+              border: "1px solid var(--border)",
+              background: "var(--bg-card)",
+              color: "var(--text)",
+              cursor: "pointer",
             }}
           >
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
@@ -261,20 +267,26 @@ export default function Nav() {
         <div
           className="md:hidden"
           style={{
-            position: "fixed", inset: 0, zIndex: 49,
-            background: "var(--bg)", paddingTop: 80,
+            position: "fixed",
+            inset: 0,
+            zIndex: 49,
+            background: "var(--bg)",
+            paddingTop: 80,
           }}
         >
-          <div className="px-6 flex flex-col gap-2">
+          <div className="flex flex-col gap-2 px-6">
             {navLinks.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileOpen(false)}
                 style={{
-                  display: "block", padding: "14px 0",
-                  fontSize: "1.1rem", fontWeight: 600,
-                  color: "var(--heading)", textDecoration: "none",
+                  display: "block",
+                  padding: "14px 0",
+                  fontSize: "1.1rem",
+                  fontWeight: 600,
+                  color: "var(--heading)",
+                  textDecoration: "none",
                   borderBottom: "1px solid var(--border)",
                 }}
               >
@@ -287,9 +299,12 @@ export default function Nav() {
               rel="noopener noreferrer"
               onClick={() => setMobileOpen(false)}
               style={{
-                display: "block", padding: "14px 0",
-                fontSize: "1.1rem", fontWeight: 600,
-                color: "var(--heading)", textDecoration: "none",
+                display: "block",
+                padding: "14px 0",
+                fontSize: "1.1rem",
+                fontWeight: 600,
+                color: "var(--heading)",
+                textDecoration: "none",
                 borderBottom: "1px solid var(--border)",
               }}
             >
@@ -304,11 +319,19 @@ export default function Nav() {
                     key={value}
                     onClick={() => setTheme(value)}
                     style={{
-                      flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
-                      padding: "10px 0", borderRadius: 10,
+                      flex: 1,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: 6,
+                      padding: "10px 0",
+                      borderRadius: 10,
                       border: theme === value ? "2px solid var(--primary)" : "1px solid var(--border)",
                       background: theme === value ? "rgba(122,154,101,0.1)" : "var(--bg-card)",
-                      color: "var(--text)", fontSize: "0.8rem", fontWeight: 500, cursor: "pointer",
+                      color: "var(--text)",
+                      fontSize: "0.8rem",
+                      fontWeight: 500,
+                      cursor: "pointer",
                     }}
                   >
                     <Icon size={14} />
@@ -324,10 +347,15 @@ export default function Nav() {
                   key={code}
                   onClick={() => setLocale(code)}
                   style={{
-                    flex: 1, padding: "10px 0", borderRadius: 10,
+                    flex: 1,
+                    padding: "10px 0",
+                    borderRadius: 10,
                     border: locale === code ? "2px solid var(--primary)" : "1px solid var(--border)",
                     background: locale === code ? "rgba(122,154,101,0.1)" : "var(--bg-card)",
-                    color: "var(--text)", fontSize: "0.85rem", fontWeight: 500, cursor: "pointer",
+                    color: "var(--text)",
+                    fontSize: "0.85rem",
+                    fontWeight: 500,
+                    cursor: "pointer",
                   }}
                 >
                   {name}
@@ -339,10 +367,16 @@ export default function Nav() {
               href="#download"
               onClick={() => setMobileOpen(false)}
               style={{
-                display: "block", textAlign: "center", marginTop: 16, padding: "14px 0",
-                borderRadius: 14, fontWeight: 700, fontSize: "1rem",
+                display: "block",
+                textAlign: "center",
+                marginTop: 16,
+                padding: "14px 0",
+                borderRadius: 14,
+                fontWeight: 700,
+                fontSize: "1rem",
                 background: "linear-gradient(135deg, var(--primary), var(--primary-dark))",
-                color: "white", textDecoration: "none",
+                color: "white",
+                textDecoration: "none",
                 boxShadow: "0 4px 16px rgba(122,154,101,0.35)",
               }}
             >

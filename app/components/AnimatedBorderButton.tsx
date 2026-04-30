@@ -66,7 +66,12 @@ export default function AnimatedBorderButton({ href, onClick, children, variant 
     border: isPrimary ? "none" : "1.5px solid var(--border)",
     background: isPrimary ? "linear-gradient(135deg, var(--primary), var(--primary-dark))" : "transparent",
     color: isPrimary ? "#ffffff" : "var(--heading)",
-    boxShadow: hovered && isPrimary ? "0 8px 28px rgba(122,154,101,0.5)" : isPrimary ? "0 4px 16px rgba(122,154,101,0.35)" : "none",
+    boxShadow:
+      hovered && isPrimary
+        ? "0 8px 28px rgba(122,154,101,0.5)"
+        : isPrimary
+          ? "0 4px 16px rgba(122,154,101,0.35)"
+          : "none",
     transform: hovered ? "translateY(-2px)" : "translateY(0)",
     transition: "transform 0.25s, box-shadow 0.25s",
     overflow: "hidden",
@@ -81,20 +86,25 @@ export default function AnimatedBorderButton({ href, onClick, children, variant 
 
   if (href) {
     return (
-      <a href={href}
-        style={baseStyle} className={className}
+      <a
+        href={href}
+        style={baseStyle}
+        className={className}
         onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}>
+        onMouseLeave={() => setHovered(false)}
+      >
         {content}
       </a>
     );
   }
   return (
     <button
-      style={baseStyle} className={className}
+      style={baseStyle}
+      className={className}
       onClick={onClick}
       onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}>
+      onMouseLeave={() => setHovered(false)}
+    >
       {content}
     </button>
   );

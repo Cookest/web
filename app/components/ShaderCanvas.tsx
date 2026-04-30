@@ -61,7 +61,8 @@ void main() {
 
 function compileShader(gl: WebGLRenderingContext, type: number, src: string) {
   const s = gl.createShader(type)!;
-  gl.shaderSource(s, src); gl.compileShader(s);
+  gl.shaderSource(s, src);
+  gl.compileShader(s);
   return s;
 }
 
@@ -76,26 +77,28 @@ export default function ShaderCanvas() {
     const prog = gl.createProgram()!;
     gl.attachShader(prog, compileShader(gl, gl.VERTEX_SHADER, VERT));
     gl.attachShader(prog, compileShader(gl, gl.FRAGMENT_SHADER, FRAG));
-    gl.linkProgram(prog); gl.useProgram(prog);
+    gl.linkProgram(prog);
+    gl.useProgram(prog);
 
     const buf = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,3,-1,-1,3]), gl.STATIC_DRAW);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
 
     const pos = gl.getAttribLocation(prog, "position");
     gl.enableVertexAttribArray(pos);
     gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
 
     const uTime = gl.getUniformLocation(prog, "u_time");
-    const uRes  = gl.getUniformLocation(prog, "u_resolution");
+    const uRes = gl.getUniformLocation(prog, "u_resolution");
 
     let raf: number;
     const resize = () => {
-      canvas.width  = canvas.offsetWidth;
+      canvas.width = canvas.offsetWidth;
       canvas.height = canvas.offsetHeight;
       gl.viewport(0, 0, canvas.width, canvas.height);
     };
-    window.addEventListener("resize", resize); resize();
+    window.addEventListener("resize", resize);
+    resize();
 
     const render = (t: number) => {
       gl.uniform1f(uTime, t * 0.001);
@@ -105,8 +108,17 @@ export default function ShaderCanvas() {
     };
     raf = requestAnimationFrame(render);
 
-    return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", resize); };
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", resize);
+    };
   }, []);
 
-  return <canvas ref={ref} className="shader-canvas" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", zIndex: 0 }} />;
+  return (
+    <canvas
+      ref={ref}
+      className="shader-canvas"
+      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", zIndex: 0 }}
+    />
+  );
 }

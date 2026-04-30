@@ -1,37 +1,51 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap");
 @import "tailwindcss";
 
 :root {
-  --primary: #7A9A65;
-  --primary-light: #B4CC9E;
-  --primary-dark: #4E7A3A;
-  --bg: #F5F5F0;
-  --bg-card: #FAFAF6;
-  --heading: #1C3A2A;
-  --text: #3D5040;
-  --text-muted: #7A8E74;
-  --border: #E4EBE0;
-  --surface: #FFFFFF;
-  --surface-muted: rgba(245,245,240,0.95);
-  --section-dark: #1C3A2A;
+  --primary: #7a9a65;
+  --primary-light: #b4cc9e;
+  --primary-dark: #4e7a3a;
+  --bg: #f5f5f0;
+  --bg-card: #fafaf6;
+  --heading: #1c3a2a;
+  --text: #3d5040;
+  --text-muted: #7a8e74;
+  --border: #e4ebe0;
+  --surface: #ffffff;
+  --surface-muted: rgba(245, 245, 240, 0.95);
+  --section-dark: #1c3a2a;
 }
 
 .dark {
-  --primary: #8AB575;
-  --primary-light: #6B9A55;
-  --primary-dark: #A8D490;
-  --bg: #0E1512;
+  --primary: #8ab575;
+  --primary-light: #6b9a55;
+  --primary-dark: #a8d490;
+  --bg: #0e1512;
   --bg-card: #172019;
-  --heading: #E0EDE4;
-  --text: #B0C8B5;
-  --text-muted: #6A8A70;
-  --border: #253D2E;
-  --surface: #1A261E;
-  --surface-muted: rgba(14,21,18,0.95);
-  --section-dark: #0F1A14;
+  --heading: #e0ede4;
+  --text: #b0c8b5;
+  --text-muted: #6a8a70;
+  --border: #253d2e;
+  --surface: #1a261e;
+  --surface-muted: rgba(14, 21, 18, 0.95);
+  --section-dark: #0f1a14;
 }
 
-body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; }
-h1, h2, h3, .font-serif { font-family: 'Playfair Display', serif; }
-html { scroll-behavior: smooth; }
-.dark .shader-canvas { opacity: 0.25; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", sans-serif;
+  overflow-x: hidden;
+}
+h1,
+h2,
+h3,
+.font-serif {
+  font-family: "Playfair Display", serif;
+}
+html {
+  scroll-behavior: smooth;
+}
+.dark .shader-canvas {
+  opacity: 0.25;
+}
