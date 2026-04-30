@@ -1,3 +1,4 @@
+"use client";
 export default function Footer() {
   return (
     <footer style={{ background: "#0F2218", padding: "48px 0 32px" }}>
