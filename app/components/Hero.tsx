@@ -18,44 +18,7 @@ function FloatingAccent({ style, delay = 0 }: { style: React.CSSProperties; dela
   );
 }
 
-function HeroPhone() {
-  return (
-    <motion.div
-      animate={{ y: [0, -16, 0] }}
-      transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-      style={{ filter: "drop-shadow(0 40px 60px rgba(28,58,42,0.28))" }}>
-      <div style={{ width: 240, background: "#111827", borderRadius: 42, padding: 13, position: "relative" }}>
-        <div style={{ position: "absolute", top: 13, left: "50%", transform: "translateX(-50%)", width: 70, height: 22, background: "#111827", borderRadius: "0 0 16px 16px", zIndex: 10 }}/>
-        <div style={{ background: "var(--bg)", borderRadius: 30, overflow: "hidden" }}>
-          <div style={{ background: "var(--primary)", padding: "10px 16px 6px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <span style={{ color: "white", fontSize: 8, fontWeight: 700 }}>9:41</span>
-            <span style={{ color: "white", fontSize: 8 }}>●●●</span>
-          </div>
-          <div style={{ padding: 12 }}>
-            <div style={{ fontFamily: "'Playfair Display',serif", fontWeight: 700, fontSize: 13, color: "var(--heading)", marginBottom: 10 }}>This Week 🗓</div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(7,1fr)", gap: 3, marginBottom: 12 }}>
-              {["M","T","W","T","F","S","S"].map((d, i) => (
-                <div key={i} style={{ textAlign: "center" }}>
-                  <div style={{ fontSize: 6, color: "var(--text-muted)", textTransform: "uppercase", marginBottom: 3 }}>{d}</div>
-                  <div style={{ width: 20, height: 20, borderRadius: "50%", background: i===0 ? "var(--primary)" : "transparent", color: i===0 ? "white" : "var(--text-muted)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 7, fontWeight: 600, margin: "0 auto" }}>{14+i}</div>
-                </div>
-              ))}
-            </div>
-            {[["🥑","Breakfast","Avocado Toast"],["🥗","Lunch","Quinoa Bowl"],["🍝","Dinner","Pasta Primavera"]].map(([icon, type, name]) => (
-              <div key={name} style={{ background: "white", borderRadius: 8, padding: "7px 9px", marginBottom: 5, display: "flex", alignItems: "center", gap: 7, boxShadow: "0 1px 4px rgba(28,58,42,0.06)" }}>
-                <div style={{ width: 26, height: 26, borderRadius: 8, background: "rgba(122,154,101,0.14)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, flexShrink: 0 }}>{icon}</div>
-                <div>
-                  <div style={{ fontSize: 6, textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--primary-dark)", fontWeight: 700 }}>{type}</div>
-                  <div style={{ fontSize: 8, fontWeight: 600, color: "var(--heading)", marginTop: 1 }}>{name}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
+
 
 export default function Hero() {
   return (
@@ -110,7 +73,13 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, x: 40, rotate: 3 }} animate={{ opacity: 1, x: 0, rotate: 0 }} transition={{ duration: 0.9, delay: 0.2 }}
             style={{ display: "flex", justifyContent: "center" }}>
-            <HeroPhone />
+            <motion.div
+              animate={{ y: [0, -16, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              style={{ filter: "drop-shadow(0 40px 60px rgba(28,58,42,0.28))" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/phones/screen-1.svg" alt="Cookest meals screen" style={{ width: 260, height: "auto", display: "block" }} />
+            </motion.div>
           </motion.div>
         </div>
       </div>
