@@ -11,6 +11,24 @@
   --text: #3D5040;
   --text-muted: #7A8E74;
   --border: #E4EBE0;
+  --surface: #FFFFFF;
+  --surface-muted: rgba(245,245,240,0.95);
+  --section-dark: #1C3A2A;
+}
+
+.dark {
+  --primary: #8AB575;
+  --primary-light: #6B9A55;
+  --primary-dark: #A8D490;
+  --bg: #0E1512;
+  --bg-card: #172019;
+  --heading: #E0EDE4;
+  --text: #B0C8B5;
+  --text-muted: #6A8A70;
+  --border: #253D2E;
+  --surface: #1A261E;
+  --surface-muted: rgba(14,21,18,0.95);
+  --section-dark: #0F1A14;
 }
 
 body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; }
