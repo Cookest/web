@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import ShaderCanvas from "./ShaderCanvas";
 import AnimatedBorderButton from "./AnimatedBorderButton";
 import { useMediaQuery } from "./useMediaQuery";
+import { useTranslation } from "./TranslationProvider";
 
 function FloatingAccent({ style, delay = 0 }: { style: React.CSSProperties; delay?: number }) {
   return (
@@ -23,6 +24,7 @@ function FloatingAccent({ style, delay = 0 }: { style: React.CSSProperties; dela
 
 export default function Hero() {
   const mobile = useMediaQuery("(max-width: 767px)");
+  const { t } = useTranslation();
 
   return (
     <section id="hero" style={{ minHeight: "100vh", display: "flex", alignItems: "center", position: "relative", overflow: "hidden", paddingTop: mobile ? 100 : 80 }}>
@@ -39,26 +41,26 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
               style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 100, padding: "8px 16px", fontSize: "0.82rem", color: "var(--text-muted)", marginBottom: 28, boxShadow: "0 2px 8px rgba(28,58,42,0.06)" }}>
               <span style={{ width: 8, height: 8, background: "var(--primary)", borderRadius: "50%", display: "inline-block", animation: "pulse 2s infinite" }}/>
-              Now available · iOS & Android
+              {t("hero.badge")}
             </motion.div>
 
             <motion.h1
               initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }}
               style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2.2rem, 5vw, 3.8rem)", fontWeight: 700, lineHeight: 1.1, color: "var(--heading)", marginBottom: 20 }}>
-              Plan your meals,<br /><em style={{ color: "var(--primary-dark)", fontStyle: "italic" }}>effortlessly.</em>
+              {t("hero.title1")}<br /><em style={{ color: "var(--primary-dark)", fontStyle: "italic" }}>{t("hero.title2")}</em>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }}
               style={{ fontSize: mobile ? "1rem" : "1.08rem", color: "var(--text-muted)", lineHeight: 1.78, marginBottom: 36, maxWidth: mobile ? undefined : 440, margin: mobile ? "0 auto 36px" : undefined }}>
-              AI-powered meal planning that works around your schedule, your pantry, and your taste. Less waste 🌱, better food, every week.
+              {t("hero.subtitle")}
             </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
               style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap", justifyContent: mobile ? "center" : undefined }}>
-              <AnimatedBorderButton href="#download">↓ Download Now</AnimatedBorderButton>
-              <AnimatedBorderButton href="#how" variant="ghost">See how it works →</AnimatedBorderButton>
+              <AnimatedBorderButton href="#download">{t("hero.cta")}</AnimatedBorderButton>
+              <AnimatedBorderButton href="#how" variant="ghost">{t("hero.ctaSecondary")}</AnimatedBorderButton>
             </motion.div>
 
             <motion.div
@@ -69,7 +71,7 @@ export default function Hero() {
                   <div key={l} style={{ width: 30, height: 30, borderRadius: "50%", border: "2px solid var(--surface)", marginLeft: i === 0 ? 0 : -8, background: "var(--primary-light)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.65rem", fontWeight: 700, color: "var(--heading)" }}>{l}</div>
                 ))}
               </div>
-              <span>Built for everyday home cooks · PAP 2025</span>
+              <span>{t("hero.tagline")}</span>
             </motion.div>
           </div>
 
@@ -91,7 +93,7 @@ export default function Hero() {
         animate={{ y: [0, 8, 0] }} transition={{ duration: 1.8, repeat: Infinity }}
         style={{ position: "absolute", bottom: 32, left: "50%", transform: "translateX(-50%)", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 4, opacity: 0.45 }}>
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 4 L10 16 M6 12 L10 16 L14 12" stroke="var(--primary-dark)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        <span style={{ fontSize: "0.7rem", color: "var(--text-muted)", letterSpacing: "0.1em", textTransform: "uppercase" }}>Scroll</span>
+        <span style={{ fontSize: "0.7rem", color: "var(--text-muted)", letterSpacing: "0.1em", textTransform: "uppercase" }}>{t("hero.scroll")}</span>
       </motion.div>
 
       <style>{`@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.5)} }`}</style>

@@ -2,6 +2,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { useMediaQuery } from "./useMediaQuery";
+import { useTranslation, type TranslationKey } from "./TranslationProvider";
 
 function useCountUp(target: number, inView: boolean, duration = 1800) {
   const [count, setCount] = useState(0);
@@ -21,18 +22,18 @@ function useCountUp(target: number, inView: boolean, duration = 1800) {
 
 import { Wheat, Heart, Recycle } from "lucide-react";
 
-const sdgs = [
-  { num: "SDG 2", label: "Zero Hunger", Icon: Wheat, color: "#DDA63A" },
-  { num: "SDG 3", label: "Good Health", Icon: Heart, color: "#4C9F38" },
-  { num: "SDG 12", label: "Responsible Consumption", Icon: Recycle, color: "#BF8B2E" },
+const sdgs: { num: string; labelKey: TranslationKey; Icon: typeof Wheat; color: string }[] = [
+  { num: "SDG 2", labelKey: "sustain.sdg2", Icon: Wheat, color: "#DDA63A" },
+  { num: "SDG 3", labelKey: "sustain.sdg3", Icon: Heart, color: "#4C9F38" },
+  { num: "SDG 12", labelKey: "sustain.sdg12", Icon: Recycle, color: "#BF8B2E" },
 ];
 
 export default function Sustainability() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const mobile = useMediaQuery("(max-width: 767px)");
+  const { t } = useTranslation();
 
-  const billionCount = useCountUp(13, inView, 2000);
   const percentCount = useCountUp(30, inView, 1600);
   const thousandCount = useCountUp(10000, inView, 2200);
 
@@ -46,9 +47,9 @@ export default function Sustainability() {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6 }}>
-              <span style={{ display: "inline-block", background: "rgba(122,154,101,0.12)", color: "var(--primary-dark)", fontSize: "0.75rem", fontWeight: 600, letterSpacing: ".08em", textTransform: "uppercase", padding: "6px 14px", borderRadius: 100, marginBottom: 16 }}>Our Mission</span>
-              <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: "clamp(1.8rem,3vw,2.6rem)", fontWeight: 700, color: "var(--heading)", marginBottom: 16 }}>Cooking smarter for a better planet</h2>
-              <p style={{ fontSize: "1rem", color: "var(--text-muted)", lineHeight: 1.78, marginBottom: 32 }}>Food waste is one of the biggest contributors to climate change. Cookest is built from the ground up to reduce it — one meal plan at a time.</p>
+              <span style={{ display: "inline-block", background: "rgba(122,154,101,0.12)", color: "var(--primary-dark)", fontSize: "0.75rem", fontWeight: 600, letterSpacing: ".08em", textTransform: "uppercase", padding: "6px 14px", borderRadius: 100, marginBottom: 16 }}>{t("sustain.label")}</span>
+              <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: "clamp(1.8rem,3vw,2.6rem)", fontWeight: 700, color: "var(--heading)", marginBottom: 16 }}>{t("sustain.title")}</h2>
+              <p style={{ fontSize: "1rem", color: "var(--text-muted)", lineHeight: 1.78, marginBottom: 32 }}>{t("sustain.subtitle")}</p>
             </motion.div>
 
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -64,7 +65,7 @@ export default function Sustainability() {
                   </div>
                   <div>
                     <div style={{ fontSize: "0.7rem", fontWeight: 700, color: sdg.color, textTransform: "uppercase", letterSpacing: "0.06em" }}>{sdg.num}</div>
-                    <div style={{ fontSize: "0.88rem", fontWeight: 600, color: "var(--heading)" }}>{sdg.label}</div>
+                    <div style={{ fontSize: "0.88rem", fontWeight: 600, color: "var(--heading)" }}>{t(sdg.labelKey)}</div>
                   </div>
                 </motion.div>
               ))}
@@ -81,9 +82,9 @@ export default function Sustainability() {
               style={{ gridColumn: "1 / -1", background: "linear-gradient(135deg, var(--primary), var(--primary-dark))", borderRadius: 20, padding: mobile ? "24px 20px" : "28px 24px", position: "relative", overflow: "hidden" }}>
               <div style={{ position: "absolute", top: -20, right: -20, width: 120, height: 120, borderRadius: "50%", background: "rgba(255,255,255,0.07)" }}/>
               <div style={{ fontFamily: "'Playfair Display',serif", fontSize: mobile ? "2.4rem" : "3rem", fontWeight: 700, color: "white", lineHeight: 1 }}>
-                {billionCount >= 13 ? "1.3B" : `${billionCount}0M`}
+                {t("sustain.stat1.value")}
               </div>
-              <div style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.75)", marginTop: 6 }}>tonnes of food wasted globally every year</div>
+              <div style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.75)", marginTop: 6 }}>{t("sustain.stat1.label")}</div>
             </motion.div>
 
             <motion.div
@@ -92,7 +93,7 @@ export default function Sustainability() {
               transition={{ duration: 0.6, delay: 0.3 }}
               style={{ background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: 20, padding: mobile ? "18px 16px" : "22px 20px" }}>
               <div style={{ fontFamily: "'Playfair Display',serif", fontSize: mobile ? "1.8rem" : "2.2rem", fontWeight: 700, color: "var(--primary-dark)", lineHeight: 1 }}>{percentCount}%</div>
-              <div style={{ fontSize: "0.82rem", color: "var(--text-muted)", marginTop: 6 }}>of household food is thrown away unnecessarily</div>
+              <div style={{ fontSize: "0.82rem", color: "var(--text-muted)", marginTop: 6 }}>{t("sustain.stat2.label")}</div>
             </motion.div>
 
             <motion.div
@@ -103,7 +104,7 @@ export default function Sustainability() {
               <div style={{ fontFamily: "'Playfair Display',serif", fontSize: mobile ? "1.8rem" : "2.2rem", fontWeight: 700, color: "var(--primary-dark)", lineHeight: 1 }}>
                 {thousandCount >= 10000 ? "10K+" : `${(thousandCount / 1000).toFixed(1)}K`}
               </div>
-              <div style={{ fontSize: "0.82rem", color: "var(--text-muted)", marginTop: 6 }}>meals already planned with less waste</div>
+              <div style={{ fontSize: "0.82rem", color: "var(--text-muted)", marginTop: 6 }}>{t("sustain.stat3.label")}</div>
             </motion.div>
           </div>
         </div>

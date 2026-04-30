@@ -1,5 +1,16 @@
 "use client";
+import { useTranslation, type TranslationKey } from "./TranslationProvider";
+
+const footerLinks: { key: TranslationKey; href: string }[] = [
+  { key: "nav.features", href: "#features" },
+  { key: "nav.howItWorks", href: "#how" },
+  { key: "nav.mission", href: "#sustain" },
+  { key: "download.label", href: "#download" },
+];
+
 export default function Footer() {
+  const { t } = useTranslation();
+
   return (
     <footer style={{ background: "#0F2218", padding: "48px 0 32px" }}>
       <div className="max-w-6xl mx-auto px-6">
@@ -14,19 +25,19 @@ export default function Footer() {
           </div>
 
           <nav className="flex flex-wrap justify-center gap-4 md:gap-7">
-            {["Features","How it works","Mission","Download"].map(l => (
-              <a key={l} href={`#${l.toLowerCase().replace(/ /g,"-")}`}
+            {footerLinks.map(({ key, href }) => (
+              <a key={key} href={href}
                 style={{ fontSize: "0.82rem", color: "rgba(255,255,255,0.45)", textDecoration: "none", transition: "color 0.2s" }}
                 onMouseEnter={e => (e.currentTarget.style.color = "rgba(255,255,255,0.9)")}
                 onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.45)")}>
-                {l}
+                {t(key)}
               </a>
             ))}
             <a href="https://cookest.github.io/docs/" target="_blank" rel="noopener noreferrer"
               style={{ fontSize: "0.82rem", color: "rgba(255,255,255,0.45)", textDecoration: "none", transition: "color 0.2s" }}
               onMouseEnter={e => (e.currentTarget.style.color = "rgba(255,255,255,0.9)")}
               onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.45)")}>
-              Docs ↗
+              {t("nav.docs")} ↗
             </a>
           </nav>
 
@@ -39,7 +50,7 @@ export default function Footer() {
         </div>
 
         <div style={{ marginTop: 32, paddingTop: 24, borderTop: "1px solid rgba(255,255,255,0.06)", textAlign: "center" }}>
-          <p style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.2)", margin: 0 }}>© 2025 Cookest · PAP · Built with ❤️ for everyday home cooks</p>
+          <p style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.2)", margin: 0 }}>{t("footer.copyright")}</p>
         </div>
       </div>
     </footer>

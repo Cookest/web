@@ -1,10 +1,12 @@
 "use client";
 import { createContext, useContext, useEffect, useState, useCallback, useMemo } from "react";
-import en, { type TranslationKey } from "../messages/en";
-import fr from "../messages/fr";
-import es from "../messages/es";
-import de from "../messages/de";
-import pt from "../messages/pt";
+import en from "../messages/en.json";
+import fr from "../messages/fr.json";
+import es from "../messages/es.json";
+import de from "../messages/de.json";
+import pt from "../messages/pt.json";
+
+export type TranslationKey = keyof typeof en;
 
 export const SUPPORTED_LOCALES = {
   en: "English",

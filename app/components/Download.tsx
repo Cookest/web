@@ -1,9 +1,11 @@
 "use client";
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
+import { useTranslation } from "./TranslationProvider";
 
 function StoreButton({ href, store }: { href: string; store: "apple" | "google" }) {
   const [hovered, setHovered] = useState(false);
+  const { t } = useTranslation();
   return (
     <a
       href={href}
@@ -26,10 +28,10 @@ function StoreButton({ href, store }: { href: string; store: "apple" | "google" 
       )}
       <div>
         <div style={{ fontSize: "0.65rem", color: "rgba(28,58,42,0.55)", fontWeight: 500, lineHeight: 1 }}>
-          {store === "apple" ? "Download on the" : "Get it on"}
+          {store === "apple" ? t("download.apple.prefix") : t("download.google.prefix")}
         </div>
         <div style={{ fontSize: "0.95rem", color: "#1C3A2A", fontWeight: 700, lineHeight: 1.4 }}>
-          {store === "apple" ? "App Store" : "Google Play"}
+          {store === "apple" ? t("download.apple.store") : t("download.google.store")}
         </div>
       </div>
     </a>
@@ -39,6 +41,7 @@ function StoreButton({ href, store }: { href: string; store: "apple" | "google" 
 export default function Download() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const { t } = useTranslation();
 
   return (
     <section id="download" style={{ padding: "clamp(60px, 10vw, 100px) 0", background: "var(--section-dark)", position: "relative", overflow: "hidden" }}>
@@ -52,12 +55,12 @@ export default function Download() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
           style={{ textAlign: "center" }}>
-          <span style={{ display: "inline-block", background: "rgba(180,204,158,0.15)", color: "var(--primary-light)", fontSize: "0.75rem", fontWeight: 600, letterSpacing: ".08em", textTransform: "uppercase", padding: "6px 14px", borderRadius: 100, marginBottom: 24, border: "1px solid rgba(180,204,158,0.2)" }}>Download</span>
+          <span style={{ display: "inline-block", background: "rgba(180,204,158,0.15)", color: "var(--primary-light)", fontSize: "0.75rem", fontWeight: 600, letterSpacing: ".08em", textTransform: "uppercase", padding: "6px 14px", borderRadius: 100, marginBottom: 24, border: "1px solid rgba(180,204,158,0.2)" }}>{t("download.label")}</span>
           <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: "clamp(2rem,4vw,3.2rem)", fontWeight: 700, color: "white", marginBottom: 16, lineHeight: 1.15 }}>
-            Start planning smarter<br /><em style={{ color: "var(--primary-light)", fontStyle: "italic" }}>meals today.</em>
+            {t("download.title1")}<br /><em style={{ color: "var(--primary-light)", fontStyle: "italic" }}>{t("download.title2")}</em>
           </h2>
           <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.6)", lineHeight: 1.75, maxWidth: 440, margin: "0 auto 40px" }}>
-            Free to download. No credit card needed. Join thousands of home cooks already using Cookest.
+            {t("download.subtitle")}
           </p>
 
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, flexWrap: "wrap" }}>
@@ -65,7 +68,7 @@ export default function Download() {
             <StoreButton href="#" store="google" />
           </div>
 
-          <p style={{ marginTop: 32, fontSize: "0.78rem", color: "rgba(255,255,255,0.35)" }}>Available on iOS 16+ and Android 10+</p>
+          <p style={{ marginTop: 32, fontSize: "0.78rem", color: "rgba(255,255,255,0.35)" }}>{t("download.availability")}</p>
         </motion.div>
       </div>
     </section>

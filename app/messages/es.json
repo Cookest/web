@@ -1,4 +1,4 @@
-const es: Record<string, string> = {
+{
   "nav.features": "Funciones",
   "nav.app": "App",
   "nav.howItWorks": "Cómo funciona",
@@ -66,7 +66,5 @@ const es: Record<string, string> = {
   "download.google.store": "Google Play",
   "download.availability": "Disponible en iOS 16+ y Android 10+",
 
-  "footer.copyright": "© 2025 Cookest · PAP · Hecho con ❤️ para cocineros del día a día",
-};
-
-export default es;
+  "footer.copyright": "© 2025 Cookest · PAP · Hecho con ❤️ para cocineros del día a día"
+}

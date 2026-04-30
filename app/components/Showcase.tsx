@@ -2,11 +2,13 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { useMediaQuery } from "./useMediaQuery";
+import { useTranslation } from "./TranslationProvider";
 
 export default function Showcase() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const mobile = useMediaQuery("(max-width: 767px)");
+  const { t } = useTranslation();
 
   const phones = [
     { src: "/phones/screen-2.svg", alt: "Recipe search screen", rotate: -8, x: -60, delay: 0.1, size: mobile ? 140 : 210 },
@@ -23,9 +25,9 @@ export default function Showcase() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           style={{ textAlign: "center", marginBottom: mobile ? 40 : 60 }}>
-          <span style={{ display: "inline-block", background: "rgba(122,154,101,0.12)", color: "var(--primary-dark)", fontSize: "0.75rem", fontWeight: 600, letterSpacing: ".08em", textTransform: "uppercase", padding: "6px 14px", borderRadius: 100, marginBottom: 16 }}>The App</span>
-          <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: "clamp(1.8rem,3vw,2.6rem)", fontWeight: 700, color: "var(--heading)", marginBottom: 14 }}>Beautiful, intuitive, powerful</h2>
-          <p style={{ fontSize: "1rem", color: "var(--text-muted)", lineHeight: 1.75, maxWidth: 480, margin: "0 auto" }}>Every screen designed to make your daily cooking routine a joy.</p>
+          <span style={{ display: "inline-block", background: "rgba(122,154,101,0.12)", color: "var(--primary-dark)", fontSize: "0.75rem", fontWeight: 600, letterSpacing: ".08em", textTransform: "uppercase", padding: "6px 14px", borderRadius: 100, marginBottom: 16 }}>{t("showcase.label")}</span>
+          <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: "clamp(1.8rem,3vw,2.6rem)", fontWeight: 700, color: "var(--heading)", marginBottom: 14 }}>{t("showcase.title")}</h2>
+          <p style={{ fontSize: "1rem", color: "var(--text-muted)", lineHeight: 1.75, maxWidth: 480, margin: "0 auto" }}>{t("showcase.subtitle")}</p>
         </motion.div>
 
         <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", gap: mobile ? 12 : 28 }}>

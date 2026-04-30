@@ -1,5 +1,4 @@
-const en = {
-  // Nav
+{
   "nav.features": "Features",
   "nav.app": "App",
   "nav.howItWorks": "How it works",
@@ -7,12 +6,10 @@ const en = {
   "nav.docs": "Docs",
   "nav.getApp": "Get the App ↓",
 
-  // Theme
   "theme.light": "Light",
   "theme.dark": "Dark",
   "theme.system": "System",
 
-  // Hero
   "hero.badge": "Now available · iOS & Android",
   "hero.title1": "Plan your meals,",
   "hero.title2": "effortlessly.",
@@ -22,7 +19,6 @@ const en = {
   "hero.tagline": "Built for everyday home cooks · PAP 2025",
   "hero.scroll": "Scroll",
 
-  // Features
   "features.label": "Features",
   "features.title": "Everything your kitchen needs",
   "features.subtitle": "From tracking what's in your fridge to building a full week of meals — Cookest handles the planning so you can focus on the cooking.",
@@ -35,12 +31,10 @@ const en = {
   "features.grocery.title": "Grocery Lists",
   "features.grocery.desc": "Shopping lists built automatically from your meal plan — grouped by category, synced to your phone.",
 
-  // Showcase
   "showcase.label": "The App",
   "showcase.title": "Beautiful, intuitive, powerful",
   "showcase.subtitle": "Every screen designed to make your daily cooking routine a joy.",
 
-  // How it works
   "how.label": "How it works",
   "how.title": "Three steps to a smarter kitchen",
   "how.subtitle": "Set up once. Let Cookest handle the rest every week.",
@@ -51,7 +45,6 @@ const en = {
   "how.step3.title": "Cook with confidence",
   "how.step3.desc": "Follow step-by-step recipes. Your grocery list is generated and ready to go.",
 
-  // Sustainability
   "sustain.label": "Our Mission",
   "sustain.title": "Cooking smarter for a better planet",
   "sustain.subtitle": "Food waste is one of the biggest contributors to climate change. Cookest is built from the ground up to reduce it — one meal plan at a time.",
@@ -63,7 +56,6 @@ const en = {
   "sustain.stat2.label": "of household food is thrown away unnecessarily",
   "sustain.stat3.label": "meals already planned with less waste",
 
-  // Download
   "download.label": "Download",
   "download.title1": "Start planning smarter",
   "download.title2": "meals today.",
@@ -74,9 +66,5 @@ const en = {
   "download.google.store": "Google Play",
   "download.availability": "Available on iOS 16+ and Android 10+",
 
-  // Footer
-  "footer.copyright": "© 2025 Cookest · PAP · Built with ❤️ for everyday home cooks",
-} as const;
-
-export type TranslationKey = keyof typeof en;
-export default en;
+  "footer.copyright": "© 2025 Cookest · PAP · Built with ❤️ for everyday home cooks"
+}
