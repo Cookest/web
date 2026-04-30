@@ -22,6 +22,12 @@ export default function Footer() {
                 {l}
               </a>
             ))}
+            <a href="https://cookest.github.io/docs/" target="_blank" rel="noopener noreferrer"
+              style={{ fontSize: "0.82rem", color: "rgba(255,255,255,0.45)", textDecoration: "none", transition: "color 0.2s" }}
+              onMouseEnter={e => (e.currentTarget.style.color = "rgba(255,255,255,0.9)")}
+              onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.45)")}>
+              Docs ↗
+            </a>
           </nav>
 
           <a href="https://github.com/Cookest" target="_blank" rel="noopener noreferrer"

@@ -24,6 +24,11 @@ export default function Nav() {
               className="text-sm font-medium transition-colors duration-200 hover:text-[var(--primary-dark)]"
               style={{ color: "var(--text)", textDecoration: "none" }}>{l}</a></li>
           ))}
+          <li>
+            <a href="https://cookest.github.io/docs/" target="_blank" rel="noopener noreferrer"
+              className="text-sm font-medium transition-colors duration-200 hover:text-[var(--primary-dark)]"
+              style={{ color: "var(--text)", textDecoration: "none" }}>Docs ↗</a>
+          </li>
         </ul>
         <a href="#download"
           className="hidden md:inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold rounded-xl transition-all duration-300"
