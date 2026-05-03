@@ -63,7 +63,7 @@ export default function Footer() {
               </a>
             ))}
             <a
-              href="https://cookest.github.io/docs/"
+              href="https://docs.cookest.app"
               target="_blank"
               rel="noopener noreferrer"
               style={{
