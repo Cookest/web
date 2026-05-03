@@ -2,7 +2,7 @@ import Nav from "./components/Nav";
 import Hero from "./components/Hero";
 import Features from "./components/Features";
 import Showcase from "./components/Showcase";
-import HowItWorks from "./components/HowItWorks";
+import ScrollStory from "./components/ScrollStory";
 import Sustainability from "./components/Sustainability";
 import Download from "./components/Download";
 import Footer from "./components/Footer";
@@ -15,7 +15,7 @@ export default function Home() {
         <Hero />
         <Features />
         <Showcase />
-        <HowItWorks />
+        <ScrollStory />
         <Sustainability />
         <Download />
       </main>
