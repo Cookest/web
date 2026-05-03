@@ -45,6 +45,18 @@
   "how.step3.title": "Koche mit Zuversicht",
   "how.step3.desc": "Folge Schritt-für-Schritt-Rezepten. Deine Einkaufsliste wird erstellt und ist bereit.",
 
+  "story.label": "Die Reise",
+  "story.title": "Vom Chaos zum selbstbewussten Kochen",
+  "story.subtitle": "Vier einfache Schritte, um deine Küchenroutine zu verwandeln.",
+  "story.ch1.title": "Dein Kühlschrank, endlich organisiert",
+  "story.ch1.desc": "Scanne Barcodes, fotografiere Kassenbons oder füge Artikel manuell hinzu. Cookest erstellt ein Live-Inventar deiner Küche — mit Ablaufverfolgung, damit nichts vergessen wird.",
+  "story.ch2.title": "Eine Woche Mahlzeiten, in Sekunden geplant",
+  "story.ch2.desc": "Unsere KI liest deine Vorräte, lernt deinen Geschmack und erstellt eine komplette Woche personalisierter Mahlzeiten. Jeder Plan priorisiert, was du bereits hast.",
+  "story.ch3.title": "Rezepte, die jeden Schritt begleiten",
+  "story.ch3.desc": "Folge klaren Schritt-für-Schritt-Anleitungen mit intelligenten Ersatzvorschlägen, Nährwertinfos und Portionsanpassung — alles auf deinen Plan abgestimmt.",
+  "story.ch4.title": "Klüger einkaufen, nichts verschwenden",
+  "story.ch4.desc": "Eine intelligente Einkaufsliste wird aus deinem Essensplan generiert — nach Gang sortiert, mit deinem Handy synchronisiert und fertig, bevor du das Haus verlässt.",
+
   "sustain.label": "Unsere Mission",
   "sustain.title": "Intelligenter kochen für einen besseren Planeten",
   "sustain.subtitle": "Lebensmittelverschwendung ist einer der größten Beiträge zum Klimawandel. Cookest ist von Grund auf gebaut, um sie zu reduzieren — ein Essensplan nach dem anderen.",

@@ -45,6 +45,18 @@
   "how.step3.title": "Cozinhe com confiança",
   "how.step3.desc": "Siga receitas passo a passo. Sua lista de compras é gerada e está pronta.",
 
+  "story.label": "A Jornada",
+  "story.title": "Do caos à confiança na cozinha",
+  "story.subtitle": "Quatro passos simples para transformar a sua rotina na cozinha.",
+  "story.ch1.title": "O seu frigorífico, finalmente organizado",
+  "story.ch1.desc": "Digitalize códigos de barras, tire fotos de recibos ou adicione itens manualmente. O Cookest cria um inventário em tempo real da sua cozinha — com controlo de validade para que nada seja esquecido.",
+  "story.ch2.title": "Uma semana de refeições, planeada em segundos",
+  "story.ch2.desc": "A nossa IA lê a sua despensa, aprende os seus gostos e gera uma semana completa de refeições personalizadas. Cada plano prioriza o que já tem.",
+  "story.ch3.title": "Receitas que guiam cada passo",
+  "story.ch3.desc": "Siga instruções claras, passo a passo, com substituições inteligentes, informação nutricional e ajuste de porções — tudo adaptado ao seu plano.",
+  "story.ch4.title": "Compre melhor, desperdice menos",
+  "story.ch4.desc": "Uma lista de compras inteligente é gerada a partir do seu plano alimentar — agrupada por corredor, sincronizada com o seu telemóvel e pronta antes de sair de casa.",
+
   "sustain.label": "Nossa Missão",
   "sustain.title": "Cozinhar mais inteligente para um planeta melhor",
   "sustain.subtitle": "O desperdício de alimentos é um dos maiores contribuintes para as mudanças climáticas. O Cookest foi construído para reduzi-lo — um plano de refeições por vez.",

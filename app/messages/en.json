@@ -45,6 +45,18 @@
   "how.step3.title": "Cook with confidence",
   "how.step3.desc": "Follow step-by-step recipes. Your grocery list is generated and ready to go.",
 
+  "story.label": "The Journey",
+  "story.title": "From chaos to confident cooking",
+  "story.subtitle": "Four simple steps to transform your kitchen routine.",
+  "story.ch1.title": "Your fridge, finally organized",
+  "story.ch1.desc": "Scan barcodes, snap receipts, or add items manually. Cookest builds a live inventory of your kitchen — with expiry tracking so nothing gets forgotten.",
+  "story.ch2.title": "A week of meals, planned in seconds",
+  "story.ch2.desc": "Our AI reads your pantry, learns your taste, and generates a full week of personalized meals. Every plan prioritizes what you already have.",
+  "story.ch3.title": "Recipes that guide every step",
+  "story.ch3.desc": "Follow clear, step-by-step instructions with smart substitutions, nutritional info, and serving-size scaling — all tailored to your plan.",
+  "story.ch4.title": "Shop smarter, waste nothing",
+  "story.ch4.desc": "A smart grocery list is generated from your meal plan — grouped by aisle, synced to your phone, and ready before you leave the house.",
+
   "sustain.label": "Our Mission",
   "sustain.title": "Cooking smarter for a better planet",
   "sustain.subtitle": "Food waste is one of the biggest contributors to climate change. Cookest is built from the ground up to reduce it — one meal plan at a time.",

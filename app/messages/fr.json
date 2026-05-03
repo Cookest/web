@@ -45,6 +45,18 @@
   "how.step3.title": "Cuisinez en confiance",
   "how.step3.desc": "Suivez les recettes étape par étape. Votre liste de courses est générée et prête.",
 
+  "story.label": "Le Parcours",
+  "story.title": "Du chaos à la cuisine en toute confiance",
+  "story.subtitle": "Quatre étapes simples pour transformer votre routine en cuisine.",
+  "story.ch1.title": "Votre frigo, enfin organisé",
+  "story.ch1.desc": "Scannez les codes-barres, photographiez vos tickets ou ajoutez des articles manuellement. Cookest crée un inventaire en temps réel de votre cuisine — avec suivi des dates de péremption.",
+  "story.ch2.title": "Une semaine de repas, planifiée en secondes",
+  "story.ch2.desc": "Notre IA analyse votre garde-manger, apprend vos goûts et génère une semaine complète de repas personnalisés. Chaque plan utilise en priorité ce que vous avez déjà.",
+  "story.ch3.title": "Des recettes qui vous guident pas à pas",
+  "story.ch3.desc": "Suivez des instructions claires étape par étape avec des substitutions intelligentes, des infos nutritionnelles et un ajustement des portions — le tout adapté à votre plan.",
+  "story.ch4.title": "Achetez malin, ne gaspillez rien",
+  "story.ch4.desc": "Une liste de courses intelligente est générée à partir de votre plan repas — triée par rayon, synchronisée sur votre téléphone et prête avant de partir.",
+
   "sustain.label": "Notre Mission",
   "sustain.title": "Cuisiner plus intelligemment pour une meilleure planète",
   "sustain.subtitle": "Le gaspillage alimentaire est l'un des plus grands contributeurs au changement climatique. Cookest est conçu pour le réduire — un plan repas à la fois.",
