@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useTheme } from "./ThemeProvider";
 import { useTranslation, SUPPORTED_LOCALES, type Locale } from "./TranslationProvider";
@@ -48,8 +49,7 @@ export default function Nav() {
       >
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6">
           <a href="#" className="flex items-center gap-2" style={{ textDecoration: "none" }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/icon-app.png" alt="Cookest" style={{ width: 32, height: 32, borderRadius: 8 }} />
+            <Image src="/icon-app.png" alt="Cookest" width={32} height={32} style={{ borderRadius: 8 }} />
             <span
               style={{
                 fontFamily: "'Playfair Display', serif",

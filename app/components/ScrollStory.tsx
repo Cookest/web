@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useScroll, useTransform, useMotionValueEvent, useInView, type MotionValue } from "framer-motion";
 import { useRef, useState } from "react";
 import { ScanBarcode, Calendar, ChefHat, ShoppingCart, type LucideIcon } from "lucide-react";
@@ -113,12 +114,12 @@ function ChapterLayer({
 
       {/* phone */}
       <motion.div style={{ display: "flex", justifyContent: "center", y, rotate: phoneRotate }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={chapter.phone}
           alt=""
+          width={220}
+          height={400}
           style={{
-            width: 220,
             maxHeight: 400,
             objectFit: "contain",
             filter: "drop-shadow(0 32px 48px rgba(28,58,42,0.22))",

@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { useMediaQuery } from "./useMediaQuery";
@@ -104,8 +105,7 @@ export default function Showcase() {
                 zIndex: i === 1 ? 2 : 1,
               }}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={phone.src} alt={phone.alt} style={{ width: phone.size, height: "auto", display: "block" }} />
+              <Image src={phone.src} alt={phone.alt} width={phone.size} height={phone.size * 2} style={{ width: phone.size, height: "auto", display: "block" }} />
             </motion.div>
           ))}
         </div>

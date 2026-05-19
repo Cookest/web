@@ -12,7 +12,7 @@ export default function Footer() {
   const { t } = useTranslation();
 
   return (
-    <footer style={{ background: "#0F2218", padding: "48px 0 32px" }}>
+    <footer style={{ background: "var(--color-background-dark)", padding: "48px 0 32px" }}>
       <div className="mx-auto max-w-6xl px-6">
         <div className="flex flex-col items-center gap-6 md:flex-row md:items-center md:justify-between md:gap-6">
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>

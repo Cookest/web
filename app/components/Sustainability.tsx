@@ -22,6 +22,7 @@ function useCountUp(target: number, inView: boolean, duration = 1800) {
 
 import { Wheat, Heart, Recycle } from "lucide-react";
 
+// SDG official brand colors — do not replace with design tokens
 const sdgs: { num: string; labelKey: TranslationKey; Icon: typeof Wheat; color: string }[] = [
   { num: "SDG 2", labelKey: "sustain.sdg2", Icon: Wheat, color: "#DDA63A" },
   { num: "SDG 3", labelKey: "sustain.sdg3", Icon: Heart, color: "#4C9F38" },

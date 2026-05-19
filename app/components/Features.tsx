@@ -5,10 +5,10 @@ import { Archive, Sparkles, ChefHat, ShoppingCart, type LucideIcon } from "lucid
 import { useTranslation, type TranslationKey } from "./TranslationProvider";
 
 const features: { Icon: LucideIcon; titleKey: TranslationKey; descKey: TranslationKey; color: string }[] = [
-  { Icon: Archive, titleKey: "features.inventory.title", descKey: "features.inventory.desc", color: "#7A9A65" },
-  { Icon: Sparkles, titleKey: "features.planner.title", descKey: "features.planner.desc", color: "#4E7A3A" },
-  { Icon: ChefHat, titleKey: "features.recipes.title", descKey: "features.recipes.desc", color: "#7A9A65" },
-  { Icon: ShoppingCart, titleKey: "features.grocery.title", descKey: "features.grocery.desc", color: "#4E7A3A" },
+  { Icon: Archive, titleKey: "features.inventory.title", descKey: "features.inventory.desc", color: "var(--color-primary)" },
+  { Icon: Sparkles, titleKey: "features.planner.title", descKey: "features.planner.desc", color: "var(--color-primary-dark)" },
+  { Icon: ChefHat, titleKey: "features.recipes.title", descKey: "features.recipes.desc", color: "var(--color-primary)" },
+  { Icon: ShoppingCart, titleKey: "features.grocery.title", descKey: "features.grocery.desc", color: "var(--color-primary-dark)" },
 ];
 
 function FCard({ f, i }: { f: (typeof features)[0]; i: number }) {
@@ -38,7 +38,7 @@ function FCard({ f, i }: { f: (typeof features)[0]; i: number }) {
           width: 52,
           height: 52,
           borderRadius: 14,
-          background: `rgba(${f.color === "#7A9A65" ? "122,154,101" : "78,122,58"},0.12)`,
+          background: f.color === "var(--color-primary)" ? "rgba(122,154,101,0.12)" : "rgba(78,122,58,0.12)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
