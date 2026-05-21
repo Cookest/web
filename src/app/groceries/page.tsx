@@ -1,30 +1,14 @@
 "use client";
 
-import { useState, useMemo, useRef, useEffect } from "react";
+import { useMemo } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import {
-  ShoppingCart,
-  Plus,
-  Trash2,
-  Check,
-  RefreshCw,
-  X,
-  ChevronDown,
-  ChevronRight,
-} from "lucide-react";
-import {
-  Button,
-  Card,
-  CardBody,
-  Badge,
-  Checkbox,
-  Progress,
-  Input,
-} from "@cookest/ui";
+import { ShoppingCart, Check, RefreshCw } from "lucide-react";
+import { Button, Progress } from "@cookest/ui";
 import { api } from "@/lib/api";
-import type { ShoppingItem, ShoppingListResponse, Ingredient } from "@/lib/types";
-
-// ── Helpers ──
+import type { ShoppingItem } from "@/lib/types";
+import { ShoppingCategory } from "@/components/groceries/shopping-category";
+import { AddItemForm } from "@/components/groceries/add-item-form";
+import { EmptyState } from "@/components/empty-state";
 
 function groupByCategory(items: ShoppingItem[]): Record<string, ShoppingItem[]> {
   const groups: Record<string, ShoppingItem[]> = {};
@@ -33,28 +17,10 @@ function groupByCategory(items: ShoppingItem[]): Record<string, ShoppingItem[]> 
     if (!groups[cat]) groups[cat] = [];
     groups[cat].push(item);
   }
-  // Sort categories alphabetically
   return Object.fromEntries(
     Object.entries(groups).sort(([a], [b]) => a.localeCompare(b))
   );
 }
-
-const CATEGORY_COLORS: Record<string, string> = {
-  meat: "bg-red-100 text-red-800",
-  dairy: "bg-blue-100 text-blue-800",
-  produce: "bg-green-100 text-green-800",
-  grains: "bg-amber-100 text-amber-800",
-  spices: "bg-orange-100 text-orange-800",
-  beverages: "bg-purple-100 text-purple-800",
-  frozen: "bg-cyan-100 text-cyan-800",
-  snacks: "bg-pink-100 text-pink-800",
-};
-
-function getCategoryColor(category: string): string {
-  return CATEGORY_COLORS[category.toLowerCase()] ?? "bg-gray-100 text-gray-800";
-}
-
-// ── Skeletons ──
 
 function ListSkeleton() {
   return (
@@ -76,216 +42,6 @@ function ListSkeleton() {
     </div>
   );
 }
-
-// ── Ingredient Search (inline) ──
-
-function InlineIngredientSearch({
-  onSelect,
-}: {
-  onSelect: (ingredient: Ingredient) => void;
-}) {
-  const [query, setQuery] = useState("");
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  const { data: results = [] } = useQuery({
-    queryKey: ["ingredients", query],
-    queryFn: () => api.searchIngredients(query),
-    enabled: query.length >= 2,
-  });
-
-  useEffect(() => {
-    function handleClick(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, []);
-
-  return (
-    <div className="relative flex-1" ref={ref}>
-      <Input
-        placeholder="Search ingredient..."
-        value={query}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          setQuery(e.target.value);
-          setOpen(true);
-        }}
-        onFocus={() => query.length >= 2 && setOpen(true)}
-      />
-      {open && results.length > 0 && (
-        <div className="absolute z-50 mt-1 w-full rounded-lg border border-[#e4ebe0] bg-white shadow-lg max-h-48 overflow-y-auto">
-          {results.map((ing) => (
-            <button
-              key={ing.id}
-              type="button"
-              onClick={() => {
-                onSelect(ing);
-                setQuery("");
-                setOpen(false);
-              }}
-              className="w-full px-4 py-2 text-left text-sm text-[#1c3a2a] hover:bg-[#f0f4ec] transition-colors"
-            >
-              {ing.name}
-              {ing.category && (
-                <span className="ml-2 text-xs text-[#7a8e74]">{ing.category}</span>
-              )}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
-
-// ── Add Item Form ──
-
-function AddItemForm({ onAdd, isPending }: { onAdd: (data: { ingredient_id: number; quantity: number; unit: string }) => void; isPending: boolean }) {
-  const [ingredient, setIngredient] = useState<Ingredient | null>(null);
-  const [quantity, setQuantity] = useState("");
-  const [unit, setUnit] = useState("");
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (!ingredient) return;
-    onAdd({
-      ingredient_id: ingredient.id,
-      quantity: parseFloat(quantity) || 1,
-      unit: unit || "pcs",
-    });
-    setIngredient(null);
-    setQuantity("");
-    setUnit("");
-  }
-
-  return (
-    <form onSubmit={handleSubmit} className="mb-6">
-      <Card>
-        <CardBody className="p-4">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
-            {ingredient ? (
-              <div className="flex flex-1 items-center gap-2 rounded-lg border border-[#e4ebe0] bg-[#f0f4ec] px-3 py-2">
-                <span className="text-sm font-medium text-[#1c3a2a]">{ingredient.name}</span>
-                <button
-                  type="button"
-                  onClick={() => setIngredient(null)}
-                  className="ml-auto text-[#7a8e74] hover:text-[#1c3a2a]"
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-            ) : (
-              <InlineIngredientSearch onSelect={setIngredient} />
-            )}
-            <div className="w-24">
-              <Input
-                type="number"
-                step="any"
-                min="0"
-                placeholder="Qty"
-                value={quantity}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuantity(e.target.value)}
-              />
-            </div>
-            <div className="w-24">
-              <Input
-                placeholder="Unit"
-                value={unit}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUnit(e.target.value)}
-              />
-            </div>
-            <Button type="submit" disabled={!ingredient || isPending}>
-              <Plus className="mr-1 h-4 w-4" />
-              Add
-            </Button>
-          </div>
-        </CardBody>
-      </Card>
-    </form>
-  );
-}
-
-// ── Category Group ──
-
-function CategoryGroup({
-  category,
-  items,
-  onToggle,
-  onDelete,
-}: {
-  category: string;
-  items: ShoppingItem[];
-  onToggle: (id: string) => void;
-  onDelete: (id: string) => void;
-}) {
-  const [collapsed, setCollapsed] = useState(false);
-  const checkedCount = items.filter((i) => i.is_checked).length;
-
-  return (
-    <div className="mb-4">
-      <button
-        type="button"
-        onClick={() => setCollapsed(!collapsed)}
-        className="mb-2 flex w-full items-center gap-2 text-left"
-      >
-        {collapsed ? (
-          <ChevronRight className="h-4 w-4 text-[#7a8e74]" />
-        ) : (
-          <ChevronDown className="h-4 w-4 text-[#7a8e74]" />
-        )}
-        <Badge className={`text-xs capitalize ${getCategoryColor(category)}`}>
-          {category}
-        </Badge>
-        <span className="text-xs text-[#7a8e74]">
-          {checkedCount}/{items.length}
-        </span>
-      </button>
-
-      {!collapsed && (
-        <Card>
-          <CardBody className="divide-y divide-[#e4ebe0] p-0">
-            {items.map((item) => (
-              <div
-                key={item.id}
-                className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-[#fafaf6]"
-              >
-                <Checkbox
-                  checked={item.is_checked}
-                  onCheckedChange={() => onToggle(item.id)}
-                />
-                <div className="flex-1 min-w-0">
-                  <span
-                    className={`text-sm ${
-                      item.is_checked
-                        ? "text-[#7a8e74] line-through"
-                        : "font-medium text-[#1c3a2a]"
-                    }`}
-                  >
-                    {item.name}
-                  </span>
-                  <span className="ml-2 text-xs text-[#7a8e74]">
-                    {item.quantity} {item.unit}
-                  </span>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => onDelete(item.id)}
-                  className="rounded p-1 text-[#7a8e74] opacity-0 transition-opacity hover:bg-red-50 hover:text-[#f44336] group-hover:opacity-100 [div:hover>&]:opacity-100"
-                >
-                  <Trash2 className="h-4 w-4" />
-                </button>
-              </div>
-            ))}
-          </CardBody>
-        </Card>
-      )}
-    </div>
-  );
-}
-
-// ── Main Page ──
 
 export default function GroceriesPage() {
   const queryClient = useQueryClient();
@@ -371,34 +127,25 @@ export default function GroceriesPage() {
         </div>
       )}
 
-      {/* Add item form */}
       <AddItemForm onAdd={(d) => addMutation.mutate(d)} isPending={addMutation.isPending} />
 
       {/* Content */}
       {isLoading ? (
         <ListSkeleton />
       ) : items.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-20 text-center">
-          <ShoppingCart className="mb-4 h-16 w-16 text-[#e4ebe0]" />
-          <h2 className="font-serif text-xl font-semibold text-[#1c3a2a]">
-            Your shopping list is empty
-          </h2>
-          <p className="mt-2 max-w-sm text-sm text-[#7a8e74]">
-            Add items manually or sync from your current meal plan to get started.
-          </p>
-          <Button
-            className="mt-4"
-            onClick={() => syncMutation.mutate()}
-            disabled={syncMutation.isPending}
-          >
-            <RefreshCw className={`mr-2 h-4 w-4 ${syncMutation.isPending ? "animate-spin" : ""}`} />
-            Sync from Meal Plan
-          </Button>
-        </div>
+        <EmptyState
+          icon={ShoppingCart}
+          title="Your shopping list is empty"
+          description="Add items manually or sync from your current meal plan to get started."
+          action={{
+            label: "Sync from Meal Plan",
+            onClick: () => syncMutation.mutate(),
+          }}
+        />
       ) : (
         <div>
           {Object.entries(grouped).map(([category, categoryItems]) => (
-            <CategoryGroup
+            <ShoppingCategory
               key={category}
               category={category}
               items={categoryItems}
