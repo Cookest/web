@@ -1,17 +1,15 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useTheme } from "./ThemeProvider";
-import { useTranslation, SUPPORTED_LOCALES, type Locale } from "./TranslationProvider";
-import { Sun, Moon, Monitor, Globe, Menu, X } from "lucide-react";
+import { useTranslation } from "./TranslationProvider";
+import { useMediaQuery } from "./useMediaQuery";
+import { Menu, X } from "lucide-react";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
-  const { theme, setTheme } = useTheme();
-  const { locale, setLocale, t } = useTranslation();
-  const [themeMenuOpen, setThemeMenuOpen] = useState(false);
-  const [langMenuOpen, setLangMenuOpen] = useState(false);
+  const { t } = useTranslation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const isMobile = useMediaQuery("(max-width: 767px)");
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 40);
@@ -85,146 +83,8 @@ export default function Nav() {
               </a>
             </li>
           </ul>
-          <div className="hidden items-center gap-3 md:flex">
-            <div style={{ position: "relative" }}>
-              <button
-                onClick={() => setThemeMenuOpen(!themeMenuOpen)}
-                onBlur={() => setTimeout(() => setThemeMenuOpen(false), 150)}
-                aria-label="Toggle theme"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: 36,
-                  height: 36,
-                  borderRadius: 10,
-                  border: "1px solid var(--border)",
-                  background: "var(--bg-card)",
-                  color: "var(--text)",
-                  cursor: "pointer",
-                  transition: "all 0.2s",
-                }}
-              >
-                {theme === "system" ? <Monitor size={16} /> : theme === "dark" ? <Moon size={16} /> : <Sun size={16} />}
-              </button>
-              {themeMenuOpen && (
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "calc(100% + 6px)",
-                    right: 0,
-                    background: "var(--bg-card)",
-                    border: "1px solid var(--border)",
-                    borderRadius: 12,
-                    padding: 4,
-                    minWidth: 140,
-                    boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
-                    zIndex: 100,
-                  }}
-                >
-                  {(["light", "dark", "system"] as const).map((value) => {
-                    const Icon = value === "light" ? Sun : value === "dark" ? Moon : Monitor;
-                    const label = t(`theme.${value}` as "theme.light" | "theme.dark" | "theme.system");
-                    return (
-                      <button
-                        key={value}
-                        onClick={() => {
-                          setTheme(value);
-                          setThemeMenuOpen(false);
-                        }}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 8,
-                          width: "100%",
-                          padding: "8px 12px",
-                          border: "none",
-                          borderRadius: 8,
-                          background: theme === value ? "var(--border)" : "transparent",
-                          color: "var(--text)",
-                          fontSize: "0.82rem",
-                          fontWeight: theme === value ? 600 : 400,
-                          cursor: "pointer",
-                          transition: "background 0.15s",
-                        }}
-                      >
-                        <Icon size={14} />
-                        {label}
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-            <div style={{ position: "relative" }}>
-              <button
-                onClick={() => setLangMenuOpen(!langMenuOpen)}
-                onBlur={() => setTimeout(() => setLangMenuOpen(false), 150)}
-                aria-label="Change language"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: 4,
-                  height: 36,
-                  padding: "0 10px",
-                  borderRadius: 10,
-                  border: "1px solid var(--border)",
-                  background: "var(--bg-card)",
-                  color: "var(--text)",
-                  cursor: "pointer",
-                  transition: "all 0.2s",
-                  fontSize: "0.78rem",
-                  fontWeight: 500,
-                }}
-              >
-                <Globe size={14} />
-                {locale.toUpperCase()}
-              </button>
-              {langMenuOpen && (
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "calc(100% + 6px)",
-                    right: 0,
-                    background: "var(--bg-card)",
-                    border: "1px solid var(--border)",
-                    borderRadius: 12,
-                    padding: 4,
-                    minWidth: 150,
-                    boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
-                    zIndex: 100,
-                  }}
-                >
-                  {(Object.entries(SUPPORTED_LOCALES) as [Locale, string][]).map(([code, name]) => (
-                    <button
-                      key={code}
-                      onClick={() => {
-                        setLocale(code);
-                        setLangMenuOpen(false);
-                      }}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 8,
-                        width: "100%",
-                        padding: "8px 12px",
-                        border: "none",
-                        borderRadius: 8,
-                        background: locale === code ? "var(--border)" : "transparent",
-                        color: "var(--text)",
-                        fontSize: "0.82rem",
-                        fontWeight: locale === code ? 600 : 400,
-                        cursor: "pointer",
-                        transition: "background 0.15s",
-                      }}
-                    >
-                      {name}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
+          {/* Desktop CTA */}
+          <div className="hidden items-center md:flex">
             <a
               href="#download"
               className="inline-flex items-center gap-2 rounded-xl px-6 py-2.5 text-sm font-semibold transition-all duration-300"
@@ -239,33 +99,33 @@ export default function Nav() {
             </a>
           </div>
 
-          {/* Mobile hamburger */}
-          <button
-            className="md:hidden"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: 40,
-              height: 40,
-              borderRadius: 10,
-              border: "1px solid var(--border)",
-              background: "var(--bg-card)",
-              color: "var(--text)",
-              cursor: "pointer",
-            }}
-          >
-            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+          {/* Mobile hamburger — only on mobile */}
+          {isMobile && (
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle menu"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 40,
+                height: 40,
+                borderRadius: 10,
+                border: "1px solid var(--border)",
+                background: "var(--bg-card)",
+                color: "var(--text)",
+                cursor: "pointer",
+              }}
+            >
+              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          )}
         </div>
       </nav>
 
       {/* Mobile menu overlay */}
-      {mobileOpen && (
+      {isMobile && mobileOpen && (
         <div
-          className="md:hidden"
           style={{
             position: "fixed",
             inset: 0,
@@ -310,58 +170,6 @@ export default function Nav() {
             >
               {t("nav.docs")} ↗
             </a>
-
-            <div style={{ display: "flex", gap: 10, marginTop: 16 }}>
-              {(["light", "dark", "system"] as const).map((value) => {
-                const Icon = value === "light" ? Sun : value === "dark" ? Moon : Monitor;
-                return (
-                  <button
-                    key={value}
-                    onClick={() => setTheme(value)}
-                    style={{
-                      flex: 1,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      gap: 6,
-                      padding: "10px 0",
-                      borderRadius: 10,
-                      border: theme === value ? "2px solid var(--primary)" : "1px solid var(--border)",
-                      background: theme === value ? "rgba(122,154,101,0.1)" : "var(--bg-card)",
-                      color: "var(--text)",
-                      fontSize: "0.8rem",
-                      fontWeight: 500,
-                      cursor: "pointer",
-                    }}
-                  >
-                    <Icon size={14} />
-                    {t(`theme.${value}` as "theme.light" | "theme.dark" | "theme.system")}
-                  </button>
-                );
-              })}
-            </div>
-
-            <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
-              {(Object.entries(SUPPORTED_LOCALES) as [Locale, string][]).map(([code, name]) => (
-                <button
-                  key={code}
-                  onClick={() => setLocale(code)}
-                  style={{
-                    flex: 1,
-                    padding: "10px 0",
-                    borderRadius: 10,
-                    border: locale === code ? "2px solid var(--primary)" : "1px solid var(--border)",
-                    background: locale === code ? "rgba(122,154,101,0.1)" : "var(--bg-card)",
-                    color: "var(--text)",
-                    fontSize: "0.85rem",
-                    fontWeight: 500,
-                    cursor: "pointer",
-                  }}
-                >
-                  {name}
-                </button>
-              ))}
-            </div>
 
             <a
               href="#download"

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useScroll, useTransform, useMotionValueEvent, useInView, type MotionValue } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValueEvent, useInView, AnimatePresence, type MotionValue } from "framer-motion";
 import { useRef, useState } from "react";
 import { ScanBarcode, Calendar, ChefHat, ShoppingCart, type LucideIcon } from "lucide-react";
 import { useMediaQuery } from "./useMediaQuery";
@@ -62,6 +62,8 @@ function ChapterLayer({
         gap: 48,
         opacity,
         pointerEvents: "none",
+        willChange: "opacity",
+        isolation: "isolate",
       }}
     >
       {/* text */}
@@ -203,28 +205,7 @@ function DesktopStory() {
     setActive(Math.min(Math.floor(v * chapters.length), chapters.length - 1));
   });
 
-  /* per-chapter scroll transforms ────────────────── */
-
-  // Chapter 1 (0.00 – 0.25)
-  const ch1Opacity = useTransform(scrollYProgress, [0, 0.18, 0.23], [1, 1, 0]);
-  const ch1Y = useTransform(scrollYProgress, [0, 0.25], [0, -50]);
-
-  // Chapter 2 (0.25 – 0.50)
-  const ch2Opacity = useTransform(scrollYProgress, [0.22, 0.28, 0.43, 0.48], [0, 1, 1, 0]);
-  const ch2Y = useTransform(scrollYProgress, [0.25, 0.375, 0.5], [50, 0, -50]);
-
-  // Chapter 3 (0.50 – 0.75)
-  const ch3Opacity = useTransform(scrollYProgress, [0.47, 0.53, 0.68, 0.73], [0, 1, 1, 0]);
-  const ch3Y = useTransform(scrollYProgress, [0.5, 0.625, 0.75], [50, 0, -50]);
-
-  // Chapter 4 (0.75 – 1.00)
-  const ch4Opacity = useTransform(scrollYProgress, [0.72, 0.78, 1], [0, 1, 1]);
-  const ch4Y = useTransform(scrollYProgress, [0.75, 1], [50, 0]);
-
-  const opacities = [ch1Opacity, ch2Opacity, ch3Opacity, ch4Opacity];
-  const ys = [ch1Y, ch2Y, ch3Y, ch4Y];
-
-  // Subtle phone tilt wave
+  // Subtle phone tilt wave — kept for the active chapter phone
   const phoneRotate = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], [0, -2, 0, 2, 0]);
 
   // Background blobs
@@ -233,6 +214,8 @@ function DesktopStory() {
 
   // Scroll hint (fades as you start scrolling)
   const hintOpacity = useTransform(scrollYProgress, [0, 0.08], [0.5, 0]);
+
+  const ch = chapters[active];
 
   return (
     <section id="how" ref={containerRef} style={{ height: "400vh", position: "relative" }}>
@@ -281,7 +264,7 @@ function DesktopStory() {
 
         <div className="mx-auto w-full max-w-6xl px-6" style={{ position: "relative" }}>
           {/* section header */}
-          <div style={{ marginBottom: 56, paddingLeft: 48 }}>
+          <div style={{ marginBottom: 32, paddingLeft: 48 }}>
             <span
               style={{
                 display: "inline-block",
@@ -310,13 +293,90 @@ function DesktopStory() {
             </h2>
           </div>
 
-          {/* chapters + progress */}
-          <div style={{ position: "relative", height: 400 }}>
+          {/* chapters + progress — only ONE chapter rendered at a time */}
+          <div style={{ position: "relative", height: 480 }}>
             <ProgressTrack progress={scrollYProgress} active={active} />
 
-            {chapters.map((ch, i) => (
-              <ChapterLayer key={ch.num} chapter={ch} opacity={opacities[i]} y={ys[i]} phoneRotate={phoneRotate} />
-            ))}
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={active}
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -24 }}
+                transition={{ duration: 0.35, ease: "easeInOut" }}
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  alignItems: "center",
+                  gap: 48,
+                }}
+              >
+                {/* text */}
+                <div style={{ paddingLeft: 48 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 24 }}>
+                    <div
+                      style={{
+                        width: 46,
+                        height: 46,
+                        borderRadius: 13,
+                        background: "rgba(122,154,101,0.10)",
+                        border: "1px solid rgba(122,154,101,0.18)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <ch.Icon size={22} color="var(--primary-dark)" strokeWidth={1.8} />
+                    </div>
+                    <span
+                      style={{
+                        fontFamily: "'Playfair Display',serif",
+                        fontSize: "0.85rem",
+                        fontWeight: 700,
+                        letterSpacing: "0.1em",
+                        color: "var(--primary)",
+                      }}
+                    >
+                      {ch.num}
+                    </span>
+                  </div>
+
+                  <h3
+                    style={{
+                      fontFamily: "'Playfair Display',serif",
+                      fontSize: "clamp(1.5rem, 2.5vw, 2.2rem)",
+                      fontWeight: 700,
+                      color: "var(--heading)",
+                      lineHeight: 1.15,
+                      marginBottom: 14,
+                    }}
+                  >
+                    {t(ch.titleKey)}
+                  </h3>
+
+                  <p style={{ fontSize: "0.95rem", color: "var(--text-muted)", lineHeight: 1.78, maxWidth: 380, margin: 0 }}>
+                    {t(ch.descKey)}
+                  </p>
+                </div>
+
+                {/* phone */}
+                <motion.div style={{ display: "flex", justifyContent: "center", rotate: phoneRotate }}>
+                  <Image
+                    src={ch.phone}
+                    alt=""
+                    width={220}
+                    height={400}
+                    style={{
+                      maxHeight: 400,
+                      objectFit: "contain",
+                      filter: "drop-shadow(0 32px 48px rgba(28,58,42,0.22))",
+                    }}
+                  />
+                </motion.div>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
 

@@ -201,43 +201,6 @@ export default function Hero() {
         </div>
       </div>
 
-      <motion.div
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 1.8, repeat: Infinity }}
-        style={{
-          position: "absolute",
-          bottom: 32,
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: 1,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 4,
-          opacity: 0.45,
-        }}
-      >
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path
-            d="M10 4 L10 16 M6 12 L10 16 L14 12"
-            stroke="var(--primary-dark)"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-        <span
-          style={{
-            fontSize: "0.7rem",
-            color: "var(--text-muted)",
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
-          }}
-        >
-          {t("hero.scroll")}
-        </span>
-      </motion.div>
-
       <style>{`@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.5)} }`}</style>
     </section>
   );
