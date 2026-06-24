@@ -33,16 +33,16 @@ function RecipeCard({
             <h2 className="text-xl font-bold text-heading font-serif flex-1 leading-tight">
               {recipe.title}
             </h2>
-            {recipe.category && (
-              <Badge variant="default" size="sm">{recipe.category}</Badge>
+            {recipe.cuisine && (
+              <Badge variant="default" size="sm">{recipe.cuisine}</Badge>
             )}
           </div>
 
           <div className="flex items-center gap-4 text-sm text-muted">
-            {recipe.total_time_minutes != null && (
+            {(recipe.prep_time + recipe.cook_time) > 0 && (
               <span className="flex items-center gap-1">
                 <Clock className="w-3.5 h-3.5" />
-                {recipe.total_time_minutes} min
+                {recipe.prep_time + recipe.cook_time} min
               </span>
             )}
             {recipe.difficulty && (

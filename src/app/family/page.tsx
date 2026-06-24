@@ -57,7 +57,7 @@ function EmptyState() {
             variant="primary"
             className="w-full"
             disabled={loading || !name.trim()}
-            onClick={() => run(() => api.createHousehold(name.trim()))}
+            onClick={() => run(async () => { await api.createHousehold(name.trim()); })}
           >
             {loading ? <Spinner size="sm" /> : "Create family"}
           </Button>
@@ -83,7 +83,7 @@ function EmptyState() {
             variant="secondary"
             className="w-full"
             disabled={loading || !code.trim()}
-            onClick={() => run(() => api.joinHousehold(code.trim()).then(() => undefined))}
+            onClick={() => run(async () => { await api.joinHousehold(code.trim()); })}
           >
             {loading ? <Spinner size="sm" /> : "Join family"}
           </Button>
