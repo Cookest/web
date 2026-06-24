@@ -1,6 +1,19 @@
 import type { AuthResponse } from "../types";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+const getApiBase = () => {
+  if (process.env.NEXT_PUBLIC_API_URL) {
+    return process.env.NEXT_PUBLIC_API_URL;
+  }
+  if (typeof window !== "undefined") {
+    // Dynamically fallback to the current page hostname (e.g. 192.168.x.x) on port 8080 for local network testing
+    const protocol = window.location.protocol;
+    const hostname = window.location.hostname;
+    return `${protocol}//${hostname}:8080`;
+  }
+  return "http://localhost:8080";
+};
+
+const API_BASE = getApiBase();
 
 export class ApiError extends Error {
   constructor(public status: number, public body: string) {
