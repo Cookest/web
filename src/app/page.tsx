@@ -12,6 +12,18 @@ import { TodaysMeals } from "@/components/dashboard/todays-meals";
 import { ExpiringItems } from "@/components/dashboard/expiring-items";
 import { QuickActions } from "@/components/dashboard/quick-actions";
 
+// Marketing landing page components
+import TranslationProvider from "@/marketing/TranslationProvider";
+import ThemeProvider from "@/marketing/ThemeProvider";
+import Nav from "@/marketing/Nav";
+import Hero from "@/marketing/Hero";
+import Features from "@/marketing/Features";
+import Showcase from "@/marketing/Showcase";
+import ScrollStory from "@/marketing/ScrollStory";
+import Sustainability from "@/marketing/Sustainability";
+import Download from "@/marketing/Download";
+import Footer from "@/marketing/Footer";
+
 function getGreeting() {
   const h = new Date().getHours();
   if (h < 12) return "Good morning";
@@ -27,7 +39,7 @@ function formatDate(d: Date) {
   });
 }
 
-export default function Home() {
+function Dashboard() {
   const { user } = useAuth();
   const today = new Date();
 
@@ -90,7 +102,6 @@ export default function Home() {
         subtitle={formatDate(today)}
       />
 
-      {/* Quick stats */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {statsLoading ? (
           <>
@@ -129,7 +140,6 @@ export default function Home() {
         )}
       </div>
 
-      {/* Two-column layout: Today's meals + Expiring soon */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <TodaysMeals mealPlan={mealPlan} isLoading={mealPlanLoading} />
         <ExpiringItems expiringItems={expiringItems} isLoading={expiringLoading} />
@@ -138,4 +148,31 @@ export default function Home() {
       <QuickActions />
     </div>
   );
+}
+
+function LandingPage() {
+  return (
+    <ThemeProvider>
+      <TranslationProvider>
+        <Nav />
+        <main>
+          <Hero />
+          <Features />
+          <Showcase />
+          <ScrollStory />
+          <Sustainability />
+          <Download />
+        </main>
+        <Footer />
+      </TranslationProvider>
+    </ThemeProvider>
+  );
+}
+
+export default function Home() {
+  const { isAuthenticated, isLoading } = useAuth();
+
+  if (isLoading) return null;
+
+  return isAuthenticated ? <Dashboard /> : <LandingPage />;
 }
