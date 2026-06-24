@@ -66,11 +66,12 @@ function Dashboard() {
 
   const cookedThisWeek = useMemo(() => {
     if (!history) return 0;
+    const items = Array.isArray(history) ? history : (history as any).items || [];
     const weekStart = new Date();
     weekStart.setDate(weekStart.getDate() - weekStart.getDay());
     weekStart.setHours(0, 0, 0, 0);
-    return history.items.filter(
-      (h) => new Date(h.cooked_at) >= weekStart
+    return items.filter(
+      (h: any) => h.cooked_at && new Date(h.cooked_at) >= weekStart
     ).length;
   }, [history]);
 

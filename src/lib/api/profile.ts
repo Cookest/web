@@ -40,6 +40,15 @@ export async function getFavourites(limit = 20, offset = 0): Promise<PaginatedRe
   return client.request(`/api/me/favourites?limit=${limit}&offset=${offset}`);
 }
 
-export async function getHistory(limit = 20, offset = 0): Promise<PaginatedResponse<{ recipe_id: string; title: string; cooked_at: string; servings: number }>> {
+export interface CookingHistoryItem {
+  id: string;
+  recipe_id: number;
+  recipe_name: string;
+  servings_made: number;
+  inventory_deducted: boolean;
+  cooked_at: string;
+}
+
+export async function getHistory(limit = 20, offset = 0): Promise<CookingHistoryItem[]> {
   return client.request(`/api/me/history?limit=${limit}&offset=${offset}`);
 }
