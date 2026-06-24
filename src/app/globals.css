@@ -24,6 +24,26 @@
   --color-info: #2196f3;
 }
 
+/* Marketing site CSS variable aliases */
+:root {
+  --primary: var(--color-primary);
+  --primary-light: var(--color-primary-light);
+  --primary-dark: var(--color-primary-dark);
+  --bg: var(--color-background);
+  --bg-card: var(--color-card);
+  --heading: var(--color-heading);
+  --text: var(--color-foreground);
+  --text-muted: var(--color-muted);
+  --border: var(--color-border);
+  --surface: var(--color-surface);
+  --surface-muted: rgba(245, 245, 240, 0.95);
+  --section-dark: #1c3a2a;
+}
+.dark {
+  --surface-muted: rgba(14, 21, 18, 0.95);
+  --section-dark: #0f1a14;
+}
+
 html {
   scroll-behavior: smooth;
 }
