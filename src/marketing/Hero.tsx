@@ -1,0 +1,230 @@
+"use client";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import ShaderCanvas from "./ShaderCanvas";
+import AnimatedBorderButton from "./AnimatedBorderButton";
+import { useMediaQuery } from "./useMediaQuery";
+import { useTranslation } from "./TranslationProvider";
+import { Monitor } from "lucide-react";
+
+function FloatingAccent({ style, delay = 0 }: { style: React.CSSProperties; delay?: number }) {
+  return (
+    <motion.div
+      style={{
+        position: "absolute",
+        opacity: 0.18,
+        pointerEvents: "none",
+        ...style,
+      }}
+      animate={{ y: [0, -12, 0], rotate: [0, 8, 0] }}
+      transition={{
+        duration: 5 + delay,
+        repeat: Infinity,
+        ease: "easeInOut",
+        delay,
+      }}
+    >
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+        <path d="M20 4 C20 4 32 12 32 24 C32 32 26 36 20 36 C14 36 8 32 8 24 C8 12 20 4 20 4Z" fill="var(--primary)" />
+        <line x1="20" y1="8" x2="20" y2="36" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.5" />
+        <path d="M14 16 Q20 13 26 16" stroke="white" strokeWidth="1" fill="none" strokeLinecap="round" opacity="0.4" />
+      </svg>
+    </motion.div>
+  );
+}
+
+export default function Hero() {
+  const mobile = useMediaQuery("(max-width: 767px)");
+  const { t } = useTranslation();
+
+  return (
+    <section
+      id="hero"
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        position: "relative",
+        overflow: "hidden",
+        paddingTop: mobile ? 100 : 80,
+      }}
+    >
+      <ShaderCanvas />
+
+      <FloatingAccent style={{ top: "15%", right: "8%", transform: "rotate(20deg)" }} delay={0} />
+      <FloatingAccent style={{ bottom: "20%", left: "5%", transform: "rotate(-15deg)" }} delay={1.5} />
+      <FloatingAccent
+        style={{
+          top: "60%",
+          right: "30%",
+          transform: "rotate(40deg) scale(0.6)",
+        }}
+        delay={3}
+      />
+
+      <div className="mx-auto w-full max-w-6xl px-6" style={{ position: "relative", zIndex: 1 }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: mobile ? "1fr" : "1fr 1fr",
+            gap: mobile ? 40 : 60,
+            alignItems: "center",
+          }}
+        >
+          <div style={mobile ? { textAlign: "center" } : undefined}>
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: "clamp(2.2rem, 5vw, 3.8rem)",
+                fontWeight: 700,
+                lineHeight: 1.1,
+                color: "var(--heading)",
+                marginBottom: 20,
+              }}
+            >
+              {t("hero.title1")}
+              <br />
+              <em style={{ color: "var(--primary-dark)", fontStyle: "italic" }}>{t("hero.title2")}</em>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              style={{
+                fontSize: mobile ? "1rem" : "1.08rem",
+                color: "var(--text-muted)",
+                lineHeight: 1.78,
+                marginBottom: 36,
+                maxWidth: mobile ? undefined : 440,
+                margin: mobile ? "0 auto 36px" : undefined,
+              }}
+            >
+              {t("hero.subtitle")}
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 16,
+                flexWrap: "wrap",
+                justifyContent: mobile ? "center" : undefined,
+              }}
+            >
+              <AnimatedBorderButton href="#download">{t("hero.cta")}</AnimatedBorderButton>
+              <AnimatedBorderButton href="#how" variant="ghost">
+                {t("hero.ctaSecondary")}
+              </AnimatedBorderButton>
+            </motion.div>
+
+            {/* Web App CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.45 }}
+              style={{
+                marginTop: 20,
+                display: "flex",
+                justifyContent: mobile ? "center" : undefined,
+              }}
+            >
+              <Link
+                href="/login"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  fontSize: "0.88rem",
+                  color: "var(--primary-dark)",
+                  textDecoration: "none",
+                  fontWeight: 500,
+                }}
+              >
+                <Monitor size={15} />
+                Or use the web app →
+              </Link>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.7 }}
+              style={{
+                marginTop: 40,
+                display: "flex",
+                alignItems: "center",
+                gap: 12,
+                color: "var(--text-muted)",
+                fontSize: "0.82rem",
+                justifyContent: mobile ? "center" : undefined,
+              }}
+            >
+              <div style={{ display: "flex" }}>
+                {["A", "B", "C"].map((l, i) => (
+                  <div
+                    key={l}
+                    style={{
+                      width: 30,
+                      height: 30,
+                      borderRadius: "50%",
+                      border: "2px solid var(--surface)",
+                      marginLeft: i === 0 ? 0 : -8,
+                      background: "var(--primary-light)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: "0.65rem",
+                      fontWeight: 700,
+                      color: "var(--heading)",
+                    }}
+                  >
+                    {l}
+                  </div>
+                ))}
+              </div>
+              <span>{t("hero.tagline")}</span>
+            </motion.div>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, x: mobile ? 0 : 40, rotate: mobile ? 0 : 3 }}
+            animate={{ opacity: 1, x: 0, rotate: 0 }}
+            transition={{ duration: 0.9, delay: 0.2 }}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              filter: "drop-shadow(0 40px 60px rgba(28,58,42,0.28))",
+              order: mobile ? -1 : undefined,
+            }}
+          >
+            <motion.div
+              animate={{ y: [0, -16, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              style={{ willChange: "transform" }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/phones/screen-1.svg"
+                alt="Cookest meals screen"
+                style={{
+                  width: mobile ? 200 : 260,
+                  height: "auto",
+                  display: "block",
+                }}
+              />
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
+
+      <style>{`@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.5)} }`}</style>
+    </section>
+  );
+}
