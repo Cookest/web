@@ -2,9 +2,9 @@
 @import "@cookest/ui/styles.css";
 
 @theme inline {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-sans: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-playfair), "Playfair Display", ui-serif, Georgia, serif;
+  --font-mono: var(--font-jetbrains), "JetBrains Mono", ui-monospace, monospace;
 
   --color-primary: #7a9a65;
   --color-primary-light: #b4cc9e;
@@ -24,7 +24,7 @@
   --color-info: #2196f3;
 }
 
-/* Marketing site CSS variable aliases */
+/* Marketing site and components library CSS variable aliases */
 :root {
   --primary: var(--color-primary);
   --primary-light: var(--color-primary-light);
@@ -38,8 +38,58 @@
   --surface: var(--color-surface);
   --surface-muted: rgba(245, 245, 240, 0.95);
   --section-dark: #1c3a2a;
+
+  /* Map @cookest/ui variables */
+  --ck-primary: var(--color-primary);
+  --ck-primary-light: var(--color-primary-light);
+  --ck-primary-dark: var(--color-primary-dark);
+  --ck-bg: var(--color-background);
+  --ck-bg-card: var(--color-card);
+  --ck-heading: var(--color-heading);
+  --ck-text: var(--color-foreground);
+  --ck-text-muted: var(--color-muted);
+  --ck-border: var(--color-border);
+  --ck-surface: var(--color-surface);
+  --ck-success: var(--color-success);
+  --ck-warning: var(--color-warning);
+  --ck-error: var(--color-error);
+  --ck-info: var(--color-info);
 }
+
+/* Automatic dark mode based on user's OS preference */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #0e1512;
+    --color-surface: #1a261e;
+    --color-card: #172019;
+    --color-heading: #e0ede4;
+    --color-foreground: #b0c8b5;
+    --color-muted: #6a8a70;
+    --color-border: #253d2e;
+
+    --color-primary: #8ab575;
+    --color-primary-light: #6b9a55;
+    --color-primary-dark: #a8d490;
+
+    --surface-muted: rgba(14, 21, 18, 0.95);
+    --section-dark: #0f1a14;
+  }
+}
+
+/* Manual class toggle fallback */
 .dark {
+  --color-background: #0e1512;
+  --color-surface: #1a261e;
+  --color-card: #172019;
+  --color-heading: #e0ede4;
+  --color-foreground: #b0c8b5;
+  --color-muted: #6a8a70;
+  --color-border: #253d2e;
+
+  --color-primary: #8ab575;
+  --color-primary-light: #6b9a55;
+  --color-primary-dark: #a8d490;
+
   --surface-muted: rgba(14, 21, 18, 0.95);
   --section-dark: #0f1a14;
 }
@@ -52,16 +102,6 @@ body {
   background: var(--color-background);
   color: var(--color-foreground);
   font-family: var(--font-sans);
-}
-
-.dark {
-  --color-background: #0e1512;
-  --color-surface: #1a261e;
-  --color-card: #172019;
-  --color-heading: #e0ede4;
-  --color-foreground: #b0c8b5;
-  --color-muted: #6a8a70;
-  --color-border: #253d2e;
 }
 
 ::-webkit-scrollbar {
