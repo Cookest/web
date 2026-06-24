@@ -5,6 +5,7 @@ import type {
   PaginatedResponse,
 } from "../types";
 import { client } from "./client";
+import { mapRecipeListItem } from "./recipes";
 
 export async function getProfile(): Promise<User> {
   return client.request("/api/me");
@@ -37,7 +38,20 @@ export async function resetPreferences(): Promise<void> {
 }
 
 export async function getFavourites(limit = 20, offset = 0): Promise<PaginatedResponse<RecipeListItem>> {
-  return client.request(`/api/me/favourites?limit=${limit}&offset=${offset}`);
+  const res = await client.request<any[]>(`/api/me/favourites`);
+  const items = res.map((item: any) => {
+    return mapRecipeListItem({
+      ...item.recipe,
+      is_favourite: true,
+    });
+  });
+
+  return {
+    items: items.slice(offset, offset + limit),
+    total: items.length,
+    limit,
+    offset,
+  };
 }
 
 export interface CookingHistoryItem {

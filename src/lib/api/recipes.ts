@@ -6,6 +6,26 @@ import type {
 } from "../types";
 import { client } from "./client";
 
+export function mapRecipeListItem(r: any): RecipeListItem {
+  const prep = 15;
+  const cook = r.total_time_min ? Math.max(0, r.total_time_min - prep) : 15;
+  return {
+    id: String(r.id),
+    title: r.name || r.title || "",
+    description: r.description || "",
+    cuisine: r.cuisine || r.category || "General",
+    difficulty: (r.difficulty?.toLowerCase() || "easy") as any,
+    prep_time: prep,
+    cook_time: cook,
+    servings: r.servings || 2,
+    calories: r.calories || 350,
+    is_favourite: r.is_favourite || false,
+    rating_avg: r.average_rating ? Number(r.average_rating) : (r.rating_avg || 0),
+    rating_count: r.rating_count || 0,
+    image_url: r.primary_image_url || r.image_url || null,
+  };
+}
+
 export async function searchRecipes(params: RecipeSearchParams = {}): Promise<PaginatedResponse<RecipeListItem>> {
   const query = new URLSearchParams();
   if (params.q) query.set("q", params.q);
@@ -15,7 +35,14 @@ export async function searchRecipes(params: RecipeSearchParams = {}): Promise<Pa
   if (params.dietary) query.set("dietary", params.dietary);
   if (params.limit) query.set("limit", params.limit.toString());
   if (params.offset) query.set("offset", params.offset.toString());
-  return client.request(`/api/recipes?${query.toString()}`);
+  
+  const res = await client.request<any>(`/api/recipes?${query.toString()}`);
+  return {
+    items: (res.data || []).map(mapRecipeListItem),
+    total: res.total || 0,
+    limit: res.per_page || params.limit || 0,
+    offset: res.offset || params.offset || 0,
+  };
 }
 
 export async function getRecipe(id: string): Promise<Recipe> {
