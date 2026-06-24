@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth";
 import { AuthLayout } from "@/components/auth/auth-layout";
@@ -9,8 +10,13 @@ export default function RegisterPage() {
   const router = useRouter();
   const { isAuthenticated } = useAuth();
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push("/");
+    }
+  }, [isAuthenticated, router]);
+
   if (isAuthenticated) {
-    router.push("/");
     return null;
   }
 
