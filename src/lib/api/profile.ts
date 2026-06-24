@@ -38,10 +38,13 @@ export async function resetPreferences(): Promise<void> {
 }
 
 export async function getFavourites(limit = 20, offset = 0): Promise<PaginatedResponse<RecipeListItem>> {
-  const res = await client.request<any[]>(`/api/me/favourites`);
-  const items = res.map((item: any) => {
+  const res = await client.request<any>(`/api/me/favourites?limit=${limit}&offset=${offset}`);
+  
+  const rawItems = Array.isArray(res) ? res : res?.items || [];
+  const items = rawItems.map((item: any) => {
+    const r = item.recipe || item;
     return mapRecipeListItem({
-      ...item.recipe,
+      ...r,
       is_favourite: true,
     });
   });

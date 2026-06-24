@@ -37,11 +37,29 @@ export async function searchRecipes(params: RecipeSearchParams = {}): Promise<Pa
   if (params.offset) query.set("offset", params.offset.toString());
   
   const res = await client.request<any>(`/api/recipes?${query.toString()}`);
+
+  let rawItems: any[] = [];
+  let total = 0;
+  let limit = params.limit || 12;
+  let offset = params.offset || 0;
+
+  if (Array.isArray(res)) {
+    rawItems = res;
+    total = res.length;
+  } else if (res) {
+    rawItems = res.data || res.items || [];
+    total = res.total !== undefined ? res.total : rawItems.length;
+    limit = res.per_page || res.limit || limit;
+    offset = res.offset !== undefined ? res.offset : offset;
+  }
+
+  const items = rawItems.map(mapRecipeListItem);
+
   return {
-    items: (res.data || []).map(mapRecipeListItem),
-    total: res.total || 0,
-    limit: res.per_page || params.limit || 0,
-    offset: res.offset || params.offset || 0,
+    items,
+    total,
+    limit,
+    offset,
   };
 }
 

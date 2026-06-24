@@ -70,8 +70,23 @@ describe("meals API", () => {
 
   describe("getMealPlanNutrition", () => {
     it("calls correct endpoint", async () => {
-      const nutrition = { calories: 2000, protein: 80 };
-      mockFetchResponse(nutrition);
+      const dayNames = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+      const nutrition = {
+        days: dayNames.map((name, i) => ({
+          day: i,
+          day_name: name,
+          total_calories: 2000 / 7,
+          total_protein: 80 / 7,
+          total_carbs: 0,
+          total_fat: 0,
+          meals: [],
+        })),
+        week_totals: {
+          avg_daily_calories: 2000 / 7,
+          avg_daily_protein: 80 / 7,
+        },
+      };
+      mockFetchResponse({ calories: 2000, protein: 80 });
 
       const result = await getMealPlanNutrition("mp1");
 
