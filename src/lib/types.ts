@@ -258,3 +258,39 @@ export interface Ingredient {
   name: string;
   category?: string;
 }
+
+// ── Household / Family ──
+export interface HouseholdMember {
+  id: string;
+  name: string;
+  email: string;
+  role: "owner" | "member";
+}
+
+export interface Household {
+  id: string;
+  name: string;
+  invite_code: string;
+  members: HouseholdMember[];
+}
+
+// ── Nutrition / What to buy ──
+export interface WhatToBuyItem {
+  item: string;
+  reason: string;
+  nutrient: string | null;
+  amount: number | null;
+  unit: string | null;
+}
+
+// ── Stores ──
+export interface NearbyStore {
+  id: string | null;
+  name: string;
+  brand: string | null;
+  lat: number;
+  lng: number;
+  distance_km: number;
+  is_curated: boolean;
+  has_promotions: boolean;
+}

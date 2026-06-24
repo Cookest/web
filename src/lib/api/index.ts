@@ -8,6 +8,9 @@ import * as chatApi from "./chat";
 import * as profileApi from "./profile";
 import * as subscriptionApi from "./subscription";
 import * as ingredientsApi from "./ingredients";
+import * as householdApi from "./household";
+import * as nutritionApi from "./nutrition";
+import * as storesApi from "./stores";
 
 export const api = {
   setToken: client.setToken.bind(client),
@@ -21,6 +24,9 @@ export const api = {
   ...profileApi,
   ...subscriptionApi,
   ...ingredientsApi,
+  ...householdApi,
+  ...nutritionApi,
+  ...storesApi,
 };
 
 export { ApiError } from "./client";
