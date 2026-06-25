@@ -39,7 +39,7 @@ export function IngredientSearch({
   return (
     <div className="relative flex-1" ref={ref}>
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#7a8e74]" />
+        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
         <Input
           placeholder={placeholder}
           value={query}
@@ -52,7 +52,7 @@ export function IngredientSearch({
         />
       </div>
       {open && results.length > 0 && (
-        <div className="absolute z-50 mt-1 w-full rounded-lg border border-[#e4ebe0] bg-white shadow-lg max-h-48 overflow-y-auto">
+        <div className="absolute z-50 mt-1 w-full rounded-lg border border-border bg-surface shadow-lg max-h-48 overflow-y-auto">
           {results.map((ing) => (
             <button
               key={ing.id}
@@ -62,11 +62,11 @@ export function IngredientSearch({
                 setQuery("");
                 setOpen(false);
               }}
-              className="w-full px-4 py-2 text-left text-sm text-[#1c3a2a] hover:bg-[#f0f4ec] transition-colors"
+              className="w-full px-4 py-2 text-left text-sm text-heading hover:bg-primary/5 transition-colors"
             >
               {ing.name}
               {ing.category && (
-                <span className="ml-2 text-xs text-[#7a8e74]">{ing.category}</span>
+                <span className="ml-2 text-xs text-muted">{ing.category}</span>
               )}
             </button>
           ))}

@@ -5,6 +5,7 @@ import { Sidebar } from "@/components/sidebar";
 import { BottomNav } from "@/components/bottom-nav";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { Spinner } from "@cookest/ui";
 
 const publicPaths = ["/login", "/register"];
 
@@ -30,10 +31,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   // Root path: loading spinner while determining auth state
   if (isLoading && isRootPath) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-primary/20 animate-pulse" />
-          <p className="text-sm text-muted">Loading...</p>
+      <div className="min-h-screen flex items-center justify-center bg-[var(--ck-bg)]">
+        <div className="flex flex-col items-center gap-4">
+          <Spinner size="lg" color="primary" />
+          <p className="text-sm text-[var(--ck-text-muted)]">Loading...</p>
         </div>
       </div>
     );
@@ -47,10 +48,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   // Loading state for protected pages
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-primary/20 animate-pulse" />
-          <p className="text-sm text-muted">Loading...</p>
+      <div className="min-h-screen flex items-center justify-center bg-[var(--ck-bg)]">
+        <div className="flex flex-col items-center gap-4">
+          <Spinner size="lg" color="primary" />
+          <p className="text-sm text-[var(--ck-text-muted)]">Loading...</p>
         </div>
       </div>
     );
@@ -62,7 +63,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[var(--ck-bg)]">
       <Sidebar />
       <BottomNav />
       <main className="lg:ml-64 md:ml-16 ml-0 min-h-screen pb-16 md:pb-0">

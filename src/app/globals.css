@@ -5,93 +5,6 @@
   --font-sans: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-playfair), "Playfair Display", ui-serif, Georgia, serif;
   --font-mono: var(--font-jetbrains), "JetBrains Mono", ui-monospace, monospace;
-
-  --color-primary: #7a9a65;
-  --color-primary-light: #b4cc9e;
-  --color-primary-dark: #4e7a3a;
-
-  --color-background: #f5f5f0;
-  --color-surface: #ffffff;
-  --color-card: #fafaf6;
-  --color-heading: #1c3a2a;
-  --color-foreground: #3d5040;
-  --color-muted: #7a8e74;
-  --color-border: #e4ebe0;
-
-  --color-success: #4caf50;
-  --color-warning: #ff9800;
-  --color-error: #f44336;
-  --color-info: #2196f3;
-}
-
-/* Marketing site and components library CSS variable aliases */
-:root {
-  --primary: var(--color-primary);
-  --primary-light: var(--color-primary-light);
-  --primary-dark: var(--color-primary-dark);
-  --bg: var(--color-background);
-  --bg-card: var(--color-card);
-  --heading: var(--color-heading);
-  --text: var(--color-foreground);
-  --text-muted: var(--color-muted);
-  --border: var(--color-border);
-  --surface: var(--color-surface);
-  --surface-muted: rgba(245, 245, 240, 0.95);
-  --section-dark: #1c3a2a;
-
-  /* Map @cookest/ui variables */
-  --ck-primary: var(--color-primary);
-  --ck-primary-light: var(--color-primary-light);
-  --ck-primary-dark: var(--color-primary-dark);
-  --ck-bg: var(--color-background);
-  --ck-bg-card: var(--color-card);
-  --ck-heading: var(--color-heading);
-  --ck-text: var(--color-foreground);
-  --ck-text-muted: var(--color-muted);
-  --ck-border: var(--color-border);
-  --ck-surface: var(--color-surface);
-  --ck-success: var(--color-success);
-  --ck-warning: var(--color-warning);
-  --ck-error: var(--color-error);
-  --ck-info: var(--color-info);
-}
-
-/* Automatic dark mode based on user's OS preference */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: #0e1512;
-    --color-surface: #1a261e;
-    --color-card: #172019;
-    --color-heading: #e0ede4;
-    --color-foreground: #b0c8b5;
-    --color-muted: #6a8a70;
-    --color-border: #253d2e;
-
-    --color-primary: #8ab575;
-    --color-primary-light: #6b9a55;
-    --color-primary-dark: #a8d490;
-
-    --surface-muted: rgba(14, 21, 18, 0.95);
-    --section-dark: #0f1a14;
-  }
-}
-
-/* Manual class toggle fallback */
-.dark {
-  --color-background: #0e1512;
-  --color-surface: #1a261e;
-  --color-card: #172019;
-  --color-heading: #e0ede4;
-  --color-foreground: #b0c8b5;
-  --color-muted: #6a8a70;
-  --color-border: #253d2e;
-
-  --color-primary: #8ab575;
-  --color-primary-light: #6b9a55;
-  --color-primary-dark: #a8d490;
-
-  --surface-muted: rgba(14, 21, 18, 0.95);
-  --section-dark: #0f1a14;
 }
 
 html {
@@ -99,8 +12,8 @@ html {
 }
 
 body {
-  background: var(--color-background);
-  color: var(--color-foreground);
+  background-color: var(--ck-bg);
+  color: var(--ck-text);
   font-family: var(--font-sans);
 }
 
@@ -111,39 +24,9 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-border);
+  background: var(--ck-border);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-muted);
-}
-
-.nav-link-active {
-  background: color-mix(in srgb, var(--color-primary) 12%, transparent);
-  color: var(--color-primary-dark);
-  font-weight: 500;
-}
-
-.recipe-card-hover {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.recipe-card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-}
-
-@keyframes fade-in {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.animate-fade-in {
-  animation: fade-in 0.3s ease-out;
-}
-
-@keyframes slide-in-right {
-  from { opacity: 0; transform: translateX(16px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-.animate-slide-in {
-  animation: slide-in-right 0.3s ease-out;
+  background: var(--ck-text-muted);
 }

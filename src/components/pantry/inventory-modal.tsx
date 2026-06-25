@@ -43,25 +43,25 @@ export function InventoryModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="w-full max-w-md rounded-xl border border-[#e4ebe0] bg-white p-6 shadow-xl">
+      <div className="w-full max-w-md rounded-xl border border-[var(--ck-border)] bg-[var(--ck-surface)] p-6 shadow-xl">
         <div className="mb-4 flex items-center justify-between">
-          <h3 className="font-serif text-lg font-semibold text-[#1c3a2a]">
+          <h3 className="font-serif text-lg font-semibold text-[var(--ck-heading)]">
             {item ? "Edit Item" : "Add Item"}
           </h3>
-          <button type="button" onClick={onClose} className="text-[#7a8e74] hover:text-[#1c3a2a]">
+          <button type="button" onClick={onClose} className="text-[var(--ck-text-muted)] hover:text-[var(--ck-heading)]">
             <X className="h-5 w-5" />
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="mb-1 block text-sm font-medium text-[#1c3a2a]">Ingredient</label>
+            <label className="mb-1 block text-sm font-medium text-[var(--ck-heading)]">Ingredient</label>
             <IngredientSearch onSelect={setIngredient} />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="mb-1 block text-sm font-medium text-[#1c3a2a]">Quantity</label>
+              <label className="mb-1 block text-sm font-medium text-[var(--ck-heading)]">Quantity</label>
               <Input
                 type="number"
                 step="any"
@@ -72,7 +72,7 @@ export function InventoryModal({
               />
             </div>
             <div>
-              <label className="mb-1 block text-sm font-medium text-[#1c3a2a]">Unit</label>
+              <label className="mb-1 block text-sm font-medium text-[var(--ck-heading)]">Unit</label>
               <Input
                 placeholder="g, ml, pcs..."
                 value={unit}
@@ -82,11 +82,11 @@ export function InventoryModal({
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-[#1c3a2a]">Location</label>
+            <label className="mb-1 block text-sm font-medium text-[var(--ck-heading)]">Location</label>
             <select
               value={location}
               onChange={(e) => setLocation(e.target.value as AddInventoryRequest["location"])}
-              className="w-full rounded-lg border border-[#e4ebe0] bg-white px-3 py-2 text-sm text-[#1c3a2a] focus:border-[#7a9a65] focus:outline-none focus:ring-1 focus:ring-[#7a9a65]"
+              className="w-full rounded-lg border border-[var(--ck-border)] bg-[var(--ck-surface)] px-3 py-2 text-sm text-[var(--ck-heading)] focus:border-[var(--ck-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--ck-primary)]"
             >
               <option value="fridge">Fridge</option>
               <option value="freezer">Freezer</option>
@@ -96,7 +96,7 @@ export function InventoryModal({
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-[#1c3a2a]">Expiry Date</label>
+            <label className="mb-1 block text-sm font-medium text-[var(--ck-heading)]">Expiry Date</label>
             <Input
               type="date"
               value={expiryDate}

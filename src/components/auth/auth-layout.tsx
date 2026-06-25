@@ -1,6 +1,7 @@
 "use client";
 
 import { ChefHat } from "lucide-react";
+import { Card } from "@cookest/ui";
 
 interface AuthLayoutProps {
   children: React.ReactNode;
@@ -18,7 +19,7 @@ export function AuthLayout({
   return (
     <div className="min-h-screen flex">
       {/* Left — Hero / Branding */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-[#7a9a65] via-[#6b8a56] to-[#1c3a2a] items-center justify-center">
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-primary via-primary-light to-primary-dark items-center justify-center">
         {/* Decorative circles */}
         <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-white/5" />
         <div className="absolute -bottom-32 -right-32 w-[28rem] h-[28rem] rounded-full bg-white/5" />
@@ -42,30 +43,30 @@ export function AuthLayout({
       </div>
 
       {/* Right — Form Content */}
-      <div className="flex flex-1 items-center justify-center px-6 py-12 bg-[#f5f5f0]">
+      <div className="flex flex-1 items-center justify-center px-6 py-12 bg-background">
         <div className="w-full max-w-md">
           {/* Mobile branding */}
           <div className="flex flex-col items-center mb-10 lg:hidden">
-            <div className="w-14 h-14 rounded-xl bg-[#7a9a65] flex items-center justify-center mb-4 shadow-md">
+            <div className="w-14 h-14 rounded-xl bg-primary flex items-center justify-center mb-4 shadow-md">
               <ChefHat className="w-7 h-7 text-white" />
             </div>
-            <h1 className="font-serif text-3xl font-bold text-[#1c3a2a]">
+            <h1 className="font-serif text-3xl font-bold text-heading">
               Cookest
             </h1>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-sm border border-[#7a9a65]/10 p-8">
+          <Card className="p-8">
             <div className="mb-8">
-              <h2 className="font-serif text-2xl font-bold text-[#1c3a2a] mb-2">
+              <h2 className="font-serif text-2xl font-bold text-heading mb-2">
                 {title}
               </h2>
-              <p className="text-[#7a8e74] font-sans text-sm">
+              <p className="text-muted font-sans text-sm">
                 {subtitle}
               </p>
             </div>
 
             {children}
-          </div>
+          </Card>
         </div>
       </div>
     </div>

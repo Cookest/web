@@ -51,14 +51,16 @@ export function MealSlotSkeleton() {
 
 export function ListItemSkeleton() {
   return (
-    <div className="animate-pulse rounded-lg border border-[#e4ebe0] bg-[#fafaf6] p-4 space-y-3">
-      <div className="h-5 w-3/4 rounded bg-[#e4ebe0]" />
-      <div className="h-4 w-1/2 rounded bg-[#e4ebe0]" />
-      <div className="flex gap-2">
-        <div className="h-5 w-16 rounded-full bg-[#e4ebe0]" />
-        <div className="h-5 w-20 rounded-full bg-[#e4ebe0]" />
-      </div>
-    </div>
+    <Card className="animate-pulse">
+      <CardBody className="p-4 space-y-3">
+        <div className="h-5 w-3/4 rounded bg-border" />
+        <div className="h-4 w-1/2 rounded bg-border" />
+        <div className="flex gap-2">
+          <div className="h-5 w-16 rounded-full bg-border" />
+          <div className="h-5 w-20 rounded-full bg-border" />
+        </div>
+      </CardBody>
+    </Card>
   );
 }
 

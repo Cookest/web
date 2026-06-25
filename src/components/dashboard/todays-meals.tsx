@@ -41,13 +41,13 @@ export function TodaysMeals({ mealPlan, isLoading }: TodaysMealsProps) {
     <Card>
       <CardBody className="p-6">
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-heading">
+          <h2 className="text-lg font-semibold text-[var(--ck-heading)]">
             Today&apos;s Meals
           </h2>
           {mealPlan && (
             <Link
               href={`/meal-plans/${mealPlan.id}`}
-              className="text-sm text-primary-dark hover:underline"
+              className="text-sm text-[var(--ck-primary-dark)] hover:underline"
             >
               View plan
             </Link>
@@ -62,8 +62,8 @@ export function TodaysMeals({ mealPlan, isLoading }: TodaysMealsProps) {
           </div>
         ) : todaySlots.length === 0 ? (
           <div className="flex flex-col items-center py-8 text-center">
-            <UtensilsCrossed className="mb-3 h-10 w-10 text-muted/50" />
-            <p className="text-muted">No meals planned for today</p>
+            <UtensilsCrossed className="mb-3 h-10 w-10 text-[var(--ck-text-muted)] opacity-50" />
+            <p className="text-[var(--ck-text-muted)]">No meals planned for today</p>
             <Link href="/meal-plans">
               <Button variant="secondary" size="sm" className="mt-3">
                 Generate a Plan
@@ -105,15 +105,15 @@ function MealSlotRow({
     slot.meal_type.charAt(0).toUpperCase() + slot.meal_type.slice(1);
 
   return (
-    <div className="flex items-center gap-4 rounded-lg border border-border bg-surface p-4">
-      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
-        <Clock className="h-4 w-4 text-primary-dark" />
+    <div className="flex items-center gap-4 rounded-lg border border-[var(--ck-border)] bg-[var(--ck-surface)] p-4">
+      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[color:color-mix(in_srgb,var(--ck-primary)_10%,transparent)]">
+        <Clock className="h-4 w-4 text-[var(--ck-primary-dark)]" />
       </div>
       <div className="flex-1 min-w-0">
-        <p className="text-xs font-medium uppercase tracking-wide text-muted">
+        <p className="text-xs font-medium uppercase tracking-wide text-[var(--ck-text-muted)]">
           {mealLabel}
         </p>
-        <p className="truncate font-medium text-heading">
+        <p className="truncate font-medium text-[var(--ck-heading)]">
           {slot.recipe_title}
         </p>
       </div>

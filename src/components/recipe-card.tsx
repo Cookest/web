@@ -28,7 +28,7 @@ export function RecipeCard({
     <Link href={`/recipes/${recipe.id}`}>
       <Card className="group overflow-hidden transition-shadow hover:shadow-md">
         {/* Image */}
-        <div className="relative h-48 bg-card">
+        <div className="relative h-48 bg-[var(--ck-bg-card)]">
           {recipe.image_url ? (
             <img
               src={recipe.image_url}
@@ -36,8 +36,8 @@ export function RecipeCard({
               className="h-full w-full object-cover"
             />
           ) : (
-            <div className="flex h-full items-center justify-center bg-[#f0f4ec]">
-              <UtensilsCrossed className="h-12 w-12 text-[#7a9a65]/40" />
+            <div className="flex h-full items-center justify-center bg-[color:color-mix(in_srgb,var(--ck-primary)_5%,transparent)]">
+              <UtensilsCrossed className="h-12 w-12 text-[var(--ck-primary)] opacity-40" />
             </div>
           )}
           {/* Favourite button */}
@@ -49,7 +49,7 @@ export function RecipeCard({
                 e.stopPropagation();
                 onToggleFavourite(recipe.id);
               }}
-              className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 shadow-sm transition-colors hover:bg-white"
+              className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-[color:color-mix(in_srgb,var(--ck-surface)_90%,transparent)] shadow-sm transition-colors hover:bg-[var(--ck-surface)]"
             >
               <Heart
                 className={`h-4 w-4 ${
@@ -64,13 +64,13 @@ export function RecipeCard({
 
         {/* Content */}
         <CardBody className="space-y-3 p-4">
-          <h3 className="font-serif text-lg font-semibold text-heading leading-tight line-clamp-1 group-hover:text-[#7a9a65] transition-colors">
+          <h3 className="font-serif text-lg font-semibold text-[var(--ck-heading)] leading-tight line-clamp-1 group-hover:text-[var(--ck-primary)] transition-colors">
             {recipe.title}
           </h3>
 
           {/* Badges */}
           <div className="flex flex-wrap gap-1.5">
-            <Badge className="bg-[#7a9a65]/10 text-[#7a9a65] capitalize text-xs">
+            <Badge className="bg-[color:color-mix(in_srgb,var(--ck-primary)_10%,transparent)] text-[var(--ck-primary)] capitalize text-xs">
               {recipe.cuisine}
             </Badge>
             <Badge
@@ -81,7 +81,7 @@ export function RecipeCard({
           </div>
 
           {/* Meta */}
-          <div className="flex items-center gap-4 text-xs text-muted">
+          <div className="flex items-center gap-4 text-xs text-[var(--ck-text-muted)]">
             <span className="flex items-center gap-1">
               <Clock className="h-3.5 w-3.5" />
               {recipe.prep_time + recipe.cook_time}m
@@ -99,10 +99,10 @@ export function RecipeCard({
           {/* Rating */}
           <div className="flex items-center gap-1.5 text-xs">
             <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
-            <span className="font-medium text-heading">
+            <span className="font-medium text-[var(--ck-heading)]">
               {recipe.rating_avg.toFixed(1)}
             </span>
-            <span className="text-muted">({recipe.rating_count})</span>
+            <span className="text-[var(--ck-text-muted)]">({recipe.rating_count})</span>
           </div>
         </CardBody>
       </Card>

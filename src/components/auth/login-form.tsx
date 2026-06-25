@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth";
-import { Button, Input } from "@cookest/ui";
+import { Button, Input, Alert } from "@cookest/ui";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 
@@ -44,16 +44,16 @@ export function LoginForm() {
   return (
     <>
       {error && (
-        <div className="mb-6 rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700 font-sans">
+        <Alert variant="error" className="mb-6">
           {error}
-        </div>
+        </Alert>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-[#1c3a2a] font-sans mb-1.5"
+            className="block text-sm font-medium text-heading font-sans mb-1.5"
           >
             Email
           </label>
@@ -71,7 +71,7 @@ export function LoginForm() {
         <div>
           <label
             htmlFor="password"
-            className="block text-sm font-medium text-[#1c3a2a] font-sans mb-1.5"
+            className="block text-sm font-medium text-heading font-sans mb-1.5"
           >
             Password
           </label>
@@ -88,7 +88,7 @@ export function LoginForm() {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-[#7a8e74] hover:text-[#1c3a2a] transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-heading transition-colors"
               tabIndex={-1}
             >
               {showPassword ? (
@@ -109,11 +109,11 @@ export function LoginForm() {
         </Button>
       </form>
 
-      <p className="mt-6 text-center text-sm text-[#7a8e74] font-sans">
+      <p className="mt-6 text-center text-sm text-muted font-sans">
         Don&apos;t have an account?{" "}
         <Link
           href="/register"
-          className="font-medium text-[#7a9a65] hover:text-[#1c3a2a] transition-colors"
+          className="font-medium text-primary hover:text-heading transition-colors"
         >
           Create one
         </Link>

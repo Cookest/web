@@ -69,7 +69,7 @@ export default function RecipesPage() {
       {isLoading || (data && data.items.length > 0) ? (
         <>
           {!isLoading && data && (
-            <p className="text-sm text-muted">
+            <p className="text-sm text-[var(--ck-text-muted)]">
               {data.total} recipe{data.total !== 1 ? "s" : ""} found
             </p>
           )}
@@ -84,7 +84,7 @@ export default function RecipesPage() {
                 onClick={() => updateParams({ page: (page - 1).toString() })}>
                 Previous
               </Button>
-              <span className="px-4 text-sm text-muted">Page {page} of {totalPages}</span>
+              <span className="px-4 text-sm text-[var(--ck-text-muted)]">Page {page} of {totalPages}</span>
               <Button variant="secondary" size="sm" disabled={page >= totalPages}
                 onClick={() => updateParams({ page: (page + 1).toString() })}>
                 Next

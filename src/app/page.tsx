@@ -14,7 +14,7 @@ import { QuickActions } from "@/components/dashboard/quick-actions";
 
 // Marketing landing page components
 import TranslationProvider from "@/marketing/TranslationProvider";
-import ThemeProvider from "@/marketing/ThemeProvider";
+import ThemeProvider from "@/components/ThemeProvider";
 import Nav from "@/marketing/Nav";
 import Hero from "@/marketing/Hero";
 import Features from "@/marketing/Features";
@@ -115,25 +115,25 @@ function Dashboard() {
           <>
             <StatCard
               icon={Refrigerator}
-              iconClassName="bg-primary/10 text-primary-dark"
+              iconClassName="bg-[color:color-mix(in_srgb,var(--ck-primary)_12%,transparent)] text-[var(--ck-primary-dark)]"
               label="Pantry Items"
               value={inventory?.items.length ?? 0}
             />
             <StatCard
               icon={AlertTriangle}
-              iconClassName="bg-amber-500/10 text-amber-600"
+              iconClassName="bg-[color:color-mix(in_srgb,var(--ck-warning)_12%,transparent)] text-[var(--ck-warning)]"
               label="Expiring Soon"
               value={expiringSoon?.expiring_count ?? 0}
             />
             <StatCard
               icon={Flame}
-              iconClassName="bg-orange-500/10 text-orange-600"
+              iconClassName="bg-[color:color-mix(in_srgb,var(--ck-error)_12%,transparent)] text-[var(--ck-error)]"
               label="Cooked This Week"
               value={cookedThisWeek}
             />
             <StatCard
               icon={Target}
-              iconClassName="bg-primary/10 text-primary-dark"
+              iconClassName="bg-[color:color-mix(in_srgb,var(--ck-info)_12%,transparent)] text-[var(--ck-info)]"
               label="Meal Plan"
               value={`${mealPlanCompletion}%`}
             />

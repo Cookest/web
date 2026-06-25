@@ -62,16 +62,16 @@ export default function PantryPage() {
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Expiring banner */}
       {expiringCount > 0 && activeTab !== "expiring" && (
-        <div className="mb-6 flex items-center gap-3 rounded-lg border border-[#ff9800]/30 bg-[#ff9800]/10 px-4 py-3">
-          <AlertTriangle className="h-5 w-5 text-[#ff9800]" />
-          <p className="text-sm text-[#1c3a2a]">
+        <div className="mb-6 flex items-center gap-3 rounded-lg border border-[color:color-mix(in_srgb,var(--ck-warning)_30%,transparent)] bg-[color:color-mix(in_srgb,var(--ck-warning)_10%,transparent)] px-4 py-3">
+          <AlertTriangle className="h-5 w-5 text-[var(--ck-warning)]" />
+          <p className="text-sm text-[var(--ck-heading)]">
             <span className="font-medium">{expiringCount} item{expiringCount !== 1 ? "s" : ""}</span>{" "}
             expiring soon.
           </p>
           <button
             type="button"
             onClick={() => setActiveTab("expiring")}
-            className="ml-auto text-sm font-medium text-[#ff9800] hover:underline"
+            className="ml-auto text-sm font-medium text-[var(--ck-warning)] hover:underline"
           >
             View
           </button>
@@ -81,8 +81,8 @@ export default function PantryPage() {
       {/* Header */}
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="font-serif text-3xl font-bold text-[#1c3a2a]">Pantry</h1>
-          <p className="mt-1 text-sm text-[#7a8e74]">
+          <h1 className="font-serif text-3xl font-bold text-[var(--ck-heading)]">Pantry</h1>
+          <p className="mt-1 text-sm text-[var(--ck-text-muted)]">
             {items.length} item{items.length !== 1 ? "s" : ""} in your inventory
           </p>
         </div>

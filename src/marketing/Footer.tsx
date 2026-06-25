@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Sun, Moon, Monitor, Globe } from "lucide-react";
-import { useTheme } from "./ThemeProvider";
+import { useTheme } from "@/components/ThemeProvider";
 import { useTranslation, SUPPORTED_LOCALES, type Locale, type TranslationKey } from "./TranslationProvider";
 
 const footerLinks: { key: TranslationKey; href: string }[] = [

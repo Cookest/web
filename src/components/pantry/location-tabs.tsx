@@ -27,13 +27,13 @@ export function LocationTabs({ activeTab, onTabChange, expiringCount }: Location
           onClick={() => onTabChange(tab)}
           className={`whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors ${
             activeTab === tab
-              ? "bg-[#7a9a65] text-white"
-              : "bg-[#f0f4ec] text-[#1c3a2a] hover:bg-[#e4ebe0]"
+              ? "bg-[var(--ck-primary)] text-white"
+              : "bg-[var(--ck-surface)] text-[var(--ck-heading)] hover:bg-[color:color-mix(in_srgb,var(--ck-primary)_10%,transparent)] border border-[var(--ck-border)]"
           }`}
         >
           {TAB_LABELS[tab]}
           {tab === "expiring" && expiringCount > 0 && (
-            <span className="ml-1.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#ff9800] text-[10px] text-white">
+            <span className="ml-1.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-[var(--ck-warning)] text-[10px] text-white">
               {expiringCount}
             </span>
           )}

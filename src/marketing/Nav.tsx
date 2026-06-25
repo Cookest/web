@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "./TranslationProvider";
 import { useMediaQuery } from "./useMediaQuery";
 import { Menu, X, Monitor } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -86,6 +87,7 @@ export default function Nav() {
           </ul>
           {/* Desktop CTAs */}
           <div className="hidden items-center gap-3 md:flex">
+            <ThemeToggle />
             <Link
               href="/login"
               className="inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-all duration-300"
@@ -113,7 +115,8 @@ export default function Nav() {
           </div>
 
           {/* Mobile hamburger */}
-          {isMobile && (
+          <div className="flex items-center gap-2 md:hidden">
+            <ThemeToggle />
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle menu"
@@ -132,7 +135,7 @@ export default function Nav() {
             >
               {mobileOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
-          )}
+          </div>
         </div>
       </nav>
 

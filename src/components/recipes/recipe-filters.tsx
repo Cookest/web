@@ -28,8 +28,8 @@ function FilterChip({
       onClick={onClick}
       className={`rounded-full border px-3 py-1.5 text-sm font-medium capitalize transition-colors ${
         active
-          ? "border-[#7a9a65] bg-[#7a9a65] text-white"
-          : "border-border bg-surface text-muted hover:border-[#7a9a65]/40 hover:text-heading"
+          ? "border-[var(--ck-primary)] bg-[var(--ck-primary)] text-white"
+          : "border-[var(--ck-border)] bg-[var(--ck-surface)] text-[var(--ck-text-muted)] hover:border-[var(--ck-primary)] hover:text-[var(--ck-heading)]"
       }`}
     >
       {label}
@@ -69,7 +69,7 @@ export function RecipeFilters({
       {/* Search bar */}
       <div className="flex gap-3">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--ck-text-muted)]" />
           <Input
             placeholder="Search recipes..."
             value={searchInput}
@@ -98,9 +98,9 @@ export function RecipeFilters({
 
       {/* Filters panel */}
       {filtersOpen && (
-        <div className="space-y-4 rounded-xl border border-border bg-card p-5">
+        <div className="space-y-4 rounded-xl border border-[var(--ck-border)] bg-[var(--ck-bg-card)] p-5">
           <div>
-            <h3 className="mb-2 text-sm font-medium text-heading">Cuisine</h3>
+            <h3 className="mb-2 text-sm font-medium text-[var(--ck-heading)]">Cuisine</h3>
             <div className="flex flex-wrap gap-2">
               {CUISINES.map((c) => (
                 <FilterChip
@@ -116,7 +116,7 @@ export function RecipeFilters({
           </div>
 
           <div>
-            <h3 className="mb-2 text-sm font-medium text-heading">
+            <h3 className="mb-2 text-sm font-medium text-[var(--ck-heading)]">
               Difficulty
             </h3>
             <div className="flex flex-wrap gap-2">
@@ -134,7 +134,7 @@ export function RecipeFilters({
           </div>
 
           <div>
-            <h3 className="mb-2 text-sm font-medium text-heading">Dietary</h3>
+            <h3 className="mb-2 text-sm font-medium text-[var(--ck-heading)]">Dietary</h3>
             <div className="flex flex-wrap gap-2">
               {DIETARY_OPTIONS.map((d) => (
                 <FilterChip
@@ -152,7 +152,7 @@ export function RecipeFilters({
           </div>
 
           <div>
-            <h3 className="mb-2 text-sm font-medium text-heading">
+            <h3 className="mb-2 text-sm font-medium text-[var(--ck-heading)]">
               Max Cooking Time
             </h3>
             <div className="flex flex-wrap gap-2">
@@ -181,10 +181,10 @@ export function RecipeFilters({
       {/* Active filter badges */}
       {(cuisine || difficulty || dietary || maxTime > 0) && (
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-sm text-muted">Active filters:</span>
+          <span className="text-sm text-[var(--ck-text-muted)]">Active filters:</span>
           {cuisine && (
             <Badge
-              className="cursor-pointer bg-[#7a9a65]/10 text-[#7a9a65] capitalize"
+              className="cursor-pointer bg-[color:color-mix(in_srgb,var(--ck-primary)_10%,transparent)] text-[var(--ck-primary)] capitalize"
               onClick={() => onUpdateParams({ cuisine: "" })}
             >
               {cuisine} ×
@@ -192,7 +192,7 @@ export function RecipeFilters({
           )}
           {difficulty && (
             <Badge
-              className="cursor-pointer bg-[#7a9a65]/10 text-[#7a9a65] capitalize"
+              className="cursor-pointer bg-[color:color-mix(in_srgb,var(--ck-primary)_10%,transparent)] text-[var(--ck-primary)] capitalize"
               onClick={() => onUpdateParams({ difficulty: "" })}
             >
               {difficulty} ×
@@ -200,7 +200,7 @@ export function RecipeFilters({
           )}
           {dietary && (
             <Badge
-              className="cursor-pointer bg-[#7a9a65]/10 text-[#7a9a65] capitalize"
+              className="cursor-pointer bg-[color:color-mix(in_srgb,var(--ck-primary)_10%,transparent)] text-[var(--ck-primary)] capitalize"
               onClick={() => onUpdateParams({ dietary: "" })}
             >
               {dietary.replace("_", " ")} ×
@@ -208,7 +208,7 @@ export function RecipeFilters({
           )}
           {maxTime > 0 && (
             <Badge
-              className="cursor-pointer bg-[#7a9a65]/10 text-[#7a9a65]"
+              className="cursor-pointer bg-[color:color-mix(in_srgb,var(--ck-primary)_10%,transparent)] text-[var(--ck-primary)]"
               onClick={() => onUpdateParams({ max_time: "" })}
             >
               ≤{maxTime}m ×

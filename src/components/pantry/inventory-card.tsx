@@ -8,10 +8,10 @@ const LOCATION_CONFIG: Record<
   string,
   { label: string; color: string; icon: typeof Refrigerator }
 > = {
-  fridge: { label: "Fridge", color: "bg-blue-100 text-blue-800", icon: Refrigerator },
-  freezer: { label: "Freezer", color: "bg-cyan-100 text-cyan-800", icon: Snowflake },
-  pantry: { label: "Pantry", color: "bg-amber-100 text-amber-800", icon: Package },
-  other: { label: "Other", color: "bg-gray-100 text-gray-800", icon: Package },
+  fridge: { label: "Fridge", color: "bg-[color:color-mix(in_srgb,var(--ck-info)_15%,transparent)] text-[var(--ck-info)]", icon: Refrigerator },
+  freezer: { label: "Freezer", color: "bg-[color:color-mix(in_srgb,var(--ck-primary)_15%,transparent)] text-[var(--ck-primary)]", icon: Snowflake },
+  pantry: { label: "Pantry", color: "bg-[color:color-mix(in_srgb,var(--ck-warning)_15%,transparent)] text-[var(--ck-warning)]", icon: Package },
+  other: { label: "Other", color: "bg-[color:color-mix(in_srgb,var(--ck-text-muted)_15%,transparent)] text-[var(--ck-text-muted)]", icon: Package },
 };
 
 function getExpiryStatus(expiryDate: string | null): "ok" | "soon" | "expired" | null {
@@ -34,9 +34,9 @@ function formatExpiryDate(date: string | null): string {
 }
 
 const EXPIRY_COLORS: Record<string, string> = {
-  ok: "text-[#4caf50]",
-  soon: "text-[#ff9800]",
-  expired: "text-[#f44336]",
+  ok: "text-[var(--ck-success)]",
+  soon: "text-[var(--ck-warning)]",
+  expired: "text-[var(--ck-error)]",
 };
 
 interface InventoryCardProps {
@@ -54,26 +54,26 @@ export function InventoryCard({ item, onEdit, onDelete }: InventoryCardProps) {
     <Card className="group relative transition-shadow hover:shadow-md">
       <CardBody className="p-4">
         <div className="mb-2 flex items-start justify-between">
-          <h3 className="font-semibold text-[#1c3a2a] leading-tight">{item.name}</h3>
+          <h3 className="font-semibold text-[var(--ck-heading)] leading-tight">{item.name}</h3>
           <div className="flex gap-1 opacity-0 transition-opacity group-hover:opacity-100">
             <button
               type="button"
               onClick={onEdit}
-              className="rounded p-1 text-[#7a8e74] hover:bg-[#f0f4ec] hover:text-[#1c3a2a]"
+              className="rounded p-1 text-[var(--ck-text-muted)] hover:bg-[var(--ck-bg-card)] hover:text-[var(--ck-heading)]"
             >
               <Pencil className="h-4 w-4" />
             </button>
             <button
               type="button"
               onClick={onDelete}
-              className="rounded p-1 text-[#7a8e74] hover:bg-red-50 hover:text-[#f44336]"
+              className="rounded p-1 text-[var(--ck-text-muted)] hover:bg-[color:color-mix(in_srgb,var(--ck-error)_10%,transparent)] hover:text-[var(--ck-error)]"
             >
               <Trash2 className="h-4 w-4" />
             </button>
           </div>
         </div>
 
-        <p className="mb-3 text-sm text-[#7a8e74]">
+        <p className="mb-3 text-sm text-[var(--ck-text-muted)]">
           {item.quantity} {item.unit}
         </p>
 
@@ -89,7 +89,7 @@ export function InventoryCard({ item, onEdit, onDelete }: InventoryCardProps) {
             </span>
           )}
           {!expiryStatus && item.expiry_date === null && (
-            <span className="text-xs text-[#7a8e74]">No expiry</span>
+            <span className="text-xs text-[var(--ck-text-muted)]">No expiry</span>
           )}
         </div>
       </CardBody>
