@@ -11,6 +11,7 @@ import { DietarySection } from "@/components/settings/dietary-section";
 import { SkillSection } from "@/components/settings/skill-section";
 import { PasswordSection } from "@/components/settings/password-section";
 import { PreferencesSection } from "@/components/settings/preferences-section";
+import { ThemeSection } from "@/components/settings/theme-section";
 import { DangerSection } from "@/components/settings/danger-section";
 
 function SectionSkeleton() {
@@ -95,6 +96,8 @@ export default function SettingsPage() {
           />
         </>
       )}
+
+      <ThemeSection />
 
       <PasswordSection />
 
