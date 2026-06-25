@@ -4,16 +4,18 @@ const getApiBase = () => {
   if (process.env.NEXT_PUBLIC_API_URL) {
     return process.env.NEXT_PUBLIC_API_URL;
   }
+  const ip = process.env.NEXT_PUBLIC_API_IP;
+  const port = process.env.NEXT_PUBLIC_API_PORT || "8080";
   if (typeof window !== "undefined") {
-    // Dynamically fallback to the current page hostname (e.g. 192.168.x.x) on port 8080 for local network testing
+    // Dynamically fallback to the current page hostname or selected IP on the selected port for local network testing
     const protocol = window.location.protocol;
-    const hostname = window.location.hostname;
-    return `${protocol}//${hostname}:8080`;
+    const hostname = ip || window.location.hostname;
+    return `${protocol}//${hostname}:${port}`;
   }
-  return "http://localhost:8080";
+  return `http://${ip || 'localhost'}:${port}`;
 };
 
-const API_BASE = getApiBase();
+export const API_BASE = getApiBase();
 
 export class ApiError extends Error {
   constructor(public status: number, public body: string) {

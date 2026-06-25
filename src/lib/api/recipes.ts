@@ -4,7 +4,7 @@ import type {
   RecipeSearchParams,
   PaginatedResponse,
 } from "../types";
-import { client } from "./client";
+import { client, API_BASE } from "./client";
 
 export function mapRecipeListItem(r: any): RecipeListItem {
   const prep = 15;
@@ -185,7 +185,7 @@ export async function uploadRecipeImage(id: string, file: File): Promise<{ url: 
   const formData = new FormData();
   formData.append("image", file);
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080'}/api/recipes/${encodeURIComponent(id)}/image`, {
+  const res = await fetch(`${API_BASE}/api/recipes/${encodeURIComponent(id)}/image`, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${localStorage.getItem("token")}`, // Assuming client-side auth for now, or token handling in custom client
