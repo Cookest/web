@@ -44,25 +44,25 @@ export function ShoppingCategory({
         className="mb-2 flex w-full items-center gap-2 text-left"
       >
         {collapsed ? (
-          <ChevronRight className="h-4 w-4 text-[#7a8e74]" />
+          <ChevronRight className="h-4 w-4 text-[var(--ck-text-muted)]" />
         ) : (
-          <ChevronDown className="h-4 w-4 text-[#7a8e74]" />
+          <ChevronDown className="h-4 w-4 text-[var(--ck-text-muted)]" />
         )}
         <Badge className={`text-xs capitalize ${getCategoryColor(category)}`}>
           {category}
         </Badge>
-        <span className="text-xs text-[#7a8e74]">
+        <span className="text-xs text-[var(--ck-text-muted)]">
           {checkedCount}/{items.length}
         </span>
       </button>
 
       {!collapsed && (
         <Card>
-          <CardBody className="divide-y divide-[#e4ebe0] p-0">
+          <CardBody className="divide-y divide-border p-0">
             {items.map((item) => (
               <div
                 key={item.id}
-                className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-[#fafaf6]"
+                className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-surface-muted"
               >
                 <Checkbox
                   checked={item.is_checked}
@@ -72,20 +72,20 @@ export function ShoppingCategory({
                   <span
                     className={`text-sm ${
                       item.is_checked
-                        ? "text-[#7a8e74] line-through"
-                        : "font-medium text-[#1c3a2a]"
+                        ? "text-[var(--ck-text-muted)] line-through"
+                        : "font-medium text-[var(--ck-heading)]"
                     }`}
                   >
                     {item.name}
                   </span>
-                  <span className="ml-2 text-xs text-[#7a8e74]">
+                  <span className="ml-2 text-xs text-[var(--ck-text-muted)]">
                     {item.quantity} {item.unit}
                   </span>
                 </div>
                 <button
                   type="button"
                   onClick={() => onDelete(item.id)}
-                  className="rounded p-1 text-[#7a8e74] opacity-0 transition-opacity hover:bg-red-50 hover:text-[#f44336] group-hover:opacity-100 [div:hover>&]:opacity-100"
+                  className="rounded p-1 text-[var(--ck-text-muted)] opacity-0 transition-opacity hover:bg-red-50 hover:text-red-500 group-hover:opacity-100 [div:hover>&]:opacity-100"
                 >
                   <Trash2 className="h-4 w-4" />
                 </button>

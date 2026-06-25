@@ -23,6 +23,8 @@ import { MealGrid, MealGridSkeleton } from "@/components/meals/meal-grid";
 import { GenerateModal } from "@/components/meals/generate-modal";
 import { EmptyState } from "@/components/empty-state";
 import { toast } from "sonner";
+import { RecipePickerModal } from "@/components/meals/recipe-picker-modal";
+import type { RecipeListItem } from "@/lib/types";
 
 const MEAL_TYPES = ["breakfast", "lunch", "dinner"] as const;
 
@@ -45,6 +47,7 @@ export default function MealsPage() {
   const queryClient = useQueryClient();
   const [currentWeek, setCurrentWeek] = useState(() => getWeekStart(new Date()));
   const [showGenerateModal, setShowGenerateModal] = useState(false);
+  const [pickerState, setPickerState] = useState<{ open: boolean; dayIndex?: number; mealType?: string }>({ open: false });
 
   const { data: plansData, isLoading: isLoadingPlans } = useQuery({
     queryKey: ["meal-plans-list"],
@@ -100,8 +103,25 @@ export default function MealsPage() {
     },
   });
 
+  const addSlotMutation = useMutation({
+    mutationFn: (data: { recipe_id: string; day_of_week: number; meal_type: string }) => 
+      api.addMealSlot(selectedPlanId?.toString() || selectedWeekStr, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["meal-plans-list"] });
+      queryClient.invalidateQueries({ queryKey: ["meal-plan"] });
+      setPickerState({ open: false });
+      toast.success("Added to meal plan");
+    },
+    onError: (e: any) => {
+      if (e.message?.includes("Pro")) {
+        router.push("/pricing");
+      } else {
+        toast.error("Failed to add meal");
+      }
+    },
+  });
+
   const slotGrid = useMemo(() => {
-    if (!mealPlan) return null;
     const grid: Record<string, Record<string, MealSlot | null>> = {};
     for (let day = 0; day < 7; day++) {
       grid[day] = {};
@@ -109,7 +129,7 @@ export default function MealsPage() {
         grid[day][type] = null;
       }
     }
-    if (!mealPlan.slots) return grid;
+    if (!mealPlan?.slots) return grid;
     for (const slot of mealPlan.slots) {
       if (slot.day >= 0 && slot.day <= 6 && grid[slot.day]) {
         grid[slot.day][slot.meal_type] = slot;
@@ -121,10 +141,12 @@ export default function MealsPage() {
   const weekStart = mealPlan ? new Date(mealPlan.week_start) : currentWeek;
 
   function handleMarkCooked(slotId: string, completed: boolean) {
+    if (!mealPlan) return;
     updateSlotMutation.mutate({ slotId, data: { is_completed: completed } });
   }
 
   function handleToggleFlex(slotId: string, isFlex: boolean) {
+    if (!mealPlan) return;
     updateSlotMutation.mutate({
       slotId,
       data: { is_flex: isFlex, flex_type: isFlex ? "effort" : undefined },
@@ -139,9 +161,7 @@ export default function MealsPage() {
           <h1 className="font-serif text-3xl font-bold text-heading">
             Meal Plan
           </h1>
-          {mealPlan && (
-            <p className="mt-1 text-muted">{formatWeekRange(weekStart)}</p>
-          )}
+          <p className="mt-1 text-muted">{formatWeekRange(weekStart)}</p>
         </div>
         <Button
           onClick={() => setShowGenerateModal(true)}
@@ -153,56 +173,60 @@ export default function MealsPage() {
       </div>
 
       {/* Week navigation */}
-      {mealPlan && (
-        <div className="flex items-center justify-center gap-4">
-          <button
-            type="button"
-            onClick={() => setCurrentWeek((w) => subWeeks(w, 1))}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-border hover:bg-[#f0f4ec] transition-colors"
-          >
-            <ChevronLeft className="h-4 w-4 text-heading" />
-          </button>
-          <div className="flex items-center gap-2 text-sm font-medium text-heading">
-            <CalendarDays className="h-4 w-4 text-[#7a9a65]" />
-            {formatWeekRange(weekStart)}
-          </div>
-          <button
-            type="button"
-            onClick={() => setCurrentWeek((w) => addWeeks(w, 1))}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-border hover:bg-[#f0f4ec] transition-colors"
-          >
-            <ChevronRight className="h-4 w-4 text-heading" />
-          </button>
+      <div className="flex items-center justify-center gap-4">
+        <button
+          type="button"
+          onClick={() => setCurrentWeek((w) => subWeeks(w, 1))}
+          className="flex h-9 w-9 items-center justify-center rounded-full border border-border hover:bg-[#f0f4ec] transition-colors"
+        >
+          <ChevronLeft className="h-4 w-4 text-heading" />
+        </button>
+        <div className="flex items-center gap-2 text-sm font-medium text-heading">
+          <CalendarDays className="h-4 w-4 text-[#7a9a65]" />
+          {formatWeekRange(weekStart)}
         </div>
-      )}
+        <button
+          type="button"
+          onClick={() => setCurrentWeek((w) => addWeeks(w, 1))}
+          className="flex h-9 w-9 items-center justify-center rounded-full border border-border hover:bg-[#f0f4ec] transition-colors"
+        >
+          <ChevronRight className="h-4 w-4 text-heading" />
+        </button>
+      </div>
 
-      {isLoading && <MealGridSkeleton />}
-
-      {!isLoading && !mealPlan && (
-        <EmptyState
-          icon={CalendarDays}
-          title="No meal plan yet"
-          description="Generate a personalized weekly meal plan based on your preferences and pantry items."
-          action={{ label: "Generate Meal Plan", onClick: () => setShowGenerateModal(true) }}
-        />
-      )}
-
-      {!isLoading && mealPlan && slotGrid && (
+      {isLoading ? (
+        <MealGridSkeleton />
+      ) : (
         <MealGrid
           mealPlan={mealPlan}
           slotGrid={slotGrid}
           weekStart={weekStart}
           onMarkCooked={handleMarkCooked}
           onToggleFlex={handleToggleFlex}
+          onAddSlot={(dayIndex, mealType) => setPickerState({ open: true, dayIndex, mealType })}
         />
       )}
-
 
       <GenerateModal
         open={showGenerateModal}
         onClose={() => setShowGenerateModal(false)}
         onGenerate={(data) => generateMutation.mutate(data)}
         isGenerating={generateMutation.isPending}
+      />
+      
+      <RecipePickerModal
+        open={pickerState.open}
+        onClose={() => setPickerState({ open: false })}
+        onSelect={(recipe) => {
+          if (pickerState.dayIndex !== undefined && pickerState.mealType !== undefined) {
+            addSlotMutation.mutate({
+              recipe_id: recipe.id.toString(),
+              day_of_week: pickerState.dayIndex,
+              meal_type: pickerState.mealType,
+            });
+          }
+        }}
+        isAdding={addSlotMutation.isPending}
       />
     </div>
   );

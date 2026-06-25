@@ -95,7 +95,7 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="flex h-[calc(100dvh-64px)] md:h-[100dvh] w-full overflow-hidden bg-[#fafaf6]">
+    <div className="flex h-[calc(100dvh-64px)] md:h-[100dvh] w-full overflow-hidden bg-[var(--ck-bg)]">
       <SessionList
         sessions={sessions}
         activeSessionId={activeSessionId}

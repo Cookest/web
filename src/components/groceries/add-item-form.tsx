@@ -35,12 +35,12 @@ export function AddItemForm({ onAdd, isPending }: AddItemFormProps) {
         <CardBody className="p-4">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
             {ingredient ? (
-              <div className="flex flex-1 items-center gap-2 rounded-lg border border-[#e4ebe0] bg-[#f0f4ec] px-3 py-2">
-                <span className="text-sm font-medium text-[#1c3a2a]">{ingredient.name}</span>
+              <div className="flex flex-1 items-center gap-2 rounded-lg border border-border bg-surface-muted px-3 py-2">
+                <span className="text-sm font-medium text-[var(--ck-heading)]">{ingredient.name}</span>
                 <button
                   type="button"
                   onClick={() => setIngredient(null)}
-                  className="ml-auto text-[#7a8e74] hover:text-[#1c3a2a]"
+                  className="ml-auto text-[var(--ck-text-muted)] hover:text-[var(--ck-heading)]"
                 >
                   <X className="h-4 w-4" />
                 </button>

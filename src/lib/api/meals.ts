@@ -7,7 +7,11 @@ import type {
 import { client } from "./client";
 
 export async function getMealPlans(): Promise<{ items: MealPlanListItem[]; total: number }> {
-  return client.request("/api/meal-plans");
+  const res = await client.request<any>("/api/meal-plans");
+  return {
+    items: res.plans || res.items || [],
+    total: res.total || 0,
+  };
 }
 
 export async function getMealPlan(id: string): Promise<MealPlan> {
@@ -34,6 +38,13 @@ export async function deleteMealPlan(id: string): Promise<void> {
 export async function updateMealSlot(planId: string, slotId: string, data: Partial<{ recipe_id: string; servings: number; is_flex: boolean; flex_type: string; is_completed: boolean }>): Promise<void> {
   return client.request(`/api/meal-plans/${encodeURIComponent(planId)}/slots/${encodeURIComponent(slotId)}`, {
     method: "PUT",
+    body: JSON.stringify(data),
+  });
+}
+
+export async function addMealSlot(planId: string, data: { recipe_id: string; day_of_week: number; meal_type: string; servings?: number }): Promise<void> {
+  return client.request(`/api/meal-plans/${encodeURIComponent(planId)}/slots`, {
+    method: "POST",
     body: JSON.stringify(data),
   });
 }

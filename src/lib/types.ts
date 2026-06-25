@@ -97,6 +97,7 @@ export interface PaginatedResponse<T> {
 
 export interface RecipeSearchParams {
   q?: string;
+  source?: "global" | "community";
   category?: string;
   cuisine?: string;
   difficulty?: string;

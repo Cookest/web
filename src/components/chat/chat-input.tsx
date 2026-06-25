@@ -41,7 +41,7 @@ export function ChatInput({ onSend, isSending }: ChatInputProps) {
   };
 
   return (
-    <div className="border-t border-[#e4ebe0] bg-white p-4">
+    <div className="border-t border-[var(--ck-border)] bg-[var(--ck-surface)] p-4">
       <div className="max-w-3xl mx-auto flex items-end gap-3">
         <div className="flex-1 relative">
           <textarea
@@ -52,7 +52,7 @@ export function ChatInput({ onSend, isSending }: ChatInputProps) {
             placeholder="Message AI Chef..."
             disabled={isSending}
             rows={1}
-            className="w-full resize-none rounded-xl border border-[#e4ebe0] bg-[#fafaf6] px-4 py-3 text-sm text-[#1c3a2a] placeholder:text-[#7a8e74]/60 focus:outline-none focus:border-[#7a9a65] focus:ring-1 focus:ring-[#7a9a65]/30 disabled:opacity-50 transition-colors"
+            className="w-full resize-none rounded-xl border border-[var(--ck-border)] bg-[var(--ck-surface-muted)] px-4 py-3 text-sm text-[var(--ck-heading)] placeholder:text-[var(--ck-text-muted)] focus:outline-none focus:border-[var(--ck-primary)] focus:ring-1 focus:ring-[var(--ck-primary)]/30 disabled:opacity-50 transition-colors"
             style={{ lineHeight: "24px" }}
           />
         </div>

@@ -9,6 +9,7 @@ import type { ShoppingItem } from "@/lib/types";
 import { ShoppingCategory } from "@/components/groceries/shopping-category";
 import { AddItemForm } from "@/components/groceries/add-item-form";
 import { EmptyState } from "@/components/empty-state";
+import { PageHeader } from "@/components/page-header";
 
 function groupByCategory(items: ShoppingItem[]): Record<string, ShoppingItem[]> {
   const groups: Record<string, ShoppingItem[]> = {};
@@ -27,13 +28,13 @@ function ListSkeleton() {
     <div className="space-y-4">
       {Array.from({ length: 3 }).map((_, i) => (
         <div key={i} className="animate-pulse space-y-2">
-          <div className="h-5 w-24 rounded bg-[#e4ebe0]" />
-          <div className="space-y-2 rounded-lg border border-[#e4ebe0] bg-[#fafaf6] p-4">
+          <div className="h-5 w-24 rounded bg-[var(--ck-border)]" />
+          <div className="space-y-2 rounded-lg border border-border bg-surface p-4">
             {Array.from({ length: 3 }).map((_, j) => (
               <div key={j} className="flex items-center gap-3">
-                <div className="h-4 w-4 rounded bg-[#e4ebe0]" />
-                <div className="h-4 w-40 rounded bg-[#e4ebe0]" />
-                <div className="ml-auto h-4 w-16 rounded bg-[#e4ebe0]" />
+                <div className="h-4 w-4 rounded bg-[var(--ck-border)]" />
+                <div className="h-4 w-40 rounded bg-[var(--ck-border)]" />
+                <div className="ml-auto h-4 w-16 rounded bg-[var(--ck-border)]" />
               </div>
             ))}
           </div>
@@ -85,15 +86,13 @@ export default function GroceriesPage() {
   });
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl space-y-8 px-4 py-8 sm:px-6">
       {/* Header */}
-      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="font-serif text-3xl font-bold text-[#1c3a2a]">Groceries</h1>
-          <p className="mt-1 text-sm text-[#7a8e74]">
-            {checkedItems}/{totalItems} items checked
-          </p>
-        </div>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <PageHeader 
+          title="Groceries" 
+          subtitle={`${checkedItems}/${totalItems} items checked`} 
+        />
         <div className="flex gap-2">
           <Button
             variant="secondary"
@@ -118,8 +117,8 @@ export default function GroceriesPage() {
 
       {/* Progress bar */}
       {totalItems > 0 && (
-        <div className="mb-6">
-          <div className="mb-1 flex items-center justify-between text-xs text-[#7a8e74]">
+        <div>
+          <div className="mb-1 flex items-center justify-between text-xs text-[var(--ck-text-muted)]">
             <span>Progress</span>
             <span>{progressPercent}%</span>
           </div>

@@ -28,7 +28,7 @@ function SidebarSkeleton() {
       {Array.from({ length: 5 }).map((_, i) => (
         <div
           key={i}
-          className="animate-pulse rounded-lg bg-[#e4ebe0]/60 h-14"
+          className="animate-pulse rounded-lg bg-[var(--ck-border)] h-14"
         />
       ))}
     </div>
@@ -55,12 +55,12 @@ export function SessionList({
   const [pendingDelete, setPendingDelete] = useState<number | null>(null);
 
   return (
-    <aside className="w-60 shrink-0 border-r border-[#e4ebe0] bg-white flex flex-col">
+    <aside className="w-60 shrink-0 border-r border-[var(--ck-border)] bg-[var(--ck-surface)] flex flex-col">
       {/* Header */}
-      <div className="p-4 border-b border-[#e4ebe0]">
+      <div className="p-4 border-b border-[var(--ck-border)]">
         <div className="flex items-center gap-2 mb-3">
-          <Sparkles className="h-5 w-5 text-[#7a9a65]" />
-          <h2 className="font-semibold text-[#1c3a2a] text-lg font-[family-name:var(--font-heading)]">
+          <Sparkles className="h-5 w-5 text-[var(--ck-primary)]" />
+          <h2 className="font-semibold text-[var(--ck-heading)] text-lg font-[family-name:var(--font-heading)]">
             AI Chef
           </h2>
         </div>
@@ -78,7 +78,7 @@ export function SessionList({
         {isLoading ? (
           <SidebarSkeleton />
         ) : sessions.length === 0 ? (
-          <div className="p-4 text-center text-sm text-[#7a8e74]">
+          <div className="p-4 text-center text-sm text-[var(--ck-text-muted)]">
             No conversations yet
           </div>
         ) : (
@@ -88,18 +88,18 @@ export function SessionList({
                 key={session.id}
                 className={`group relative rounded-lg px-3 py-2.5 cursor-pointer transition-colors ${
                   activeSessionId === session.id
-                    ? "bg-[#7a9a65]/10 border border-[#7a9a65]/30"
-                    : "hover:bg-[#fafaf6] border border-transparent"
+                    ? "bg-[var(--ck-primary)]/10 border border-[var(--ck-primary)]/30"
+                    : "hover:bg-[var(--ck-surface-muted)] border border-transparent"
                 }`}
                 onClick={() => onSelect(session.id)}
               >
                 <div className="flex items-start gap-2">
-                  <MessageSquare className="h-4 w-4 text-[#7a8e74] mt-0.5 shrink-0" />
+                  <MessageSquare className="h-4 w-4 text-[var(--ck-text-muted)] mt-0.5 shrink-0" />
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-medium text-[#1c3a2a] truncate">
+                    <p className="text-sm font-medium text-[var(--ck-heading)] truncate">
                       {session.title || "New conversation"}
                     </p>
-                    <p className="text-xs text-[#7a8e74] mt-0.5">
+                    <p className="text-xs text-[var(--ck-text-muted)] mt-0.5">
                       {relativeTime(session.updated_at)}
                     </p>
                   </div>
@@ -119,7 +119,7 @@ export function SessionList({
                       Delete
                     </button>
                     <button
-                      className="text-xs text-[#7a8e74] hover:underline"
+                      className="text-xs text-[var(--ck-text-muted)] hover:underline"
                       onClick={(e) => {
                         e.stopPropagation();
                         setPendingDelete(null);

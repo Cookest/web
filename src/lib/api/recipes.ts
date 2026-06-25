@@ -43,7 +43,8 @@ export async function searchRecipes(params: RecipeSearchParams = {}): Promise<Pa
     query.set("page", (Math.floor(params.offset / params.limit) + 1).toString());
   }
   
-  const res = await client.request<any>(`/api/recipes?${query.toString()}`);
+  const endpoint = params.source === "global" ? "/api/browse/recipes" : "/api/recipes";
+  const res = await client.request<any>(`${endpoint}?${query.toString()}`);
 
   let rawItems: any[] = [];
   let total = 0;
@@ -54,7 +55,7 @@ export async function searchRecipes(params: RecipeSearchParams = {}): Promise<Pa
     rawItems = res;
     total = res.length;
   } else if (res) {
-    rawItems = res.data || res.items || [];
+    rawItems = res.data || res.items || res.recipes || [];
     total = res.total !== undefined ? res.total : rawItems.length;
     limit = res.per_page || res.limit || limit;
     offset = res.offset !== undefined ? res.offset : (res.page ? (res.page - 1) * limit : offset);

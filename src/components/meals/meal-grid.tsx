@@ -129,7 +129,18 @@ function MealSlotCard({
 
 // ── Empty Slot ──
 
-function EmptySlot() {
+function EmptySlot({ onClick }: { onClick?: () => void }) {
+  if (onClick) {
+    return (
+      <button
+        onClick={onClick}
+        className="w-full h-full flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-border p-3 min-h-[100px] hover:bg-muted/30 hover:border-muted-foreground/30 transition-colors cursor-pointer group"
+      >
+        <span className="text-xs text-muted group-hover:text-muted-foreground transition-colors">Add meal</span>
+      </button>
+    );
+  }
+  
   return (
     <div className="flex items-center justify-center rounded-lg border-2 border-dashed border-border p-3 min-h-[100px]">
       <span className="text-xs text-muted">No meal planned</span>
@@ -170,11 +181,12 @@ function GridSkeleton() {
 // ── Props ──
 
 interface MealGridProps {
-  mealPlan: MealPlan;
+  mealPlan: MealPlan | null;
   slotGrid: Record<string, Record<string, MealSlot | null>>;
   weekStart: Date;
   onMarkCooked: (slotId: string, completed: boolean) => void;
   onToggleFlex: (slotId: string, isFlex: boolean) => void;
+  onAddSlot?: (dayIndex: number, mealType: string) => void;
 }
 
 export { GridSkeleton as MealGridSkeleton };
@@ -185,6 +197,7 @@ export function MealGrid({
   weekStart,
   onMarkCooked,
   onToggleFlex,
+  onAddSlot,
 }: MealGridProps) {
   return (
     <Card>
@@ -234,12 +247,12 @@ export function MealGrid({
                       {slot ? (
                         <MealSlotCard
                           slot={slot}
-                          planId={mealPlan.id}
+                          planId={mealPlan?.id ?? ""}
                           onMarkCooked={onMarkCooked}
                           onToggleFlex={onToggleFlex}
                         />
                       ) : (
-                        <EmptySlot />
+                        <EmptySlot onClick={onAddSlot ? () => onAddSlot(dayIndex, mealType) : undefined} />
                       )}
                     </td>
                   );
