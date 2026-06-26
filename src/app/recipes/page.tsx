@@ -28,7 +28,7 @@ export default function RecipesPage() {
   const [searchInput, setSearchInput] = useState(q);
   const [filtersOpen, setFiltersOpen] = useState(false);
 
-  const tab = searchParams.get("tab") || "mine";
+  const tab = searchParams.get("tab") || "global";
   const [activeTab, setActiveTab] = useState(tab);
 
   const apiParams: RecipeSearchParams = {
@@ -38,20 +38,20 @@ export default function RecipesPage() {
     limit: PAGE_SIZE, offset: (page - 1) * PAGE_SIZE,
   };
 
-  const { data: browseData, isLoading: isLoadingBrowse } = useQuery({
-    queryKey: ["recipes", "browse", apiParams],
+  const { data: communityData, isLoading: isLoadingCommunity } = useQuery({
+    queryKey: ["recipes", "community", apiParams],
     queryFn: () => api.searchRecipes(apiParams),
-    enabled: activeTab === "browse",
+    enabled: activeTab === "community",
   });
 
-  const { data: myData, isLoading: isLoadingMine } = useQuery({
-    queryKey: ["recipes", "mine", apiParams],
-    queryFn: () => api.getMyRecipes(apiParams),
-    enabled: activeTab === "mine",
+  const { data: globalData, isLoading: isLoadingGlobal } = useQuery({
+    queryKey: ["recipes", "global", apiParams],
+    queryFn: () => api.browseGlobalRecipes(apiParams),
+    enabled: activeTab === "global",
   });
 
-  const data = activeTab === "mine" ? myData : browseData;
-  const isLoading = activeTab === "mine" ? isLoadingMine : isLoadingBrowse;
+  const data = activeTab === "global" ? globalData : communityData;
+  const isLoading = activeTab === "global" ? isLoadingGlobal : isLoadingCommunity;
 
   const toggleFavourite = useMutation({
     mutationFn: (id: string) => api.toggleFavourite(id),
@@ -109,8 +109,8 @@ export default function RecipesPage() {
       ) : (
         <div className="mt-8">
           <EmptyState icon={UtensilsCrossed} title="No recipes found"
-            description={activeTab === "mine" ? "You haven't created or saved any recipes that match these filters." : "Try adjusting your search or filters to find what you're looking for."}
-            action={activeTab === "mine" && !q && !cuisine && !difficulty && !dietary && maxTime === 0 ? { label: "Create a Recipe", onClick: () => router.push("/recipes/create") } : { label: "Clear all filters", onClick: () => router.push(`/recipes?tab=${activeTab}`) }}
+            description={activeTab === "global" ? "Try adjusting your search or filters to find what you're looking for in the global database." : "No community recipes match these filters."}
+            action={{ label: "Clear all filters", onClick: () => router.push(`/recipes?tab=${activeTab}`) }}
           />
         </div>
       )}
@@ -137,13 +137,13 @@ export default function RecipesPage() {
         }}
         items={[
           {
-            label: "My Recipes",
-            id: "mine",
+            label: "Global Recipes",
+            id: "global",
             content: renderContent(),
           },
           {
             label: "Browse Community",
-            id: "browse",
+            id: "community",
             content: renderContent(),
           }
         ]}

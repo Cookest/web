@@ -64,6 +64,39 @@ export async function searchRecipes(params: RecipeSearchParams = {}): Promise<Pa
   };
 }
 
+export async function browseGlobalRecipes(params: RecipeSearchParams = {}): Promise<PaginatedResponse<RecipeListItem>> {
+  const query = new URLSearchParams();
+  if (params.q) query.set("q", params.q);
+  if (params.category) query.set("category", params.category);
+  if (params.cuisine) query.set("cuisine", params.cuisine);
+  if (params.difficulty) query.set("difficulty", params.difficulty);
+  if (params.max_time) query.set("max_time", params.max_time.toString());
+  if (params.dietary) query.set("dietary", params.dietary);
+  if (params.limit) query.set("limit", params.limit.toString());
+  if (params.offset) query.set("offset", params.offset.toString());
+  
+  const res = await client.request<any>(`/api/browse/recipes?${query.toString()}`);
+
+  let rawItems: any[] = [];
+  let total = 0;
+  let limit = params.limit || 12;
+  let offset = params.offset || 0;
+
+  if (Array.isArray(res)) {
+    rawItems = res;
+    total = res.length;
+  } else if (res) {
+    rawItems = res.data || res.items || [];
+    total = res.total !== undefined ? res.total : rawItems.length;
+    limit = res.per_page || res.limit || limit;
+    offset = res.offset !== undefined ? res.offset : offset;
+  }
+
+  const items = rawItems.map(mapRecipeListItem);
+
+  return { items, total, limit, offset };
+}
+
 export async function getMyRecipes(params: RecipeSearchParams = {}): Promise<PaginatedResponse<RecipeListItem>> {
   const query = new URLSearchParams();
   if (params.q) query.set("q", params.q);
