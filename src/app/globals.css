@@ -34,6 +34,27 @@
   --font-sans: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-playfair), "Playfair Display", ui-serif, Georgia, serif;
   --font-mono: var(--font-jetbrains), "JetBrains Mono", ui-monospace, monospace;
+
+  --color-primary: var(--ck-primary);
+  --color-primary-light: var(--ck-primary-light);
+  --color-primary-dark: var(--ck-primary-dark);
+  --color-bg: var(--ck-bg);
+  --color-bg-card: var(--ck-bg-card);
+  --color-heading: var(--ck-heading);
+  --color-text: var(--ck-text);
+  --color-text-muted: var(--ck-text-muted);
+  --color-border: var(--ck-border);
+  --color-surface: var(--ck-surface);
+  --color-surface-muted: var(--ck-surface-muted);
+
+  --color-background: var(--ck-bg);
+  --color-foreground: var(--ck-text);
+  --color-card: var(--ck-bg-card);
+  --color-muted: var(--ck-text-muted);
+  --color-success: var(--ck-success);
+  --color-warning: var(--ck-warning);
+  --color-error: var(--ck-error);
+  --color-info: var(--ck-info);
 }
 
 html {
