@@ -32,7 +32,6 @@ const navItems = [
   { href: "/", label: "Home", icon: Home },
   { href: "/recipes", label: "Recipes", icon: UtensilsCrossed },
   { href: "/meals", label: "Meal Plans", icon: CalendarDays },
-  { href: "/discover", label: "Discover", icon: Compass },
   { href: "/pantry", label: "Pantry", icon: Refrigerator },
   { href: "/groceries", label: "Groceries", icon: ShoppingCart },
   { href: "/nutrition", label: "Nutrition", icon: Leaf },
