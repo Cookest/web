@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
@@ -9,8 +10,10 @@ import { SessionList } from "@/components/chat/session-list";
 import { MessageList } from "@/components/chat/message-list";
 import { ChatInput } from "@/components/chat/chat-input";
 import { WelcomeScreen } from "@/components/chat/welcome-screen";
+import { toast } from "sonner";
 
 export default function ChatPage() {
+  const router = useRouter();
   const queryClient = useQueryClient();
   const { user } = useAuth();
 
@@ -56,9 +59,14 @@ export default function ChatPage() {
       queryClient.invalidateQueries({ queryKey: ["chatSessions"] });
       queryClient.invalidateQueries({ queryKey: ["chatMessages", data.session_id] });
     },
-    onError: () => {
+    onError: (e: any) => {
       setIsThinking(false);
-      setOptimisticMessages([]);
+      setOptimisticMessages((prev) => prev.slice(0, -1));
+      if (e.message?.includes("Pro")) {
+        router.push("/pricing");
+      } else {
+        toast.error("Failed to send message");
+      }
     },
   });
 

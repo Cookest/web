@@ -68,11 +68,15 @@ export default function CreateRecipePage() {
       queryClient.invalidateQueries({ queryKey: ["recipes"] });
       router.push(`/recipes/${data.id}`);
     },
-    onError: (err) => {
-      toast({
-        title: "Error",
-        description: err instanceof Error ? err.message : "Failed to create recipe",
-      });
+    onError: (err: any) => {
+      if (err.message?.includes("Pro")) {
+        router.push("/pricing");
+      } else {
+        toast({
+          title: "Error",
+          description: err instanceof Error ? err.message : "Failed to create recipe",
+        });
+      }
     },
   });
 

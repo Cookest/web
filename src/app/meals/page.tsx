@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useRouter } from "next/navigation";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   CalendarDays,
@@ -22,6 +23,7 @@ import { MealGrid, MealGridSkeleton } from "@/components/meals/meal-grid";
 import { GenerateModal } from "@/components/meals/generate-modal";
 import { NutritionSummary } from "@/components/meals/nutrition-summary";
 import { EmptyState } from "@/components/empty-state";
+import { toast } from "sonner";
 
 const MEAL_TYPES = ["breakfast", "lunch", "dinner"] as const;
 
@@ -40,6 +42,7 @@ function formatWeekRange(weekStart: Date): string {
 }
 
 export default function MealsPage() {
+  const router = useRouter();
   const queryClient = useQueryClient();
   const [currentWeek, setCurrentWeek] = useState(() => getWeekStart(new Date()));
   const [showGenerateModal, setShowGenerateModal] = useState(false);
@@ -58,6 +61,13 @@ export default function MealsPage() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["current-meal-plan"] });
       setShowGenerateModal(false);
+    },
+    onError: (e: any) => {
+      if (e.message?.includes("Pro")) {
+        router.push("/pricing");
+      } else {
+        toast.error("Failed to generate plan");
+      }
     },
   });
 
