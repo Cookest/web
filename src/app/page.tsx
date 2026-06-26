@@ -14,7 +14,6 @@ import { QuickActions } from "@/components/dashboard/quick-actions";
 
 // Marketing landing page components
 import TranslationProvider from "@/marketing/TranslationProvider";
-import ThemeProvider from "@/components/ThemeProvider";
 import Nav from "@/marketing/Nav";
 import Hero from "@/marketing/Hero";
 import Features from "@/marketing/Features";
@@ -153,20 +152,18 @@ function Dashboard() {
 
 function LandingPage() {
   return (
-    <ThemeProvider>
-      <TranslationProvider>
-        <Nav />
-        <main>
-          <Hero />
-          <Features />
-          <Showcase />
-          <ScrollStory />
-          <Sustainability />
-          <Download />
-        </main>
-        <Footer />
-      </TranslationProvider>
-    </ThemeProvider>
+    <TranslationProvider>
+      <Nav />
+      <main>
+        <Hero />
+        <Features />
+        <Showcase />
+        <ScrollStory />
+        <Sustainability />
+        <Download />
+      </main>
+      <Footer />
+    </TranslationProvider>
   );
 }
 
