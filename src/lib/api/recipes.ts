@@ -30,6 +30,7 @@ export async function searchRecipes(params: RecipeSearchParams = {}): Promise<Pa
   const query = new URLSearchParams();
   if (params.q) query.set("q", params.q);
   if (params.category) query.set("category", params.category);
+  if (params.cuisine) query.set("cuisine", params.cuisine);
   if (params.difficulty) query.set("difficulty", params.difficulty);
   if (params.max_time) query.set("max_time", params.max_time.toString());
   if (params.dietary) query.set("dietary", params.dietary);
@@ -63,6 +64,39 @@ export async function searchRecipes(params: RecipeSearchParams = {}): Promise<Pa
   };
 }
 
+export async function getMyRecipes(params: RecipeSearchParams = {}): Promise<PaginatedResponse<RecipeListItem>> {
+  const query = new URLSearchParams();
+  if (params.q) query.set("q", params.q);
+  if (params.category) query.set("category", params.category);
+  if (params.cuisine) query.set("cuisine", params.cuisine);
+  if (params.difficulty) query.set("difficulty", params.difficulty);
+  if (params.max_time) query.set("max_time", params.max_time.toString());
+  if (params.dietary) query.set("dietary", params.dietary);
+  if (params.limit) query.set("limit", params.limit.toString());
+  if (params.offset) query.set("offset", params.offset.toString());
+  
+  const res = await client.request<any>(`/api/recipes/mine?${query.toString()}`);
+
+  let rawItems: any[] = [];
+  let total = 0;
+  let limit = params.limit || 12;
+  let offset = params.offset || 0;
+
+  if (Array.isArray(res)) {
+    rawItems = res;
+    total = res.length;
+  } else if (res) {
+    rawItems = res.data || res.items || [];
+    total = res.total !== undefined ? res.total : rawItems.length;
+    limit = res.per_page || res.limit || limit;
+    offset = res.offset !== undefined ? res.offset : offset;
+  }
+
+  const items = rawItems.map(mapRecipeListItem);
+
+  return { items, total, limit, offset };
+}
+
 export async function getRecipe(id: string): Promise<Recipe> {
   return client.request(`/api/recipes/${encodeURIComponent(id)}`);
 }
@@ -92,4 +126,43 @@ export async function generateRecipe(prompt: string, use_pantry = false, cuisine
     method: "POST",
     body: JSON.stringify({ prompt, use_pantry, cuisine_hint, max_minutes }),
   });
+}
+
+export async function createRecipe(recipe: Partial<Recipe>): Promise<Recipe> {
+  return client.request("/api/recipes", {
+    method: "POST",
+    body: JSON.stringify(recipe),
+  });
+}
+
+export async function updateRecipe(id: string, recipe: Partial<Recipe>): Promise<Recipe> {
+  return client.request(`/api/recipes/${encodeURIComponent(id)}`, {
+    method: "PUT",
+    body: JSON.stringify(recipe),
+  });
+}
+
+export async function deleteRecipe(id: string): Promise<void> {
+  return client.request(`/api/recipes/${encodeURIComponent(id)}`, {
+    method: "DELETE",
+  });
+}
+
+export async function uploadRecipeImage(id: string, file: File): Promise<{ url: string }> {
+  const formData = new FormData();
+  formData.append("image", file);
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080'}/api/recipes/${encodeURIComponent(id)}/image`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem("token")}`, // Assuming client-side auth for now, or token handling in custom client
+    },
+    body: formData,
+  });
+
+  if (!res.ok) {
+    throw new Error('Failed to upload image');
+  }
+
+  return res.json();
 }

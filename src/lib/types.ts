@@ -98,6 +98,7 @@ export interface PaginatedResponse<T> {
 export interface RecipeSearchParams {
   q?: string;
   category?: string;
+  cuisine?: string;
   difficulty?: string;
   max_time?: number;
   dietary?: string;

@@ -3,8 +3,9 @@
 import { useState, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { UtensilsCrossed } from "lucide-react";
-import { Button } from "@cookest/ui";
+import { UtensilsCrossed, Plus } from "lucide-react";
+import { Button, Tabs } from "@cookest/ui";
+import Link from "next/link";
 import { api } from "@/lib/api";
 import type { RecipeSearchParams } from "@/lib/types";
 import { PageHeader } from "@/components/page-header";
@@ -27,17 +28,31 @@ export default function RecipesPage() {
   const [searchInput, setSearchInput] = useState(q);
   const [filtersOpen, setFiltersOpen] = useState(false);
 
+  const tab = searchParams.get("tab") || "mine";
+  const [activeTab, setActiveTab] = useState(tab);
+
   const apiParams: RecipeSearchParams = {
-    ...(q && { q }), ...(cuisine && { category: cuisine }),
+    ...(q && { q }), ...(cuisine && { cuisine }),
     ...(difficulty && { difficulty }), ...(dietary && { dietary }),
     ...(maxTime && { max_time: maxTime }),
     limit: PAGE_SIZE, offset: (page - 1) * PAGE_SIZE,
   };
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["recipes", apiParams],
+  const { data: browseData, isLoading: isLoadingBrowse } = useQuery({
+    queryKey: ["recipes", "browse", apiParams],
     queryFn: () => api.searchRecipes(apiParams),
+    enabled: activeTab === "browse",
   });
+
+  const { data: myData, isLoading: isLoadingMine } = useQuery({
+    queryKey: ["recipes", "mine", apiParams],
+    queryFn: () => api.getMyRecipes(apiParams),
+    enabled: activeTab === "mine",
+  });
+
+  const data = activeTab === "mine" ? myData : browseData;
+  const isLoading = activeTab === "mine" ? isLoadingMine : isLoadingBrowse;
+
   const toggleFavourite = useMutation({
     mutationFn: (id: string) => api.toggleFavourite(id),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["recipes"] }),
@@ -56,20 +71,19 @@ export default function RecipesPage() {
   );
   const totalPages = data ? Math.ceil(data.total / PAGE_SIZE) : 0;
 
-  return (
-    <div className="mx-auto max-w-7xl space-y-8 px-4 py-8 sm:px-6">
-      <PageHeader title="Recipes" subtitle="Browse and discover recipes tailored to your taste." />
+  const renderContent = () => (
+    <>
       <RecipeFilters
         searchInput={searchInput} onSearchInputChange={setSearchInput}
         onSearch={() => updateParams({ q: searchInput.trim() })}
         filtersOpen={filtersOpen} onToggleFilters={() => setFiltersOpen((v) => !v)}
         cuisine={cuisine} difficulty={difficulty} dietary={dietary} maxTime={maxTime}
-        onUpdateParams={updateParams} onClearAll={() => router.push("/recipes")}
+        onUpdateParams={updateParams} onClearAll={() => router.push(`/recipes?tab=${activeTab}`)}
       />
       {isLoading || (data && data.items.length > 0) ? (
-        <>
+        <div className="mt-8">
           {!isLoading && data && (
-            <p className="text-sm text-[var(--ck-text-muted)]">
+            <p className="mb-4 text-sm text-[var(--ck-text-muted)]">
               {data.total} recipe{data.total !== 1 ? "s" : ""} found
             </p>
           )}
@@ -79,7 +93,7 @@ export default function RecipesPage() {
             isLoading={isLoading}
           />
           {totalPages > 1 && (
-            <div className="flex items-center justify-center gap-2 pt-4">
+            <div className="flex items-center justify-center gap-2 pt-8">
               <Button variant="secondary" size="sm" disabled={page <= 1}
                 onClick={() => updateParams({ page: (page - 1).toString() })}>
                 Previous
@@ -91,13 +105,49 @@ export default function RecipesPage() {
               </Button>
             </div>
           )}
-        </>
+        </div>
       ) : (
-        <EmptyState icon={UtensilsCrossed} title="No recipes found"
-          description="Try adjusting your search or filters to find what you're looking for."
-          action={{ label: "Clear all filters", onClick: () => router.push("/recipes") }}
-        />
+        <div className="mt-8">
+          <EmptyState icon={UtensilsCrossed} title="No recipes found"
+            description={activeTab === "mine" ? "You haven't created or saved any recipes that match these filters." : "Try adjusting your search or filters to find what you're looking for."}
+            action={activeTab === "mine" && !q && !cuisine && !difficulty && !dietary && maxTime === 0 ? { label: "Create a Recipe", onClick: () => router.push("/recipes/create") } : { label: "Clear all filters", onClick: () => router.push(`/recipes?tab=${activeTab}`) }}
+          />
+        </div>
       )}
+    </>
+  );
+
+  return (
+    <div className="mx-auto max-w-7xl space-y-8 px-4 py-8 sm:px-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <PageHeader title="Recipes" subtitle="Manage your recipes and browse community creations." />
+        <Link href="/recipes/create">
+          <Button>
+            <Plus className="mr-2 h-4 w-4" />
+            Create Recipe
+          </Button>
+        </Link>
+      </div>
+      
+      <Tabs
+        value={activeTab}
+        onChange={(val) => {
+          setActiveTab(val);
+          updateParams({ tab: val, page: "1" });
+        }}
+        items={[
+          {
+            label: "My Recipes",
+            id: "mine",
+            content: renderContent(),
+          },
+          {
+            label: "Browse Community",
+            id: "browse",
+            content: renderContent(),
+          }
+        ]}
+      />
     </div>
   );
 }
