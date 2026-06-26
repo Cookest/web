@@ -41,6 +41,26 @@ export default function SubscriptionPage() {
 
   const currentTier = subscription?.tier || "free";
 
+  if (subscription?.is_self_hosted) {
+    return (
+      <div className="mx-auto max-w-5xl space-y-6 p-6">
+        <div className="flex items-center gap-3">
+          <CreditCard className="h-8 w-8 text-[#7a9a65]" />
+          <h1 className="font-serif text-3xl font-bold text-heading">Subscription</h1>
+        </div>
+        <Card className="bg-[#7a9a65]/10 border-[#7a9a65]/20">
+          <CardBody className="p-8 text-center">
+            <h2 className="text-2xl font-serif font-bold text-[#7a9a65] mb-2">Self-Hosted Instance</h2>
+            <p className="text-muted max-w-xl mx-auto">
+              This instance of Cookest is self-hosted. All premium features are permanently unlocked for your account. 
+              No billing management is required.
+            </p>
+          </CardBody>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="mx-auto max-w-5xl space-y-6 p-6">
       <div className="flex items-center gap-3">

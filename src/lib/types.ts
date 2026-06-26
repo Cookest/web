@@ -104,6 +104,8 @@ export interface RecipeSearchParams {
   dietary?: string;
   limit?: number;
   offset?: number;
+  page?: number;
+  per_page?: number;
 }
 
 // ── Meal Plan ──
@@ -241,6 +243,7 @@ export interface Subscription {
   stripe_subscription_id: string | null;
   valid_until: string | null;
   cancel_at_period_end: boolean;
+  is_self_hosted?: boolean;
 }
 
 export interface CheckoutRequest {

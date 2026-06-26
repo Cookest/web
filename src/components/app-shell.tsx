@@ -66,8 +66,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen bg-[var(--ck-bg)]">
       <Sidebar />
       <BottomNav />
-      <main className="lg:ml-64 md:ml-16 ml-0 min-h-screen pb-16 md:pb-0">
-        <div className="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto">{children}</div>
+      <main className="lg:ml-64 md:ml-16 ml-0 min-h-screen pb-16 md:pb-0 flex flex-col">
+        {pathname.startsWith("/chat") ? (
+          <div className="flex-1 flex flex-col h-full">{children}</div>
+        ) : (
+          <div className="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto w-full">{children}</div>
+        )}
       </main>
     </div>
   );

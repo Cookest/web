@@ -19,7 +19,7 @@ export function TodaysMeals({ mealPlan, isLoading }: TodaysMealsProps) {
   const dayOfWeek = new Date().getDay();
 
   const todaySlots = useMemo(() => {
-    if (!mealPlan) return [];
+    if (!mealPlan?.slots) return [];
     return mealPlan.slots
       .filter((s) => s.day === dayOfWeek)
       .sort((a, b) => {

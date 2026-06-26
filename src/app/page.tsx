@@ -75,8 +75,8 @@ function Dashboard() {
   }, [history]);
 
   const mealPlanCompletion = useMemo(() => {
-    if (!mealPlan || mealPlan.slots.length === 0) return 0;
-    const completed = mealPlan.slots.filter((s) => s.is_completed).length;
+    if (!mealPlan?.slots || mealPlan.slots.length === 0) return 0;
+    const completed = mealPlan.slots.filter((s: any) => s.is_completed).length;
     return Math.round((completed / mealPlan.slots.length) * 100);
   }, [mealPlan]);
 
