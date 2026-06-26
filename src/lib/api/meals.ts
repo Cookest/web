@@ -6,7 +6,7 @@ import type {
 } from "../types";
 import { client } from "./client";
 
-export async function getMealPlans(): Promise<MealPlanListItem[]> {
+export async function getMealPlans(): Promise<{ items: MealPlanListItem[]; total: number }> {
   return client.request("/api/meal-plans");
 }
 

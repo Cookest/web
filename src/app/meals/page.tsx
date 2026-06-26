@@ -21,7 +21,6 @@ import { api } from "@/lib/api";
 import type { MealSlot, GenerateMealPlanRequest } from "@/lib/types";
 import { MealGrid, MealGridSkeleton } from "@/components/meals/meal-grid";
 import { GenerateModal } from "@/components/meals/generate-modal";
-import { NutritionSummary } from "@/components/meals/nutrition-summary";
 import { EmptyState } from "@/components/empty-state";
 import { toast } from "sonner";
 
@@ -47,19 +46,33 @@ export default function MealsPage() {
   const [currentWeek, setCurrentWeek] = useState(() => getWeekStart(new Date()));
   const [showGenerateModal, setShowGenerateModal] = useState(false);
 
-  const {
-    data: mealPlan,
-    isLoading,
-  } = useQuery({
-    queryKey: ["current-meal-plan"],
-    queryFn: () => api.getCurrentMealPlan(),
+  const { data: plansData, isLoading: isLoadingPlans } = useQuery({
+    queryKey: ["meal-plans-list"],
+    queryFn: () => api.getMealPlans(),
     retry: false,
   });
+
+  const selectedWeekStr = format(currentWeek, "yyyy-MM-dd");
+  const selectedPlanId = plansData?.items?.find((p) => p.week_start.startsWith(selectedWeekStr))?.id;
+
+  const {
+    data: mealPlanRaw,
+    isLoading: isLoadingPlan,
+  } = useQuery({
+    queryKey: ["meal-plan", selectedPlanId],
+    queryFn: () => api.getMealPlan(selectedPlanId!.toString()),
+    enabled: !!selectedPlanId,
+    retry: false,
+  });
+
+  const mealPlan = mealPlanRaw?.id ? mealPlanRaw : null;
+  const isLoading = isLoadingPlans || (!!selectedPlanId && isLoadingPlan);
 
   const generateMutation = useMutation({
     mutationFn: (data: GenerateMealPlanRequest) => api.generateMealPlan(data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["current-meal-plan"] });
+      queryClient.invalidateQueries({ queryKey: ["meal-plans-list"] });
+      queryClient.invalidateQueries({ queryKey: ["meal-plan", selectedPlanId] });
       setShowGenerateModal(false);
     },
     onError: (e: any) => {
@@ -80,7 +93,7 @@ export default function MealsPage() {
       data: Partial<{ is_completed: boolean; is_flex: boolean; flex_type: string }>;
     }) => api.updateMealSlot(mealPlan!.id, slotId, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["current-meal-plan"] });
+      queryClient.invalidateQueries({ queryKey: ["meal-plan", mealPlan?.id] });
       queryClient.invalidateQueries({
         queryKey: ["meal-plan-nutrition", mealPlan?.id],
       });
@@ -96,6 +109,7 @@ export default function MealsPage() {
         grid[day][type] = null;
       }
     }
+    if (!mealPlan.slots) return grid;
     for (const slot of mealPlan.slots) {
       if (slot.day >= 0 && slot.day <= 6 && grid[slot.day]) {
         grid[slot.day][slot.meal_type] = slot;
@@ -183,7 +197,6 @@ export default function MealsPage() {
         />
       )}
 
-      {!isLoading && mealPlan && <NutritionSummary planId={mealPlan.id} />}
 
       <GenerateModal
         open={showGenerateModal}
